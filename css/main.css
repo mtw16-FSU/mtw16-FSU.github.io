@@ -1,0 +1,144 @@
+*{
+    outline:0;
+    padding:0;
+    margin:0;
+}
+
+body{
+    background:linear-gradient(gray, #444444);
+    background-repeat: no-repeat;
+    background-size: cover;
+    background-attachment: fixed;
+    font-family: 'Sniglet', cursive;
+}
+
+nav{
+    width:100%;
+    text-align:center;
+}
+
+nav ul{
+    width:100%;
+    background-color: black;
+    display: block;
+    padding: 10px 0;
+}
+
+nav ul li{
+    display:inline;
+    padding: 10px 0;
+}
+
+nav ul li a{
+    text-decoration: none;
+    color:white;
+    padding: 10px 5px;
+}
+
+nav ul li a:hover{
+    transition:0.2s background linear, 0.2s color linear;
+    background-color: white;
+    color: black;
+}
+
+.active-menu-item{
+    background-color: gray;
+}
+
+.main{
+    display:block;
+    width:800px;
+    margin:auto;
+    padding: 50px 0;
+}
+
+.main h1{
+    text-align: center;
+    font-family: 'Sniglet', cursive;
+}
+
+.main input{
+    display:inline;
+}
+
+#canvas{
+    width:600px;
+    border:1px solid;
+    display: none;
+    opacity:0;
+    margin:10px auto;
+    padding:0;
+}
+
+.center{
+    text-align: center;
+}
+
+.underline{
+    cursor: pointer;
+    text-decoration: underline;
+}
+
+.main form{
+    display:block;
+    width:500px;
+    margin:auto;
+    text-align: center;
+    padding: 20px 0;
+}
+
+.form-row{
+    display:block;
+    margin:auto;
+    padding:10px 0;
+}
+
+.button{
+    margin:10px 0;
+    padding:10px 5px;
+    font-family: 'Sniglet', cursive;
+    background:linear-gradient(#444444, black);
+    border:2px solid black;
+    color:white;
+    width:50px;
+    display:block;
+    margin:auto;
+    font-size:0.85em;
+}
+
+.button:hover{
+    text-shadow: 0 0 5px white;
+    cursor:pointer;
+}
+
+.button:active{
+    background:linear-gradient(white, black);
+    color:black;
+}
+
+#login{
+
+}
+
+#signup{
+    display:none;
+    opacity:0;
+}
+
+#error-message{
+    color:darkred;
+}
+
+
+.form-error{
+    border:2px solid darkred;
+    box-shadow:0 0 2px darkred;
+}
+
+.half{
+    width:50%;
+    float:left;
+    text-align:center;
+    font-size:1.2em;
+    padding:10px 0;
+}

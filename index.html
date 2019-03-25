@@ -1,0 +1,60 @@
+  <!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="utf-8">
+    <link rel="stylesheet" href="css/main.css" type="text/css">
+    <link href="https://fonts.googleapis.com/css?family=Open+Sans|Sniglet" rel="stylesheet">
+    <script src="https://www.gstatic.com/firebasejs/5.9.1/firebase-app.js"></script>
+    <script src="https://www.gstatic.com/firebasejs/5.9.1/firebase-auth.js"></script>
+    <script src="https://www.gstatic.com/firebasejs/5.9.1/firebase.js"></script>
+    <script>
+      // Initialize Firebase
+      var config = {
+        apiKey: "AIzaSyARogEpKtdQ5G4fBjQ9_UiGFqdNf5CUJ8A",
+        authDomain: "cen4020-project.firebaseapp.com",
+        databaseURL: "https://cen4020-project.firebaseio.com",
+        projectId: "cen4020-project",
+        storageBucket: "cen4020-project.appspot.com",
+        messagingSenderId: "1031327601529"
+      };
+      firebase.initializeApp(config);
+    </script>
+    <script src="scripts/style.js">
+    </script>
+    <script src="scripts/login.js">
+    </script>
+    <script src="scripts/game/game.js">
+    </script>
+</head>
+<body onload="init()">
+    <nav>
+        <ul>
+            <li><a href="index.html" class="active-menu-item">Home</a></li>
+            <li><a href="help.html">Help</a></li>
+            <li><a href="credits.html">Credits</a></li>
+        </ul>
+    </nav>
+
+    <div class="main">
+        <h1>A Knight's Tale</h1>
+        <canvas id="canvas">
+            Your browser does not support this game.
+        </canvas>
+        <form id="login">
+            <h3>Log In</h3>
+            <div class="form-row"><label>Username: </label><input id="username" type="text"></div>
+            <div class="form-row"><label>Password: </label><input id="password" type="password"></div>
+            <div class="button" onclick="signInUser()">Submit</div>
+        </form>
+        <p id="signup-link" class="center">New player? <span class="underline" onclick="showSignUp()">Sign in</span></p>
+        <form id="signup">
+            <h3>Sign Up</h3>
+            <div class="form-row"><label>Username: </label><input id="usernameNew" type="text"></div>
+            <div class="form-row"><label>Password: </label><input id="passwordNew" type="password"></div>
+            <div class="button" onclick="createUser()">Submit</div>
+        </form>
+        <p id="waiting" class="center"></p>
+        <p id="error-message" class="center"></p>
+    </div>
+</body>
+</html>
