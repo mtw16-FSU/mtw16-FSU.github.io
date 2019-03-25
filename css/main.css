@@ -63,7 +63,7 @@ nav ul li a:hover{
 
 #canvas{
     width:600px;
-    border:1px solid;
+    border:2px solid;
     display: none;
     opacity:0;
     margin:10px auto;

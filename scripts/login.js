@@ -14,6 +14,7 @@ function createUser(){
         clearForms();
         waiting.innerHTML = "";
         errorMessage.innerHTML = "";
+        showStartMenu();
     }).catch(function(error) {
         errorMessage.innerHTML = error.message;
         var formFields = document.getElementsByTagName("input");
@@ -43,6 +44,7 @@ function signInUser(){
         clearForms();
         waiting.innerHTML = "";
         errorMessage.innerHTML = "";
+        showStartMenu();
     }).catch(function(error){
         errorMessage.innerHTML = error.message;
         var formFields = document.getElementsByTagName("input");

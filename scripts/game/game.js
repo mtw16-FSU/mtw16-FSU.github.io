@@ -1,33 +1,91 @@
-function init(){
-    var canvas = document.getElementById("canvas");
+var width, height;
+var canvas, ctx;
+var background;
 
-    var ctx = canvas.getContext("2d");
+function init(){
+    canvas = document.getElementById("canvas");
+    ctx = canvas.getContext("2d");
 
     canvas.width = 2000;
     canvas.height = 1000;
 
-    var width = canvas.width;
-    var height = canvas.height;
+    width = canvas.width;
+    height = canvas.height;
+
+    background = new Image();
+    background.src= "images/backgrounds/MenuBackground.png";
+}
+
+var currentOption = 0, size;
+function showStartMenu(){
+    //support 3 save files?
+    var options = ["Start Game", "Options", "Save Files"];
+    size = options.length;
 
     var startMessage = "A Knight's Tale";
-    ctx.font = "150px Sniglet";
-    var testSquareX = width/2 - 50, testSquareY = height/2 + 150;
-    var dx = 5;
+
+    document.onkeydown = checkMenuInput;
     
     setInterval(function(){
         ctx.clearRect(0,0,width,height);
 
         ctx.fillStyle = "black";
         ctx.fillRect(0,0,width,height);
-        ctx.fillStyle = "red";
-        ctx.fillText(startMessage, width / 2 - 450, height / 2);
-    
-        ctx.fillStyle = "green";
-        ctx.fillRect(testSquareX, testSquareY, 100, 100);
-        testSquareX += dx;
+        
+        ctx.drawImage(background, 0, 0, width, height);
 
-        if(testSquareX >= width - 100 || testSquareX <= 0){
-            dx *= -1;
+        ctx.fillStyle = "black";
+        ctx.font = "150px Sniglet";
+        ctx.fillText(startMessage, width / 2 - 450, 200);
+
+        
+        ctx.font = "72px Sniglet";
+
+        for(var i = 0; i < size; i++){
+            if(i == currentOption){
+                ctx.fillStyle = "yellow";
+            }else{
+                ctx.fillStyle = "white";
+            }
+            ctx.fillText(options[i], width / 2  - 150, height / 2 + 150 * i);
+            
         }
+
     }, 1000/60);
 }
+
+function checkMenuInput(event){
+        
+    switch(event.keyCode){
+        case 38:
+            if(currentOption > 0){
+                currentOption--;
+            }
+            break;
+        case 40:
+            if(currentOption < size-1){
+                currentOption++;
+            }
+            break;
+        default:
+            break;
+        }
+}
+
+/*
+setInterval(function(){
+    ctx.clearRect(0,0,width,height);
+
+    ctx.fillStyle = "black";
+    ctx.fillRect(0,0,width,height);
+    ctx.fillStyle = "red";
+    ctx.fillText(startMessage, width / 2 - 450, height / 2);
+
+    ctx.fillStyle = "green";
+    ctx.fillRect(testSquareX, testSquareY, 100, 100);
+    testSquareX += dx;
+
+    if(testSquareX >= width - 100 || testSquareX <= 0){
+        dx *= -1;
+    }
+}, 1000/60);*/
