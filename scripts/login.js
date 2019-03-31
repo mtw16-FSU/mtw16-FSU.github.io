@@ -1,5 +1,17 @@
 const db = firebase.firestore();
 
+function checkLogin(){
+    firebase.auth().onAuthStateChanged(function(user) {
+        if (user) { 
+            clearForms();
+            document.getElementById("waiting").innerHTML = "";
+            document.getElementById("error-message").innerHTML = "";
+            showStartMenu();
+        }else{
+        }
+      });
+}
+
 function createUser(){
     var waiting = document.getElementById("waiting");
     waiting.innerHTML = "Waiting...";
@@ -54,4 +66,16 @@ function signInUser(){
         
         waiting.innerHTML = "";
     });
+}
+
+function logout(){
+    firebase.auth().signOut().then(function() {
+        document.getElementById("canvas").style.display = "none";
+        showLogin();
+        stopGame();
+        init();
+
+    }).catch(function(error) {
+            document.getElementById("error-message").innerHTML = error.message;
+      });
 }

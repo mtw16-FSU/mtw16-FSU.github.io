@@ -2,6 +2,7 @@
 <html lang="en">
 <head>
     <meta charset="utf-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <link rel="stylesheet" href="css/main.css" type="text/css">
     <link href="https://fonts.googleapis.com/css?family=Open+Sans|Sniglet" rel="stylesheet">
     <script src="https://www.gstatic.com/firebasejs/5.9.1/firebase-app.js"></script>
@@ -19,24 +20,24 @@
       };
       firebase.initializeApp(config);
     </script>
-    <script src="scripts/style.js">
-    </script>
-    <script src="scripts/login.js">
-    </script>
-    <script src="scripts/game/game.js">
-    </script>
+    <script src="scripts/style.js"></script>
+    <script src="scripts/login.js"></script>
+    <script src="scripts/game/scene.js"></script>
+    <script src="scripts/game/game.js"></script>
 </head>
-<body onload="init()">
+<body onload="init(); checkLogin();">
     <nav>
         <ul>
             <li><a href="index.html" class="active-menu-item">Home</a></li>
             <li><a href="help.html">Help</a></li>
             <li><a href="credits.html">Credits</a></li>
+            <li><a href="#" onclick="logout()">Log out</a><li>
         </ul>
     </nav>
 
+    <div id="fullscreen-message"></div>
     <div class="main">
-        <h1>A Knight's Tale</h1>
+        <h1 id="title">A Knight's Tale</h1>
         <canvas id="canvas">
             Your browser does not support this game.
         </canvas>

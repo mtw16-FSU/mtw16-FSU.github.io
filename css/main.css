@@ -116,10 +116,6 @@ nav ul li a:hover{
     color:black;
 }
 
-#login{
-
-}
-
 #signup{
     display:none;
     opacity:0;
@@ -141,4 +137,19 @@ nav ul li a:hover{
     text-align:center;
     font-size:1.2em;
     padding:10px 0;
+}
+
+#fullscreen-message{
+    display:block;
+    background-color: white;
+    border:none;
+    position:absolute;
+    top:10px;
+    left:0;
+    right:0;
+    margin:auto;
+    padding:0;
+    text-align: center;
+    width:400px;
+    z-index: 9999;
 }
