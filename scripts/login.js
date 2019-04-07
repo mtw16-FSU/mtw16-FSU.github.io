@@ -2,12 +2,11 @@ const db = firebase.firestore();
 
 function checkLogin(){
     firebase.auth().onAuthStateChanged(function(user) {
-        if (user) { 
+        if (user) {
             clearForms();
             document.getElementById("waiting").innerHTML = "";
             document.getElementById("error-message").innerHTML = "";
             showStartMenu();
-        }else{
         }
       });
 }
@@ -22,12 +21,7 @@ function createUser(){
     var password = document.getElementById("passwordNew").value;
     username += "@dummy.com";
     
-    firebase.auth().createUserWithEmailAndPassword(username, password).then(function(error){
-        clearForms();
-        waiting.innerHTML = "";
-        errorMessage.innerHTML = "";
-        showStartMenu();
-    }).catch(function(error) {
+    firebase.auth().createUserWithEmailAndPassword(username, password).catch(function(error) {
         errorMessage.innerHTML = error.message;
         var formFields = document.getElementsByTagName("input");
         for(var i = 0; i < formFields.length; i++){
@@ -52,12 +46,7 @@ function signInUser(){
             
     username += "@dummy.com";
     
-    firebase.auth().signInWithEmailAndPassword(username, password).then(cred => {
-        clearForms();
-        waiting.innerHTML = "";
-        errorMessage.innerHTML = "";
-        showStartMenu();
-    }).catch(function(error){
+    firebase.auth().signInWithEmailAndPassword(username, password).catch(function(error){
         errorMessage.innerHTML = error.message;
         var formFields = document.getElementsByTagName("input");
         for(var i = 0; i < formFields.length; i++){

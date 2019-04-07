@@ -8,8 +8,8 @@ function init(){
     canvas = document.getElementById("canvas");
     ctx = canvas.getContext("2d");
 
-    canvas.width = 2000;
-    canvas.height = 1000;
+    canvas.width = 2048;
+    canvas.height = 1024;
 
     width = canvas.width;
     height = canvas.height;
@@ -82,28 +82,7 @@ function checkMenuInput(event){
             }
             break;
         case 70:
-            if(!isFullScreen){
-                canvas.style.width = window.innerWidth + "px";
-                canvas.style.height = window.innerHeight + "px";
-
-                canvas.style.position = "absolute";
-                canvas.style.top = "0";
-                canvas.style.left = "0";
-                canvas.style.margin = "0";
-                canvas.style.border = "none";
-
-                isFullScreen = true;               
-                showFullScreenMessage(isFullScreen);
-            }else{
-                canvas.style.width = "600px";
-                canvas.style.height = "auto";
-                canvas.style.position = "relative";
-                canvas.style.margin = "10px auto";
-                canvas.style.border = "2px solid";
-                isFullScreen = false;
-                
-                showFullScreenMessage(isFullScreen);
-            }
+            toggleFullScreen();
             break;
         default:
             break;
@@ -113,6 +92,31 @@ function checkMenuInput(event){
 function stopGame(){
     document.onkeydown = null;
     clearInterval(drawing);
+}
+
+function toggleFullScreen(){
+    if(!isFullScreen){
+        canvas.style.width = window.innerWidth + "px";
+        canvas.style.height = window.innerHeight + "px";
+
+        canvas.style.position = "absolute";
+        canvas.style.top = "0";
+        canvas.style.left = "0";
+        canvas.style.margin = "0";
+        canvas.style.border = "none";
+
+        isFullScreen = true;               
+        showFullScreenMessage(isFullScreen);
+    }else{
+        canvas.style.width = "600px";
+        canvas.style.height = "auto";
+        canvas.style.position = "relative";
+        canvas.style.margin = "10px auto";
+        canvas.style.border = "2px solid";
+        isFullScreen = false;
+        
+        showFullScreenMessage(isFullScreen);
+    }
 }
 
 /*
