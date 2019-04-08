@@ -8,19 +8,22 @@ function SceneHandler(scene){
 function Scene(name, map){
     this.map = map,
     this.name = name,
+    
     this.getScene = function(name){
         this.name = name;
         this.map.name = name;
         document.onkeydown = null;
 
         var isLevel = true;
-        var image = new Image();
+        var image1 = new Image();
+        var image2 = new Image();
         
         switch(this.name){
             case "Level 1":
                 document.onkeydown = levelHandler;
-                image.src = "maps/Level1.png"
-                map.getMap("images/spritesheets/spritesheet1.png");
+                image1.src = "maps/Level1Background.png";
+                image2.src = "maps/Level1Foreground.png";
+                map.getMap("images/spritesheets/level1.png");
                 break;
             case "Options":
                 initOptions();
@@ -37,33 +40,57 @@ function Scene(name, map){
         }
 
         if(isLevel){
-            var tiles = [];    
+            var tiles1 = [];
+            var tiles2 = [];   
 
             var canvas = document.createElement('canvas');
-            canvas.width = image.width;
-            canvas.height = image.height;
+            canvas.width = image1.width;
+            canvas.height = image1.height;
 
-            canvas.getContext('2d').drawImage(image,0,0,image.width,image.height);
-            var pixelData = canvas.getContext('2d').getImageData(0,0,image.width,image.height).data;
-            for(var i = 0; i < image.height; i++){
-                var row = i * image.width * 4;
-                var innerTiles = [];
-                for(var j = 0; j < image.width*4; j += 4){
-                    if(pixelData[row+j] == 0 && pixelData[row+j+1] == 255 && pixelData[row+j+2] == 0){ //green
-                        innerTiles.push(1);
-                    }else if(pixelData[row+j] == 165 && pixelData[row+j+1] == 42 && pixelData[row+j+2] == 42){ //brown
-                        innerTiles.push(2);
-                    }else{
-                        innerTiles.push(-1);
+            image1.onload = function(){
+                canvas.getContext('2d').drawImage(image1,0,0,image1.width,image1.height);
+                var pixelData = canvas.getContext('2d').getImageData(0,0,image1.width,image1.height).data;
+                for(var i = 0; i < image1.height; i++){
+                    var row = i * image1.width * 4;
+                    var backTiles = [];
+                
+                    for(var j = 0; j < image1.width*4; j += 4){
+                        if(pixelData[row+j] == 0 && pixelData[row+j+1] == 255 && pixelData[row+j+2] == 0){ //green
+                            backTiles.push(1);
+                        }else if(pixelData[row+j] == 165 && pixelData[row+j+1] == 42 && pixelData[row+j+2] == 42){ //brown
+                            backTiles.push(2);
+                        }else{
+                            backTiles.push(-1);
+                        }
                     }
+                
+                    tiles1.push(backTiles);
                 }
-
-                tiles.push(innerTiles);
             }
 
-            map.tiles = tiles;
-            map.rowSize = image.height;
-            map.colSize = image.width;
+            image2.onload = function(){
+                canvas.getContext('2d').drawImage(image2,0,0,image1.width,image1.height);
+                pixelData = canvas.getContext('2d').getImageData(0,0,image2.width,image2.height).data;
+                for(var i = 0; i < image2.height; i++){
+                   var row = i * image2.width * 4;
+                   var foreTiles = [];
+                    for(var j = 0; j < image2.width*4; j += 4){
+                        if(pixelData[row+j] == 0 && pixelData[row+j+1] == 255 && pixelData[row+j+2] == 0){ //green
+                            foreTiles.push(1);
+                        }else if(pixelData[row+j] == 165 && pixelData[row+j+1] == 42 && pixelData[row+j+2] == 42){ //brown
+                            foreTiles.push(2);
+                        }else{
+                            foreTiles.push(-1);
+                        }
+                    }
+                    tiles2.push(foreTiles);
+                }
+            }
+
+            map.backgroundTiles = tiles1;
+            map.foregroundTiles = tiles2;
+            map.rowSize = image1.height;
+            map.colSize = image1.width;
 
         }
         
@@ -78,14 +105,15 @@ function Scene(name, map){
 
 function Map(name){
     this.name = name,
-    this.tiles = [],
+    this.foregroundTiles = [],
+    this.backgroundTiles = [],
     this.rowSize = 0,
     this.colSize = 0,
     this.image = new Image(),
     this.draw = function(ctx){
         switch(this.name){
             case "Level 1":
-                drawLevel(ctx, this, this.tiles, this.rowSize, this.colSize);
+                drawLevel(ctx, this, this.backgroundTiles,this.foregroundTiles, this.rowSize, this.colSize);
                 break;
             case "Options":
                 drawOptionsScreen(ctx);
@@ -104,7 +132,7 @@ function Map(name){
     }
 }
 
-function drawLevel(ctx, map, tiles, rowSize, colSize){
+function drawLevel(ctx, map, backgroundTiles, foregroundTiles, rowSize, colSize){
     ctx.clearRect(0,0,width,height);
     ctx.fillStyle = "black";
     ctx.fillRect(0,0,width,height);
@@ -112,10 +140,10 @@ function drawLevel(ctx, map, tiles, rowSize, colSize){
     var xPos = 0, yPos = 0; 
     for(var i = 0; i < rowSize; i++){
         for(var j = 0; j < colSize; j++){
-            switch(tiles[i][j]){
+            switch(backgroundTiles[i][j]){
                 case 1:
-                    xPos = 0;
-                    yPos = 0;
+                    xPos = 3;
+                    yPos = 1;
                     break;
                 case 2:
                     xPos = 1;
@@ -126,11 +154,29 @@ function drawLevel(ctx, map, tiles, rowSize, colSize){
                     yPos = 2;
                     break;
                 default:
-                    xPos = 0;
-                    yPos = 0;
+                    xPos = 3;
+                    yPos = 1;
                     break;
             }
-
+            ctx.drawImage(map.image,xPos*64,yPos*64,64,64,j*64,i*64,64,64);
+            switch(foregroundTiles[i][j]){
+                case 1:
+                   xPos = 10;
+                   yPos = 0;
+                   break;
+               case 2:
+                   xPos = 10;
+                   yPos = 9;
+                   break;
+               case 3:                 
+                   xPos = 0;
+                   yPos = 0;
+                   break;
+               default:
+                   xPos = 0;
+                   yPos = 0;
+                   break;
+            }
             ctx.drawImage(map.image,xPos*64,yPos*64,64,64,j*64,i*64,64,64);
         }
     }
