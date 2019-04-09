@@ -1,14 +1,14 @@
 function SceneHandler(scene){
     this.scene = scene,
-    this.drawScene = function(ctx){
-        scene.draw(ctx);
+    this.drawScene = function(){
+        scene.draw();
+        drawing = requestAnimationFrame(sceneHandler.drawScene);
     }
 }
 
 function Scene(name, map){
     this.map = map,
     this.name = name,
-    
     this.getScene = function(name){
         this.name = name;
         this.map.name = name;
@@ -91,15 +91,22 @@ function Scene(name, map){
             map.foregroundTiles = tiles2;
             map.rowSize = image1.height;
             map.colSize = image1.width;
+            
+            mainMenuOn = false;
+            dx = 0;
+            dy = 0;
+            left = false;
+            up = false;
+            right = false;
+            down = false;
 
         }
         
-        drawing = setInterval(function(){
-            sceneHandler.drawScene(ctx)
-        }, 1000/60);
+        
+        drawing = requestAnimationFrame(sceneHandler.drawScene);
     },
-    this.draw = function(ctx){
-        map.draw(ctx);
+    this.draw = function(){
+        map.draw();
     }
 }
 
@@ -110,16 +117,16 @@ function Map(name){
     this.rowSize = 0,
     this.colSize = 0,
     this.image = new Image(),
-    this.draw = function(ctx){
+    this.draw = function(){
         switch(this.name){
             case "Level 1":
-                drawLevel(ctx, this, this.backgroundTiles,this.foregroundTiles, this.rowSize, this.colSize);
+                drawLevel(this, this.backgroundTiles,this.foregroundTiles, this.rowSize, this.colSize);
                 break;
             case "Options":
-                drawOptionsScreen(ctx);
+                drawOptionsScreen();
                 break;
             case "Save Files":
-                drawSaveFileScreen(ctx);
+                drawSaveFileScreen();
                 break;
             default:
                 ctx.fillStyle = "blue";
@@ -132,7 +139,10 @@ function Map(name){
     }
 }
 
-function drawLevel(ctx, map, backgroundTiles, foregroundTiles, rowSize, colSize){
+var mainMenuOn = false;
+var dx = 0, dy = 0;
+var left = false, up = false, right = false, down = false;
+function drawLevel(map, backgroundTiles, foregroundTiles, rowSize, colSize){
     ctx.clearRect(0,0,width,height);
     ctx.fillStyle = "black";
     ctx.fillRect(0,0,width,height);
@@ -158,7 +168,32 @@ function drawLevel(ctx, map, backgroundTiles, foregroundTiles, rowSize, colSize)
                     yPos = 1;
                     break;
             }
-            ctx.drawImage(map.image,xPos*64,yPos*64,64,64,j*64,i*64,64,64);
+            
+            if(j == 0 && ((j+(dx/8))+0.25)*64 > 0){
+                left = false;
+            }else if(j == 0){
+                left = true;
+            }
+
+            if(j == colSize-1 && ((j+(dx/8))+0.75)*64 < width){
+                right = false;
+            }else if(j == colSize - 1){
+                right = true;
+            }
+
+            if(i == 0 && ((i+(dy/8))+0.25)*64 > 0){
+                up = false;
+            }else if(i == 0){
+                up = true;
+            }
+
+            if(i == rowSize-1 && ((i+(dy/8))+0.75)*64 < height){
+                down = false;
+            }else if(i == rowSize - 1){
+                down = true;
+            }
+            
+            ctx.drawImage(map.image,xPos*64,yPos*64,64,64,(j+(dx/8))*64,(i+(dy/8))*64,64,64);
             switch(foregroundTiles[i][j]){
                 case 1:
                    xPos = 10;
@@ -176,15 +211,51 @@ function drawLevel(ctx, map, backgroundTiles, foregroundTiles, rowSize, colSize)
                    xPos = 0;
                    yPos = 0;
                    break;
-            }
-            ctx.drawImage(map.image,xPos*64,yPos*64,64,64,j*64,i*64,64,64);
+            }          
+            
+            ctx.drawImage(map.image,xPos*64,yPos*64,64,64,(j+(dx/8))*64,(i+(dy/8))*64,64,64);
         }
+    }
+    
+    
+    if(mainMenuOn){
+        showMainMenu();
+        document.onkeydown = null;
+        document.onkeydown = mainMenuHandler;
     }
 }
 
+
+
 function levelHandler(){
-    switch(event.keyCode){
-        case 70:
+     var keyCode = event.which || event.keyCode;
+    switch(keyCode){        
+        case 27: //escape key
+                mainMenuOn = true;
+                currentOption = 0;
+                options = ["Resume", "Exit"];
+            break;
+        case 37: //left
+            if(left){
+                dx++;
+            }
+            break;
+        case 38: //up
+            if(up){
+                dy++;
+            }
+            break;
+        case 39: //right
+            if(right){
+                dx--;
+            }
+            break;
+        case 40: //down
+            if(down){
+                dy--;
+            }
+            break;
+        case 70: //f
             toggleFullScreen();
             break;
         default:
@@ -194,12 +265,18 @@ function levelHandler(){
 
 function initOptions(){
     options = ["Options Menu", "Press Backspace To Exit"];
+    
+    currentOption = 0;
+    
+    background.src= "images/backgrounds/OptionsMenuBackground.png";
 }
 
 function drawOptionsScreen(ctx){
     ctx.clearRect(0,0,width,height);
     ctx.fillStyle = "red";
     ctx.fillRect(0,0,width,height);
+    
+    ctx.drawImage(background, 0, 0, width, height);
 
     ctx.fillStyle = "black";
     ctx.font = "100px Sniglet";
@@ -210,9 +287,11 @@ function drawOptionsScreen(ctx){
 }
 
 function optionsHandler(event){
-    switch(event.keyCode){
+    var keyCode = event.which || event.keyCode;
+    switch(keyCode){
         case 8:
-            clearInterval(drawing);
+            cancelAnimationFrame(drawing);
+            //clearInterval(drawing);
             showStartMenu();
             break;
         case 70:
@@ -225,26 +304,54 @@ function optionsHandler(event){
 
 function initSaveFile(){
     options = ["Save Files", "Press Backspace To Exit"];
+    currentOption = 1;
+    
+    background.src= "images/backgrounds/SaveMenuBackground.png";
 }
 
 function drawSaveFileScreen(ctx){
     ctx.clearRect(0,0,width,height);
     ctx.fillStyle = "green";
-    ctx.fillRect(0,0,width,height);
+    ctx.fillRect(0,0,width,height);    
+    
+    ctx.drawImage(background, 0, 0, width, height);
 
     ctx.fillStyle = "black";
     ctx.font = "100px Sniglet";
     ctx.fillText(options[0], width / 2 - 200, 200);
     
     ctx.font = "60px Sniglet";
-    ctx.fillText(options[1], width / 2 - 300, 500);
+    for(var i = 1; i < options.length-1; i++){
+        if(i == currentOption){
+            ctx.fillStyle = "yellow";
+        }else{
+            ctx.fillStyle = "white";
+        }
+
+        ctx.fillText(options[i], width / 2 - 130, 350+i*100);
+    }
+    
+    ctx.fillStyle = "white";
+    ctx.fillText(options[options.length-1], width / 2 - 300, 800);
 }
 
 function saveFileHandler(){
-    switch(event.keyCode){
+    var keyCode = event.which || event.keyCode;
+    switch(keyCode){
         case 8:
-            clearInterval(drawing);
+            cancelAnimationFrame(drawing);    
+            //clearInterval(drawing);
             showStartMenu();
+            break;
+        case 38:
+            if(currentOption > 1){
+                currentOption--;
+            }
+            break;
+        case 40:
+            if(currentOption < options.length-2){
+                currentOption++;
+            }
             break;
         case 70:
             toggleFullScreen();
