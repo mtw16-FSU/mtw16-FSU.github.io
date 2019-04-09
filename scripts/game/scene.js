@@ -23,7 +23,7 @@ function Scene(name, map){
                 document.onkeydown = levelHandler;
                 image1.src = "maps/Level1Background.png";
                 image2.src = "maps/Level1Foreground.png";
-                map.getMap("images/spritesheets/level1.png");
+                map.getMap("images/spritesheets/spritesheet1.png");
                 break;
             case "Options":
                 initOptions();
