@@ -130,7 +130,7 @@ function Map(name){
         switch(this.name){
             case "Level 1":
                 drawLevel(this, this.backgroundTiles,this.foregroundTiles, this.rowSize, this.colSize);
-		this.player.moveCheck(pUp,pDown,pLeft,pRight);
+		this.player.moveCheck(pUp,pDown,pLeft,pRight,width,height);
         	this.player.draw(canvas.getContext("2d"));
                 break;
             case "Options":
