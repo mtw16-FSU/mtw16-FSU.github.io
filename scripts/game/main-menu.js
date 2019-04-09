@@ -28,7 +28,7 @@ function mainMenuHandler(){
             if(currentOption == 0){
                 mainMenuOn = false;
                 document.onkeydown = null;
-                document.onkeydown = levelKeyDownHandler;
+                document.onkeydown = levelHandler;
             }else if(currentOption == 1){
                 mainMenuOn = false;
                 document.onkeydown = null;
@@ -39,7 +39,7 @@ function mainMenuHandler(){
         case 27:
             mainMenuOn = false;
             document.onkeydown = null;
-            document.onkeydown = levelKeyDownHandler;
+            document.onkeydown = levelHandler;
             break;
         case 38:
             if(currentOption > 0){
