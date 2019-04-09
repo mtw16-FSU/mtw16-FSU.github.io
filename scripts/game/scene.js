@@ -309,7 +309,7 @@ function initSaveFile(){
     background.src= "images/backgrounds/SaveMenuBackground.png";
 }
 
-function drawSaveFileScreen(ctx){
+function drawSaveFileScreen(){
     ctx.clearRect(0,0,width,height);
     ctx.fillStyle = "green";
     ctx.fillRect(0,0,width,height);    
