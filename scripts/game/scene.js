@@ -65,6 +65,11 @@ function Scene(name, map){
                 
                     tiles1.push(backTiles);
                 }
+                
+                map.backgroundTiles = tiles1;
+            
+                map.rowSize = image1.height;
+                map.colSize = image1.width;
             }
 
             image2.onload = function(){
@@ -84,15 +89,9 @@ function Scene(name, map){
                     }
                     tiles2.push(foreTiles);
                 }
+                
+                map.foregroundTiles = tiles2;
             }
-            
-            image1.src = image1.src;
-            image2.src = image2.src;
-            
-            map.backgroundTiles = tiles1;
-            map.foregroundTiles = tiles2;
-            map.rowSize = image1.height;
-            map.colSize = image1.width;
             
             mainMenuOn = false;
             dx = 0;
