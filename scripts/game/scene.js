@@ -9,6 +9,11 @@ function SceneHandler(scene){
 function Scene(name, map){
     this.map = map,
     this.name = name,
+    this.player = new initPlayer({
+       X: 1024,
+       Y: 512,
+       aFrame: 0
+    });
     this.getScene = function(name){
         this.name = name;
         this.map.name = name;
@@ -21,6 +26,7 @@ function Scene(name, map){
         switch(this.name){
             case "Level 1":
                 document.onkeydown = levelHandler;
+                document.onkeyup = levelHandler2;
                 image1.src = "maps/Level1Background.png";
                 image2.src = "maps/Level1Foreground.png";
                 map.getMap("images/spritesheets/level1.png");
@@ -100,13 +106,18 @@ function Scene(name, map){
             up = false;
             right = false;
             down = false;
-
+            pLeft = false;
+            pRight = false;
+            pDown = false;
+            pUp = false;
         }
         
         drawing = requestAnimationFrame(sceneHandler.drawScene);
     },
     this.draw = function(){
         map.draw();
+        this.player.moveCheck(pUp,pDown,pLeft,pRight);
+        this.player.draw(canvas.getContext("2d"));
     }
 }
 
@@ -142,6 +153,7 @@ function Map(name){
 var mainMenuOn = false;
 var dx = 0, dy = 0;
 var left = false, up = false, right = false, down = false;
+var pLeft = false, pRight = false, pDown = false, pUp = false
 function drawLevel(map, backgroundTiles, foregroundTiles, rowSize, colSize){
     ctx.clearRect(0,0,width,height);
     drawLoadingScreen();
@@ -235,21 +247,25 @@ function levelHandler(){
                 options = ["Resume", "Exit"];
             break;
         case 37: //left
+            pLeft = true;
             if(left){
                 dx++;
             }
             break;
         case 38: //up
+            pUp = true;
             if(up){
                 dy++;
             }
             break;
         case 39: //right
+            pRight = true;
             if(right){
                 dx--;
             }
             break;
         case 40: //down
+            pDown = true;
             if(down){
                 dy--;
             }
@@ -260,6 +276,26 @@ function levelHandler(){
         default:
             break;
     }
+}
+
+function levelHandler2(){
+    var keyCode = event.which || event.keyCode;
+	switch(keyCode){
+		case 37: // left
+			pLeft = false;
+			break;
+		case 38: // up
+			pUp = false;
+			break;
+		case 39: // right
+			pRight = false;
+			break;
+		case 40:
+			pDown = false;
+			break;
+		default:
+			break;
+	}
 }
 
 function initOptions(){
