@@ -27,10 +27,9 @@ function Scene(name, map){
             var tiles2 = [];   
 
             var canvas = document.createElement('canvas');
-            canvas.width = image1.width;
-            canvas.height = image1.height;
-
             image1.onload = function(){
+                canvas.width = image1.width;
+                canvas.height = image1.height;
                 canvas.getContext('2d').drawImage(image1,0,0,image1.width,image1.height);
                 var pixelData = canvas.getContext('2d').getImageData(0,0,image1.width,image1.height).data;
                 for(var i = 0; i < image1.height; i++){
