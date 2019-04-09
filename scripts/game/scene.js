@@ -28,10 +28,12 @@ function Scene(name, map){
             case "Options":
                 initOptions();
                 document.onkeydown = optionsHandler;
+                isLevel = false;
                 break;
             case "Save Files":
                 initSaveFile();
                 document.onkeydown = saveFileHandler;
+                isLevel = false;
                 break;
             default:
                 break;
