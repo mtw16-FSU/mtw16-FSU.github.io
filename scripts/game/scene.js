@@ -18,25 +18,8 @@ function Scene(name, map){
         var image1 = new Image();
         var image2 = new Image();
         
-        switch(this.name){
-            case "Level 1":
-                document.onkeydown = levelHandler;
-                image1.src = "maps/Level1Background.png";
-                image2.src = "maps/Level1Foreground.png";
-                map.getMap("images/spritesheets/level1.png");
-                break;
-            case "Options":
-                initOptions();
-                document.onkeydown = optionsHandler;
-                isLevel = false;
-                break;
-            case "Save Files":
-                initSaveFile();
-                document.onkeydown = saveFileHandler;
-                isLevel = false;
-                break;
-            default:
-                break;
+        if(this.name === "Options" || this.name === "Save Files"){
+            isLevel = false;
         }
 
         if(isLevel){
@@ -102,6 +85,24 @@ function Scene(name, map){
 
         }
         
+        switch(this.name){
+            case "Level 1":
+                document.onkeydown = levelHandler;
+                image1.src = "maps/Level1Background.png";
+                image2.src = "maps/Level1Foreground.png";
+                map.getMap("images/spritesheets/level1.png");
+                break;
+            case "Options":
+                initOptions();
+                document.onkeydown = optionsHandler;
+                break;
+            case "Save Files":
+                initSaveFile();
+                document.onkeydown = saveFileHandler;
+                break;
+            default:
+                break;
+        }
         
         drawing = requestAnimationFrame(sceneHandler.drawScene);
     },
