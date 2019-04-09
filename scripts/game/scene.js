@@ -44,7 +44,7 @@ function Scene(name, map){
             var tiles2 = [];   
 
             var canvas = document.createElement('canvas');
-            //image1.onload = function(){
+            image1.onload = function(){
                 canvas.width = image1.width;
                 canvas.height = image1.height;
                 canvas.getContext('2d').drawImage(image1,0,0,image1.width,image1.height);
@@ -65,9 +65,9 @@ function Scene(name, map){
                 
                     tiles1.push(backTiles);
                 }
-            //}
+            }
 
-            //image2.onload = function(){
+            image2.onload = function(){
                 canvas.getContext('2d').drawImage(image2,0,0,image1.width,image1.height);
                 pixelData = canvas.getContext('2d').getImageData(0,0,image2.width,image2.height).data;
                 for(var i = 0; i < image2.height; i++){
@@ -84,8 +84,11 @@ function Scene(name, map){
                     }
                     tiles2.push(foreTiles);
                 }
-            //}
-
+            }
+            
+            image1.src = image1.src;
+            image2.src = image2.src;
+            
             map.backgroundTiles = tiles1;
             map.foregroundTiles = tiles2;
             map.rowSize = image1.height;
