@@ -3,6 +3,7 @@ var canvas, ctx;
 var background;
 var isFullScreen = false;
 var sceneHandler = new SceneHandler(new Scene("", new Map("")));
+var menuImage;
 
 function init(){
     canvas = document.getElementById("canvas");
@@ -15,7 +16,9 @@ function init(){
     height = canvas.height;
 
     background = new Image();
+    menuImage = new Image();
     background.src= "images/backgrounds/MenuBackground.png";
+    menuImage.src = "images/menus/main_menu.png";
 }
 
 var currentOption = 0, size;
@@ -23,7 +26,10 @@ function showStartMenu(){
     document.getElementById("title").innerHTML = "";
     document.onkeydown = checkMenuInput;
     
-    drawing = setInterval(drawStartMenu, 1000/60);
+    currentOption = 0;
+    background.src= "images/backgrounds/MenuBackground.png";
+    
+    drawing = requestAnimationFrame(drawStartMenu);
 }
 
 function drawStartMenu(){
@@ -55,19 +61,24 @@ function drawStartMenu(){
         ctx.fillText(options[i], width / 2  - 150, height / 2 + 150 * i);        
     }
 
+    drawing = requestAnimationFrame(drawStartMenu);    
 }
 
 function checkMenuInput(event){
-    switch(event.keyCode){
+    var keyCode = event.which || event.keyCode;
+    switch(keyCode){
         case 13:
             if(currentOption == 0){
-                clearInterval(drawing);
+                cancelAnimationFrame(drawing);
+                //clearInterval(drawing);
                 sceneHandler.scene.getScene("Level 1");
             }else if(currentOption == 1){
-                clearInterval(drawing);
+                //clearInterval(drawing);
+                cancelAnimationFrame(drawing);
                 sceneHandler.scene.getScene("Options");
             }else if(currentOption == 2){
-                clearInterval(drawing);
+                //clearInterval(drawing);
+                cancelAnimationFrame(drawing);
                 sceneHandler.scene.getScene("Save Files");
             }
             break;
@@ -91,7 +102,7 @@ function checkMenuInput(event){
 
 function stopGame(){
     document.onkeydown = null;
-    clearInterval(drawing);
+    cancelAnimationFrame(drawing);
 }
 
 function toggleFullScreen(){
