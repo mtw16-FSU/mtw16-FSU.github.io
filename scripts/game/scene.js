@@ -9,11 +9,6 @@ function SceneHandler(scene){
 function Scene(name, map){
     this.map = map,
     this.name = name,
-    this.player = new initPlayer({
-       X: 1024,
-       Y: 512,
-       aFrame: 0
-    });
     this.getScene = function(name){
         this.name = name;
         this.map.name = name;
@@ -120,6 +115,11 @@ function Scene(name, map){
 }
 
 function Map(name){
+    this.player = new initPlayer({
+       X: 1024,
+       Y: 512,
+       aFrame: 0
+    });
     this.name = name,
     this.foregroundTiles = [],
     this.backgroundTiles = [],
