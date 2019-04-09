@@ -271,7 +271,7 @@ function initOptions(){
     background.src= "images/backgrounds/OptionsMenuBackground.png";
 }
 
-function drawOptionsScreen(ctx){
+function drawOptionsScreen(){
     ctx.clearRect(0,0,width,height);
     ctx.fillStyle = "red";
     ctx.fillRect(0,0,width,height);
