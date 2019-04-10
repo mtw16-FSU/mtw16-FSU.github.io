@@ -4,6 +4,8 @@
        aFrame: 0
     });
 
+enemy = New initEnemy({}); 
+
 function SceneHandler(scene){
     this.scene = scene,
     this.drawScene = function(){
@@ -119,6 +121,7 @@ function Map(name){
                 drawLevel(this, this.backgroundTiles,this.foregroundTiles, this.rowSize, this.colSize);
 		Player.moveCheck(pUp,pDown,pLeft,pRight,width,height);
         	Player.draw(canvas.getContext("2d"));
+		enemy.draw(canvas.getContext("2d")); 
                 break;
             case "Options":
                 drawOptionsScreen();
