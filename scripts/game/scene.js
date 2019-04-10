@@ -247,6 +247,7 @@ function levelHandler(){
                 options = ["Resume", "Exit"];
             break;
         case 32: // space
+	if ( Player.whichAction != "attack" )
 	    Player.attack();
 	    break;    
         case 37: //left
