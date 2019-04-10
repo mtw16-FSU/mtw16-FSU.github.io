@@ -1,3 +1,9 @@
+ Player = new initPlayer({
+       X: 1024,
+       Y: 512,
+       aFrame: 0
+    });
+
 function SceneHandler(scene){
     this.scene = scene,
     this.drawScene = function(){
@@ -115,11 +121,6 @@ function Scene(name, map){
 }
 
 function Map(name){
-    this.player = new initPlayer({
-       X: 1024,
-       Y: 512,
-       aFrame: 0
-    });
     this.name = name,
     this.foregroundTiles = [],
     this.backgroundTiles = [],
