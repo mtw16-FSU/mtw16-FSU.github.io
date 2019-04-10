@@ -4,7 +4,7 @@
        aFrame: 0
     });
 
-enemy = New initEnemy({}); 
+enemy = new initEnemy({}); 
 
 function SceneHandler(scene){
     this.scene = scene,
