@@ -6,7 +6,6 @@ var swordAFrame = 6;
 var startWalk = 8;
 var startSword = 12;
 var action = startWalk;
-var tempInt = 0;
 
 function initPlayer(options) {
 	var that = {};
@@ -54,32 +53,26 @@ function initPlayer(options) {
 		else
 			that.aFrame = 0;
 	 }
-	 else if ( that.whichAction == "attack" ) {
-		tempInt += 0.5;
-		that.aFrame = Math.floor(tempInt);
-		if ( Math.floor(tempInt) == swordAFrame ) {
-			that.aFrame = 0;
-			that.whichAction = "stand";
-			action = startWalk;
-			tempInt = 0;
-		}
-	 } 
 	};
 	
 	that.attack = function() {
 		that.whichAction = "attack";
 		action = startSword;
-		tempInt = -0.5;
-		that.aFrame = 0;
+		that.aFrame = -1;
+		setTimeout(animateAttack,0,that)
 	}
 	
 	return that;
 }
 
+function animateAttack(that) {
+	that.aFrame++;
+	if ( that.aFrame == swordAFrame ) {
+		that.aFrame = 0;
+		that.whichAction = "stand";
+		action = startWalk;
+	}
+	else 
+		setTimeout(animateAttack,1000/24,that);
+}
 
-/*
-	Weapons:
-		sprites
-		damage
-		collison
-*/
