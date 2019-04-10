@@ -11,6 +11,11 @@ function SceneHandler(scene){
     this.drawScene = function(){
         scene.draw();
         drawing = requestAnimationFrame(sceneHandler.drawScene);
+	if(Player.death){
+		Player.death = false;
+		cancelAnimationFrame(drawing);
+            	showStartMenu();
+	}
     }
 }
 
@@ -33,6 +38,7 @@ function Scene(name, map){
                 image1.src = "maps/Level1Background.png";
                 image2.src = "maps/Level1Foreground.png";
                 map.getMap("images/spritesheets/level1.png");
+		Enemy = new initEnemy({});
                 break;
             case "Options":
                 initOptions();
@@ -119,10 +125,12 @@ function Map(name){
         switch(this.name){
             case "Level 1":
                 drawLevel(this, this.backgroundTiles,this.foregroundTiles, this.rowSize, this.colSize);
-		Player.moveCheck(pUp,pDown,pLeft,pRight,width,height);
-        	Player.draw(canvas.getContext("2d"));
-		Player.collisionCheck(Enemy);
-		Enemy.draw(canvas.getContext("2d")); 
+		if(!mainMenuOn){
+			Player.moveCheck(pUp,pDown,pLeft,pRight,width,height);
+			Player.draw();
+			Player.collisionCheck(Enemy);
+			Enemy.draw();
+		}
                 break;
             case "Options":
                 drawOptionsScreen();
@@ -149,35 +157,43 @@ function drawLevel(map, backgroundTiles, foregroundTiles, rowSize, colSize){
     ctx.clearRect(0,0,width,height);
     drawLoadingScreen();
     
+	if(((dx/8)+0.25)*64 > 0 || Player.X > 1024){
+                left = false;
+        }
+
+        if(((colSize-1+(dx/8))+0.75)*64 < width || Player.X < 1024){
+        	right = false;
+        }
+
+        if(((dy/8)+0.25)*64 > 0 || Player.Y > 512){
+                up = false;
+        }
+
+        if(((rowSize-1+(dy/8))+0.75)*64 < height || Player.Y < 512){
+                down = false;
+        }
+		
+	if(left){
+		dx++;
+	}
+	
+	if(right){
+		dx--;
+	}
+	
+	if(up){
+		dy++;
+	}
+	
+	if(down){
+		dy--;
+	}
+	
     var xPos = 0, yPos = 0; 
     for(var i = 0; i < rowSize; i++){
         for(var j = 0; j < colSize; j++){
             xPos = backgroundTiles[i][j][0] / 16;
             yPos = backgroundTiles[i][j][1] / 16;
-            
-            if(j == 0 && ((j+(dx/8))+0.25)*64 > 0){
-                left = false;
-            }else if(j == 0){
-                left = true;
-            }
-
-            if(j == colSize-1 && ((j+(dx/8))+0.75)*64 < width){
-                right = false;
-            }else if(j == colSize - 1){
-                right = true;
-            }
-
-            if(i == 0 && ((i+(dy/8))+0.25)*64 > 0){
-                up = false;
-            }else if(i == 0){
-                up = true;
-            }
-
-            if(i == rowSize-1 && ((i+(dy/8))+0.75)*64 < height){
-                down = false;
-            }else if(i == rowSize - 1){
-                down = true;
-            }
             
             ctx.drawImage(map.image,xPos*64,yPos*64,64,64,(j+(dx/8))*64,(i+(dy/8))*64,64,64);
 		
@@ -212,27 +228,19 @@ function levelHandler(){
 	    break;    
         case 37: //left
             pLeft = true;
-            if(left){
-                dx++;
-            }
+	    left = true;
             break;
         case 38: //up
             pUp = true;
-            if(up){
-                dy++;
-            }
+	    up = true;
             break;
         case 39: //right
             pRight = true;
-            if(right){
-                dx--;
-            }
+	    right = true;
             break;
         case 40: //down
             pDown = true;
-            if(down){
-                dy--;
-            }
+	    down = true;
             break;
         case 70: //f
             toggleFullScreen();
@@ -247,15 +255,19 @@ function levelHandler2(){
 	switch(keyCode){
 		case 37: // left
 			pLeft = false;
+			left = false;
 			break;
 		case 38: // up
 			pUp = false;
+			up = false;
 			break;
 		case 39: // right
 			pRight = false;
+			right = false;
 			break;
 		case 40:
 			pDown = false;
+			down = false;
 			break;
 		default:
 			break;
