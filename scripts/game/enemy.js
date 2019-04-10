@@ -1,4 +1,4 @@
-function initEnemy() {
+function initEnemy(options) {
 	var that = {};
 	//initialize Enemy variables
 	that.X = 500;
