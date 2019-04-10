@@ -168,3 +168,11 @@ nav ul li a:hover{
     float:left;
     line-height: 2;
 }
+
+.main a{
+    color:white;
+}
+
+.main a:hover{
+    color:yellow;
+}
