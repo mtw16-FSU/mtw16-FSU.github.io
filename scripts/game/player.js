@@ -25,8 +25,8 @@ function initPlayer(options) {
 	
 	that.draw = function(ctx) {
 		ctx.drawImage(that.image,63*that.aFrame,63*(action+that.direction),63,63,that.X,that.Y,126,126);
-	//	ctx.fillStyle = "#00FF00";
-	//	ctx.fillRect(that.X+13,that.Y+63,5,5);
+		ctx.fillStyle = "#00FF00";
+		ctx.fillRect(that.X+13,that.Y+63,5,5);
 	};
 	
 	that.moveCheck = function(Up,Down,Left,Right,width,height) {
@@ -74,19 +74,20 @@ function initPlayer(options) {
 	
 	that.collisionCheck = function(Enemy) {
 		// Check X collision
-		if ( that.standRight >= Enemy.X && that.standLeft <= Enemy.X+Enemy.length ) {
+		if ( that.standRight >= Enemy.X && that.standLeft <= Enemy.X+Enemy.length && Enemy.death == false ) {
 			// Check Y collision
 			if ( that.standDown >= Enemy.Y && that.standUp <= Enemy.Y + Enemy.length) {
+				Player.health -= 20;
+				Player.X = 1200;
+				Player.Y = 600;
+				alert("Player has: " + Player.health + " more health");
 			}
 		}
 		
 		if ( swordCollision(that,Enemy) == true && Enemy.death == false ) {
 			Enemy.health -= 20;
 			Enemy.checkDeath();
-			if ( Enemy.death == false )
-				alert(Enemy.health);
-			else
-				alert("Enemy Dead");
+			alert(Enemy.health);
 		}
 	};
 	
@@ -106,7 +107,7 @@ function swordCollision(that,Enemy) {
 		else
 			  return false;
 		  
-		return collisionMath(theX,theY,Enemy);
+		return collisionBetter(theX,theY,Enemy);
 	}
 	else if ( that.aFrame == 4 && that.whichAction == "attack" ) {
 		if ( that.direction == 1 ) {
@@ -120,7 +121,7 @@ function swordCollision(that,Enemy) {
 		else	
 			return false;
 		
-		return collisionMath(theX,theY,Enemy);
+		return collisionBetter(theX,theY,Enemy);
 	}
 	else if ( that.aFrame == 5 && that.whichAction == "attack" ) {
 		if ( that.direction == 1 ) {
@@ -134,52 +135,49 @@ function swordCollision(that,Enemy) {
 		else 
 			return false;
 		
-		return collisionMath(theX,theY,Enemy);
+		return collisionBetter(theX,theY,Enemy);
 	}
 
 	return false;
 }
 
-function collisionMath(theX,theY,Enemy) {
-	  if ( theX <=Enemy.X+Enemy.length && theX >=Enemy.X){
-		 if ( theY <= Enemy.Y+Enemy.length && theY>=Enemy.Y)
-			return true;
-		 else {
-			if ( Math.abs(theY - Enemy.Y) < Math.abs(theY-Enemy.Y-Enemy.length))
-				y = Math.abs(theY-Enemy.Y);
-			else	
-				y = Math.abs(theY-Enemy.Y-Enemy.length);
-			
-			if ( Math.sqrt(y*y) <= 30 )
-				return true;
-		}
-	  }
-	 else if ( theY <= Enemy.Y+Enemy.length && theY >= Enemy.Y ) {
-		if ( Math.abs(theX - Enemy.X) < Math.abs(theX - Enemy.X - Enemy.length))
-			x = Math.abs(theX -Enemy.X);
-		else
-			x = Math.abs(theX-Enemy.X-Enemy.length);
-		
-		if ( Math.sqrt(x*x) <= 15 )
-			return true;
-	  }	
-	else if ( theX > Enemy.X+Enemy.length || theX < Enemy.X ){
-		if ( Math.abs(theX - Enemy.X) < Math.abs(theX - Enemy.X - Enemy.length))
-			x = Math.abs(theX -Enemy.X);
-		else
-			x = Math.abs(theX-Enemy.X-Enemy.length);
-		
-		if ( Math.abs(theY - Enemy.Y) < Math.abs(theY-Enemy.Y-Enemy.length))
-			y = Math.abs(theY-Enemy.Y);
-		else	
-			y = Math.abs(theY-Enemy.Y-Enemy.length);
+function collisionBetter(theX,theY,Enemy) {
+	if ( theX >= Enemy.X && theX <= Enemy.X+Enemy.length && theY >= Enemy.Y && theY <=Enemy.Y+Enemy.length )
+		return true;
+		// y = +/- sqrt(r^2 - (x-h)^2) + k
+	y1 = Math.sqrt(225-((Enemy.X-theX)*(Enemy.X-theX))) + theY;
+	y2 = -Math.sqrt(225-((Enemy.X-theX)*(Enemy.X-theX))) + theY;
+	if ( y1 >= Enemy.Y && y1 <= Enemy.Y+Enemy.length )
+		return true;
+	else if ( y2 >= Enemy.Y && y2 <= Enemy.Y+Enemy.length)
+		return true;
 	
-		if ( Math.sqrt(x*x + y*y) <= 30 )
-			return true;
-	  }
+	y1 = Math.sqrt(225-((Enemy.X+Enemy.length-theX)*(Enemy.X+Enemy.length-theX))) + theY;
+	y2 = -Math.sqrt(225-((Enemy.X+Enemy.length-theX)*(Enemy.X+Enemy.length-theX))) + theY;	
+	if ( y1 >= Enemy.Y && y1 <= Enemy.Y+Enemy.length )
+		return true;
+	else if ( y2 >= Enemy.Y && y2 <= Enemy.Y+Enemy.length)
+		return true;
 	
+		// x = +/- sqrt(r^2 - (y-k)^2) + h
+	x1 = Math.sqrt(225-((Enemy.Y-theY)*(Enemy.Y-theY))) + theX;
+	x2 = -Math.sqrt(225-((Enemy.Y-theY)*(Enemy.Y-theY))) + theX;
+
+	if ( x1 >= Enemy.X && x1 <= Enemy.X+Enemy.length )
+		return true;
+	else if ( x2 >= Enemy.X && x2 <= Enemy.X+Enemy.length )
+		return true;
+
+	x1 = Math.sqrt(225-((Enemy.Y+Enemy.length-theY)*(Enemy.Y+Enemy.length-theY))) + theX;
+	x2 = -Math.sqrt(225-((Enemy.Y+Enemy.length-theY)*(Enemy.Y+Enemy.length-theY))) + theX;
+
+	if ( x1 >= Enemy.X && x1 <= Enemy.X+Enemy.length )
+		return true;
+	else if ( x2 >= Enemy.X && x2 <= Enemy.X+Enemy.length )
+		return true;
+
 	return false;
-	
+
 }
 
 function animateAttack(that) {
