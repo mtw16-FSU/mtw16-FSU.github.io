@@ -25,8 +25,8 @@ function initPlayer(options) {
 	
 	that.draw = function(ctx) {
 		ctx.drawImage(that.image,63*that.aFrame,63*(action+that.direction),63,63,that.X,that.Y,126,126);
-		ctx.fillStyle = "#00FF00";
-		ctx.fillRect(that.X+13,that.Y+63,5,5);
+	//	ctx.fillStyle = "#00FF00";
+	//	ctx.fillRect(that.X+13,that.Y+63,5,5);
 	};
 	
 	that.moveCheck = function(Up,Down,Left,Right,width,height) {
@@ -83,7 +83,10 @@ function initPlayer(options) {
 		if ( swordCollision(that,Enemy) == true && Enemy.death == false ) {
 			Enemy.health -= 20;
 			Enemy.checkDeath();
-			alert(Enemy.health);
+			if ( Enemy.death == false )
+				alert(Enemy.health);
+			else
+				alert("Enemy Dead");
 		}
 	};
 	
