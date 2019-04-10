@@ -139,6 +139,15 @@ nav ul li a:hover{
     padding:10px 0;
 }
 
+.asset{
+    display:inline-block;
+    text-align:center;
+    width:50%;
+    margin-left:25%;
+    margin-right:25%;
+    padding: 20px 0;
+}
+
 #fullscreen-message{
     display:block;
     background-color: white;
