@@ -246,6 +246,9 @@ function levelHandler(){
                 currentOption = 0;
                 options = ["Resume", "Exit"];
             break;
+        case 32: // space
+	    Player.attack();
+	    break;    
         case 37: //left
             pLeft = true;
             if(left){
