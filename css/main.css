@@ -162,3 +162,9 @@ nav ul li a:hover{
     width:400px;
     z-index: 9999;
 }
+
+.left{
+    width:50%;
+    float:left;
+    line-height: 2;
+}
