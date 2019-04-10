@@ -4,6 +4,9 @@ playerImage.src = "maps/character.png";
 var moveAFrame = 9;
 var swordAFrame = 6;
 var startWalk = 8;
+var startSword = 12;
+var action = startWalk;
+var tempInt = 0;
 
 function initPlayer(options) {
 	var that = {};
@@ -11,15 +14,19 @@ function initPlayer(options) {
 	that.X = options.X;
 	that.Y = options.Y;
 	that.aFrame = options.aFrame;
-	that.action = "stand";
+	that.whichAction = "stand";
 	that.direction = 3;  // 0 = up, 1 = left, 2 = down, 3 = right
     that.image = playerImage;
-
+	that.health = 100;
+	that.weapon = "shortSword";
+	
+	
 	that.draw = function(ctx) {
-		ctx.drawImage(that.image,63*that.aFrame,63*(startWalk+that.direction),63,63,that.X,that.Y,126,126);
+		ctx.drawImage(that.image,63*that.aFrame,63*(action+that.direction),63,63,that.X,that.Y,126,126);
 	};
 	
 	that.moveCheck = function(Up,Down,Left,Right,width,height) {
+	 if ( that.whichAction == "stand" ) {
 		if (Up && that.Y-5 >= -28)
 			that.Y-=5;
 		if (Down && that.Y+5 <= height-128)
@@ -46,7 +53,33 @@ function initPlayer(options) {
 		}
 		else
 			that.aFrame = 0;
+	 }
+	 else if ( that.whichAction == "attack" ) {
+		tempInt += 0.5;
+		that.aFrame = Math.floor(tempInt);
+		if ( Math.floor(tempInt) == swordAFrame ) {
+			that.aFrame = 0;
+			that.whichAction = "stand";
+			action = startWalk;
+			tempInt = 0;
+		}
+	 } 
 	};
+	
+	that.attack = function() {
+		that.whichAction = "attack";
+		action = startSword;
+		tempInt = -0.5;
+		that.aFrame = 0;
+	}
 	
 	return that;
 }
+
+
+/*
+	Weapons:
+		sprites
+		damage
+		collison
+*/
