@@ -4,7 +4,9 @@ var background;
 var isFullScreen = false;
 var sceneHandler = new SceneHandler(new Scene("", new Map("")));
 var menuImage;
+var currentOption = 0, size;
 
+//initializes the canvas as soon as the webpage loads
 function init(){
     canvas = document.getElementById("canvas");
     ctx = canvas.getContext("2d");
@@ -21,7 +23,7 @@ function init(){
     menuImage.src = "images/menus/main_menu.png";
 }
 
-var currentOption = 0, size;
+//starts game at start menu
 function showStartMenu(){
     document.getElementById("title").innerHTML = "";
     document.onkeydown = checkMenuInput;
@@ -51,6 +53,7 @@ function drawStartMenu(){
     
     ctx.font = "72px Sniglet";
 
+    //highlights whatever menu option the user has chosen in yellow
     for(var i = 0; i < size; i++){
         if(i == currentOption){
             ctx.fillStyle = "yellow";
@@ -67,32 +70,29 @@ function drawStartMenu(){
 function checkMenuInput(event){
     var keyCode = event.which || event.keyCode;
     switch(keyCode){
-        case 13:
+        case 13: //enter key, loads appropriate map/menu option
             if(currentOption == 0){
                 cancelAnimationFrame(drawing);
-                //clearInterval(drawing);
                 sceneHandler.scene.getScene("Level 1");
             }else if(currentOption == 1){
-                //clearInterval(drawing);
                 cancelAnimationFrame(drawing);
                 sceneHandler.scene.getScene("Options");
             }else if(currentOption == 2){
-                //clearInterval(drawing);
                 cancelAnimationFrame(drawing);
                 sceneHandler.scene.getScene("Save Files");
             }
             break;
-        case 38:
+        case 38: //up, moves up the menu option list
             if(currentOption > 0){
                 currentOption--;
             }
-            break;
+            break; //down, moves down the menu option list
         case 40:
             if(currentOption < size-1){
                 currentOption++;
             }
             break;
-        case 70:
+        case 70: //f, toggles fullscreen
             toggleFullScreen();
             break;
         default:
