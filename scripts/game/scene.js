@@ -1,4 +1,5 @@
- Player = new initPlayer({
+//loads the player in at the middle of the screen 
+Player = new initPlayer({
        X: 1024,
        Y: 512,
        aFrame: 0
@@ -6,11 +7,14 @@
 
 Enemy = new initEnemy({}); 
 
+//handles switching between different scenes and drawing from the scene that is loaded in
 function SceneHandler(scene){
     this.scene = scene,
     this.drawScene = function(){
         scene.draw();
         drawing = requestAnimationFrame(sceneHandler.drawScene);
+	    
+	//ends game if the player is dead
 	if(Player.death){
 		Player.death = false;
 		cancelAnimationFrame(drawing);
@@ -19,12 +23,15 @@ function SceneHandler(scene){
     }
 }
 
+//handles loading maps and the logic for them
 function Scene(name, map){
     this.map = map,
     this.name = name,
     this.getScene = function(name){
         this.name = name;
         this.map.name = name;
+	    
+	//removes any keyboard input handler that is currently active
         document.onkeydown = null;
         
         var isLevel = true;
@@ -33,11 +40,18 @@ function Scene(name, map){
         
         switch(this.name){
             case "Level 1":
-                document.onkeydown = levelHandler;
+      		//sets keyboard input handlers for player movement and map logic
+		document.onkeydown = levelHandler;
                 document.onkeyup = levelHandler2;
+		
+		//loads in map files
                 image1.src = "maps/Level1Background.png";
                 image2.src = "maps/Level1Foreground.png";
-                map.getMap("images/spritesheets/level1.png");
+                
+		//loads in the spritesheet that will be used
+		map.getMap("images/spritesheets/level1.png");
+		
+		//loads in enemy
 		Enemy = new initEnemy({});
                 break;
             case "Options":
@@ -58,15 +72,24 @@ function Scene(name, map){
             var tiles1 = [];
             var tiles2 = [];   
 
+	    //creates temporary canvas to draw the map file on so its
+	    //pixel data can be extracted to draw the map
             var canvas = document.createElement('canvas');
 	    image1.onload = function(){
+		//draws image to hidden canvas
                 canvas.width = image1.width;
                 canvas.height = image1.height;
                 canvas.getContext('2d').drawImage(image1,0,0,image1.width,image1.height);
-                var pixelData = canvas.getContext('2d').getImageData(0,0,image1.width,image1.height).data;
-                for(var i = 0; i < image1.height; i++){
-                    var row = i * image1.width * 4;
-                    var backTiles = [];
+                
+		//gets the pixel data of the map file represented as an array where every 4 indexes
+		//represent the Red, Green, Blue, and Alpha values of a pixel respectively
+		var pixelData = canvas.getContext('2d').getImageData(0,0,image1.width,image1.height).data;
+                
+		//goes through the pixel array and converts it to a 2d array where each
+		//entry represents a type of tile that will be drawn to the screen
+		for(var i = 0; i < image1.height; i++){
+		    var row = i * image1.width * 4;
+		    var backTiles = [];
                     for(var j = 0; j < image1.width*4; j += 4){
                         backTiles.push([pixelData[row+j+1],y=pixelData[row+j+2]]);
                     }
@@ -79,6 +102,7 @@ function Scene(name, map){
                 map.colSize = image1.width;
             }
 
+	    //repeats the same process for loading information about the foreground tiles
             image2.onload = function(){
                 canvas.getContext('2d').drawImage(image2,0,0,image1.width,image1.height);
                 pixelData = canvas.getContext('2d').getImageData(0,0,image2.width,image2.height).data;
@@ -94,6 +118,7 @@ function Scene(name, map){
                 map.foregroundTiles = tiles2;
             }
             
+            //sets default values for the level
             mainMenuOn = false;
             dx = 0;
             dy = 0;
@@ -107,6 +132,7 @@ function Scene(name, map){
             pUp = false;
         }
         
+	//begins game loop
         drawing = requestAnimationFrame(sceneHandler.drawScene);
     },
     this.draw = function(){
@@ -125,6 +151,8 @@ function Map(name){
         switch(this.name){
             case "Level 1":
                 drawLevel(this, this.backgroundTiles,this.foregroundTiles, this.rowSize, this.colSize);
+		
+		//only draws player and updates player logic if the pause menu is not toggled
 		if(!mainMenuOn){
 			Player.moveCheck(pUp,pDown,pLeft,pRight,width,height);
 			Player.draw();
@@ -139,6 +167,7 @@ function Map(name){
                 drawSaveFileScreen();
                 break;
             default:
+		//draws error screen if invalid map name is entered
                 ctx.fillStyle = "blue";
                 ctx.fillRect(0,0,width,height);
                 break;
@@ -157,41 +186,51 @@ function drawLevel(map, backgroundTiles, foregroundTiles, rowSize, colSize){
     ctx.clearRect(0,0,width,height);
     drawLoadingScreen();
     
-	if(((dx/8)+0.25)*64 > 0 || Player.X > 1024){
-                left = false;
-        }
+    //moves the player through the map until the left edge is reached
+    if(((dx/8)+0.25)*64 > 0 || Player.X > 1024){
+    	left = false;
+    }
 
-        if(((colSize-1+(dx/8))+0.75)*64 < width || Player.X < 1024){
-        	right = false;
-        }
+    //moves the player through the map until the right edge is reached
+    if(((colSize-1+(dx/8))+0.75)*64 < width || Player.X < 1024){
+    	right = false;
+    }
 
-        if(((dy/8)+0.25)*64 > 0 || Player.Y > 512){
-                up = false;
-        }
+    //moves the player through the map until the up edge is reached
+    if(((dy/8)+0.25)*64 > 0 || Player.Y > 512){
+    	up = false;
+    }
 
-        if(((rowSize-1+(dy/8))+0.75)*64 < height || Player.Y < 512){
-                down = false;
-        }
+    //moves the player through the map until the down edge is reached
+    if(((rowSize-1+(dy/8))+0.75)*64 < height || Player.Y < 512){
+    	down = false;
+    }
 		
-	if(left){
-		dx++;
-	}
+    //moves map to the left if left arrow key is pressed
+    if(left){
+	dx++;
+    }
+
+    //moves map to the right if right arrow key is pressed
+    if(right){
+	dx--;
+    }
 	
-	if(right){
-		dx--;
-	}
+    //moves map to the up if up arrow key is pressed
+    if(up){
+	dy++;
+    }
 	
-	if(up){
-		dy++;
-	}
-	
-	if(down){
-		dy--;
-	}
+    //moves map to the down if down arrow key is pressed
+    if(down){
+	dy--;
+    }
 	
     var xPos = 0, yPos = 0; 
     for(var i = 0; i < rowSize; i++){
         for(var j = 0; j < colSize; j++){
+		
+	    //gets the image to be cropped from the spritesheet to be displayed for the current tile
             xPos = backgroundTiles[i][j][0] / 16;
             yPos = backgroundTiles[i][j][1] / 16;
             
@@ -204,7 +243,7 @@ function drawLevel(map, backgroundTiles, foregroundTiles, rowSize, colSize){
         }
     }
     
-    
+    //displays the pause menu if it is toggled
     if(mainMenuOn){
         showMainMenu();
         document.onkeydown = null;
@@ -212,37 +251,36 @@ function drawLevel(map, backgroundTiles, foregroundTiles, rowSize, colSize){
     }
 }
 
-
-
+//handles events for when keys are pressed down
 function levelHandler(){
-     var keyCode = event.which || event.keyCode;
+    var keyCode = event.which || event.keyCode;
     switch(keyCode){        
-        case 27: //escape key
+        case 27: //escape key, toggles the pause menu
                 mainMenuOn = true;
                 currentOption = 0;
                 options = ["Resume", "Exit"];
             break;
-        case 32: // space
+        case 32: // space, begins attacking if not already attacking
 	if ( Player.whichAction != "attack" )
 	    Player.attack();
 	    break;    
-        case 37: //left
+        case 37: //left, moves player left
             pLeft = true;
 	    left = true;
             break;
-        case 38: //up
+        case 38: //up, moves player up
             pUp = true;
 	    up = true;
             break;
-        case 39: //right
+        case 39: //right, moves player right
             pRight = true;
 	    right = true;
             break;
-        case 40: //down
+        case 40: //down, moves player down
             pDown = true;
 	    down = true;
             break;
-        case 70: //f
+        case 70: //f, toggles full screen
             toggleFullScreen();
             break;
         default:
@@ -250,22 +288,23 @@ function levelHandler(){
     }
 }
 
+//handles events for when keys are released
 function levelHandler2(){
     var keyCode = event.which || event.keyCode;
 	switch(keyCode){
-		case 37: // left
+		case 37: //left, stops player from moving left
 			pLeft = false;
 			left = false;
 			break;
-		case 38: // up
+		case 38: //up, stops player from moving up
 			pUp = false;
 			up = false;
 			break;
-		case 39: // right
+		case 39: //right, stops player from moving right 
 			pRight = false;
 			right = false;
 			break;
-		case 40:
+		case 40: //down, stops player from moving down
 			pDown = false;
 			down = false;
 			break;
@@ -274,11 +313,10 @@ function levelHandler2(){
 	}
 }
 
+//------------------------------Options Menu Option--------------------------------
 function initOptions(){
     options = ["Options Menu", "Press Enter To Exit"];
-    
     currentOption = 0;
-    
     background.src= "images/backgrounds/OptionsMenuBackground.png";
 }
 
@@ -310,7 +348,9 @@ function optionsHandler(event){
             break;
     }
 }
+//---------------------------------------------------------------------------------
 
+//--------------------------------Save Menu Option---------------------------------
 function initSaveFile(){
     options = ["Save File 1", "Save File 2", "Save File 3", "Exit"];
     currentOption = 0;
@@ -374,7 +414,9 @@ function saveFileHandler(){
             break;
     }
 }
+//---------------------------------------------------------------------------------
 
+//draws a loading screen while waiting for a level/menu option to load
 function drawLoadingScreen(){
     ctx.fillStyle = "black";
     ctx.fillRect(0,0,width,height);
