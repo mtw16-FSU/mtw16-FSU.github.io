@@ -1,8 +1,10 @@
+//removes the login and signup forms
 function clearForms(){
     var forms = document.getElementsByTagName("form");
     var signupLink = document.getElementById("signup-link");
     var canvas = document.getElementById("canvas");
                 
+    //removes the display for each form field
     for(var i = 0; i < forms.length; i++){
         forms[i].style.display = "none";
         forms[i].style.opacity = "0";
@@ -15,6 +17,7 @@ function clearForms(){
     canvas.style.opacity = "1";
 }
 
+//removes the login form and shows the signup form
 function showSignUp(){
     var signup = document.getElementById("signup");
     var login = document.getElementById("login");
@@ -31,15 +34,19 @@ function showSignUp(){
     signupLink.style.opacity = "0";
 }
 
+//displays a message for a short period of time after fullscreen mode is turned on
 function showFullScreenMessage(toggle){
     var fullScreenMessage = document.getElementById("fullscreen-message");     
     
+    //dislpays message only if fullscreenmode is being turned on
     if(toggle){
         var counter = 1;
         fullScreenMessage.innerHTML = "Now in Full Screen mode, press f to escape."; 
         fullScreenMessage.style.border = "2px solid black";
         fullScreenMessage.style.padding = "10px 0";
         
+        //waits 1.25 seconds after fullscreen mode is activated before slowly removing
+        //the message from the screen over the course of a few seconds
         setTimeout(function(){
             var showButton = setInterval(function(){
             fullScreenMessage.style.opacity = counter;
@@ -57,6 +64,7 @@ function showFullScreenMessage(toggle){
         }, 1250);
         
     }else{
+        //if already in fullscreen mode, ensures the message box is completely hidden
         fullScreenMessage.innerHTML = "";
         fullScreenMessage.style.border = "none";
         fullScreenMessage.style.padding = "0";
@@ -65,6 +73,7 @@ function showFullScreenMessage(toggle){
     
 }
 
+//displays login menu
 function showLogin(){
     var login = document.getElementById("login");
     var signupLink = document.getElementById("signup-link");
@@ -74,8 +83,6 @@ function showLogin(){
     login.style.display = "block";
     login.style.opacity = "1";
 
-    //alert("b: " + signupLink.style.display);
     signupLink.style.display = "block";
     signupLink.style.opacity = "1";
-    //alert("a: " + signupLink.style.display);
 }
