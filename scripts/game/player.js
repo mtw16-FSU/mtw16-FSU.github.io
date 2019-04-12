@@ -76,14 +76,13 @@ function initPlayer(options) {
 		if ( that.standRight >= Enemy.X+((dx/8)*64) && that.standLeft <= Enemy.X+((dx/8)*64)+Enemy.length && Enemy.death == false ) {
 			// Check Y collision
 			if ( that.standDown >= Enemy.Y+((dy/8)*64) && that.standUp <= Enemy.Y + ((dy/8)*64) + Enemy.length) {
-				/*Player.health -= 20;
+				Player.health -= 20;
 				dx -= 32;
 				dy -= 32;
 				pLeft = false;
 				pRight = false;
 				pUp = false;
 				pDown = false;
-				*/
 				alert("YOU TOUCH MR.BONES");
 				if(Player.health <= 0){
 					this.health = 120;
