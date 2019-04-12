@@ -84,7 +84,7 @@ function initPlayer(options) {
 				pUp = false;
 				pDown = false;
 				*/
-				alert("YOU TOUCH THE BONES");
+				alert("YOU TOUCH MR.BONES");
 				if(Player.health <= 0){
 					this.health = 120;
 					this.death = true;
