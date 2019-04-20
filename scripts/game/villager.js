@@ -7,8 +7,12 @@ function initVillager(options) {
   that.endX = 0;
   that.endY = 0;
 
+  that.draw() {
+   // draw villager here 
+  }
+  
   that.interaction = function(options) {
-    
+    // Call text box and insert string into it
   }
   
 }
