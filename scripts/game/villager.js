@@ -1,6 +1,6 @@
 
 
-function(options) {
+function initVillager(options) {
   var that = {};
 
 
