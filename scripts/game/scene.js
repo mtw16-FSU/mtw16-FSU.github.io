@@ -328,7 +328,7 @@ function drawTextBox(sentence) {
 	ctx.fillRect(width*.10,height*.70,width*.80,height*.20);
 	ctx.font = "60px Sniglet";
 	ctx.fillStyle = "#000000";
-	ctx.fillText("hello son",width*.11,height*.78);
+	ctx.fillText("WWWWWWWWWW WWWWWWWWWW WWWWWWWWWW",width*.11,height*.78);
 	document.onkeydown = null;
 	document.onkeyup = null;
 	document.onkeydown = textHandler;
