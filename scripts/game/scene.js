@@ -7,6 +7,8 @@ Player = new initPlayer({
 
 Enemy = new initEnemy({}); 
 
+Villager1 = new initVillager({});
+
 //handles switching between different scenes and drawing from the scene that is loaded in
 function SceneHandler(scene){
     this.scene = scene,
@@ -158,6 +160,7 @@ function Map(name){
 			Player.draw();
 			Player.collisionCheck(Enemy);
 			Enemy.draw();
+			Villager.draw();
 		}
                 break;
             case "Options":
