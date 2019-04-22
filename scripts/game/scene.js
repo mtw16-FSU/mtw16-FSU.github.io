@@ -161,6 +161,8 @@ function Map(name){
 			Player.collisionCheck(Enemy);
 			Enemy.draw();
 			Villager.draw();
+			if ( Villager.drawText == true )
+				drawTextBox(Villager.sentence);
 		}
                 break;
             case "Options":
@@ -288,7 +290,7 @@ function levelHandler(){
             break;
 	case 86: //v
 	    if ( collisionInteraction(Player.iBox[0],Player.iBox[1],Player.iBox[2],Player.iBox[3],Villager.startX+(dx/8)*64,Villager.endX,Villager.startY+(dy/8)*64,Villager.endY) == true )
-		 alert("yay");
+		 Villager.drawText = true;
 	    break;
         default:
             break;
@@ -318,6 +320,14 @@ function levelHandler2(){
 		default:
 			break;
 	}
+}
+
+//------------------------------Text Box-------------------------------------------
+function drawTextBox(sentence) {
+	ctx.fillRect(width*.80,height*.80,width*.20,height*.20);
+	ctx.font = "30px Sniglet";
+	ctx.fillText("hello son",width*.85,height*.85);
+	Villager.drawText = false;
 }
 
 //------------------------------Options Menu Option--------------------------------
