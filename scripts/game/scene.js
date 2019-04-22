@@ -287,7 +287,7 @@ function levelHandler(){
             toggleFullScreen();
             break;
 	case 86: //v
-	    if ( Player.iBox[0],Player.iBox[1],Player.iBox[2],Player.iBox[3],Villager.X1,Villager.X2,Villager.Y1,Villager.Y2 == true )
+	    if ( Player.collisionInteraction(Player.iBox[0],Player.iBox[1],Player.iBox[2],Player.iBox[3],Villager.startX,Villager.endX,Villager.startY,Villager.endY) == true )
 		 alert("yay");
 	    break;
         default:
