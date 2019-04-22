@@ -28,7 +28,7 @@ function initPlayer(options) {
 	
 	that.draw = function() {
 		ctx.drawImage(that.image,63*that.aFrame,63*(action+that.direction),63,63,that.X,that.Y,126,126);
-		ctx.fillRect(that.interactBox[0],that.interactBox[2],20,21);
+		ctx.fillRect(that.iBox[0],that.iBox[2],20,21);
 	};
 	
 	that.moveCheck = function(Up,Down,Left,Right,width,height) {
