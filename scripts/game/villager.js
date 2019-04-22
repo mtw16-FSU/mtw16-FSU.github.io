@@ -9,8 +9,10 @@ function initVillager(options) {
 
   that.draw = function() {
     ctx.fillStyle = "#FF0000";
-    that.StartX = that.startX + (dx/8)*64;
-    that.StartY = that.startY + (dy/8)*64;
+    that.startX = that.startX + (dx/8)*64;
+    that.endX = that.startX + 100;
+    that.startY = that.startY + (dy/8)*64;
+    that.endY = that.startY + 100;
     ctx.fillRect(that.startX,that.startY,100,100);
   };
   
