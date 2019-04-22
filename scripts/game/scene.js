@@ -324,12 +324,25 @@ function levelHandler2(){
 
 //------------------------------Text Box-------------------------------------------
 function drawTextBox(sentence) {
-	ctx.fillRect(width*.80,height*.80,width*.20,height*.20);
+	ctx.fillStyle = "#000000";
+	ctx.fillRect(0,height*.80,width,height*.20);
 	ctx.font = "30px Sniglet";
 	ctx.fillText("hello son",width*.85,height*.85);
-	Villager.drawText = false;
+	document.onkeydown = null;
+	document.onkeyup = null;
+	document.onkeydown = textHandler;
 }
 
+function textHandler(event) {
+	var keyCode = event.which || event.keyCode;
+	if ( keyCode == 32 ) {
+	   Villager.drawText = false;
+	   document.onkeydown = null;
+	   document.onkeydown = levelHandler;
+	   document.onkeyup = levelHandler2;
+	}
+}
+	
 //------------------------------Options Menu Option--------------------------------
 function initOptions(){
     options = ["Options Menu", "Press Enter To Exit"];
