@@ -9,6 +9,9 @@ Enemy = new initEnemy({});
 
 Villager = new initVillager({});
 
+// Helps Textbox Printing
+printText = 0;
+
 //handles switching between different scenes and drawing from the scene that is loaded in
 function SceneHandler(scene){
     this.scene = scene,
@@ -162,7 +165,7 @@ function Map(name){
 			Enemy.draw();
 			Villager.draw();
 			if ( Villager.drawText == true )
-				drawTextBox(Villager.sentence);
+				drawTextBox(Villager.sentence,printText);
 		}
                 break;
             case "Options":
@@ -324,30 +327,35 @@ function levelHandler2(){
 
 //------------------------------Text Box-------------------------------------------
 function initTextBox() {
+	printText = 0;
 	Villager.drawText = true;
 	document.onkeydown = null;
 	document.onkeyup = null;
 	document.onkeydown = textHandler;		
 }
 
-function drawTextBox(sentence) {
-	if ( sentence.length != 0 ) {
+function drawTextBox(sentence,position) {
+	if ( sentence.length != 0 && position < printText+2 ) {
 	   ctx.fillStyle = "#FFFFFF";
 	   ctx.fillRect(width*.10,height*.70,width*.80,height*.20);
 	   ctx.font = "60px Sniglet";
 	   ctx.fillStyle = "#000000";
-	   ctx.fillText(sentence.substring(0,10),width*.11,height*.78);
-	   drawTextBox(sentence.substring(10,sentence.length));
+	   ctx.fillText(sentence.substring(position*10,position*10+10),width*.11,height*(.78 + 0.8*(position-printText));
+	   drawTextBox(sentence.substring(position*10+10,sentence.length),position++);
 	}
 }
 
 function textHandler(event) {
 	var keyCode = event.which || event.keyCode;
 	if ( keyCode == 32 ) {
+	 if ( Villager.sentence.length <= printText*10 + 20 ){
 	   Villager.drawText = false;
 	   document.onkeydown = null;
 	   document.onkeydown = levelHandler;
 	   document.onkeyup = levelHandler2;
+	 }
+	 else 
+	 printText+=2;
 	}
 }
 	
