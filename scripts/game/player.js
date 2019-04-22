@@ -33,14 +33,26 @@ function initPlayer(options) {
 	
 	that.moveCheck = function(Up,Down,Left,Right,width,height) {
 	 if ( that.whichAction == "stand" ) {
-		if (!up && Up && that.Y-5 >= -28)
+		if (!up && Up && that.Y-5 >= -28) {
 			that.Y-=5;
-		if (!down && Down && that.Y+5 <= height-128)
+			that.iBox[2]-=5;
+			that.iBox[3]-=5;
+		}
+		if (!down && Down && that.Y+5 <= height-128) {
 			that.Y+=5;
-		if (!left && Left && that.X-5 >= -28)
+			that.iBox[2]+=5;
+			that.iBox[3]+=5;
+		}
+		if (!left && Left && that.X-5 >= -28) {
 			that.X-=5;
-		if (!right && Right && that.X+5 <= width-100) 
+			that.iBox[0]-=5;
+			that.iBox[1]-=5;
+		}
+		if (!right && Right && that.X+5 <= width-100) {
 			that.X+=5;
+			that.iBox[0]+=5;
+			that.iBox[1]+=5;
+		}
 			
 		if (Right) 
 			that.direction = 3;
