@@ -324,9 +324,10 @@ function levelHandler2(){
 
 //------------------------------Text Box-------------------------------------------
 function drawTextBox(sentence) {
-	ctx.fillStyle = "#000000";
-	ctx.fillRect(0,height*.80,width,height*.20);
+	ctx.fillStyle = "#FFFFFF";
+	ctx.fillRect(width*.10,height*.70,width*.80,height*.20);
 	ctx.font = "30px Sniglet";
+	ctx.fillStyle = "#000000";
 	ctx.fillText("hello son",width*.85,height*.85);
 	document.onkeydown = null;
 	document.onkeyup = null;
