@@ -7,7 +7,7 @@ function initVillager(options) {
   that.endX = 2100;
   that.endY = 1100;
   that.drawText = false;
-  that.sentence = "I am a villager";
+  that.sentence = "1234567890 1234567890 1234567890 1234567890 1234567890 1234567890 1234567890 ";
   
   that.draw = function() {
     ctx.fillStyle = "#FF0000";
