@@ -23,9 +23,12 @@ function initPlayer(options) {
 	that.health = 100;
 	that.weapon = "shortSword";
 	that.death = false;
+	// x1,x2,y1,y2
+	that.interactBox = [that.X+55,that.X+75,that.Y+62,that.Y+83];
 	
 	that.draw = function() {
 		ctx.drawImage(that.image,63*that.aFrame,63*(action+that.direction),63,63,that.X,that.Y,126,126);
+		ctx.fillRect(that.interactBox[0],that.interactBox[2],20,21);
 	};
 	
 	that.moveCheck = function(Up,Down,Left,Right,width,height) {
