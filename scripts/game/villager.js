@@ -9,7 +9,7 @@ function initVillager(options) {
 
   that.draw() = function(ctx) {
     ctx.fillStyle = "#FF0000";
-    ctx.fillRect(2000,1000,50,50);
+    ctx.fillRect(that.startX,that.startY,50,50);
   };
   
   that.interaction = function(options) {
