@@ -16,4 +16,5 @@ function initVillager(options) {
     // Call text box and insert string into it
   };
   
+  return that;
 }
