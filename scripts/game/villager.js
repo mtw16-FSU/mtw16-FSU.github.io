@@ -6,6 +6,8 @@ function initVillager(options) {
   that.startY = 1000;
   that.endX = 2100;
   that.endY = 1100;
+  that.drawText = false;
+  that.sentence = "I am a villager";
   
   that.draw = function() {
     ctx.fillStyle = "#FF0000";
