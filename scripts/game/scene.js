@@ -349,7 +349,7 @@ function drawTextBox(sentence,position) {
 function textHandler(event) {
 	var keyCode = event.which || event.keyCode;
 	if ( keyCode == 32 ) {
-	 if ( Villager.sentence.length <= printText*10 + 20 ){
+	 if ( Villager.sentence.length <= printText*30 + 60 ){
 	   Villager.drawText = false;
 	   document.onkeydown = null;
 	   document.onkeydown = levelHandler;
