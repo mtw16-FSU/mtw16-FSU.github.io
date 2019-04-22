@@ -335,13 +335,13 @@ function initTextBox() {
 }
 
 function drawTextBox(sentence,position) {
-	if ( sentence.length != 0 && position < printText+2 ) {
+	if ( sentence.length != 0 ) {
 	   ctx.fillStyle = "#FFFFFF";
 	   ctx.fillRect(width*.10,height*.70,width*.80,height*.20);
 	   ctx.font = "60px Sniglet";
 	   ctx.fillStyle = "#000000";
-	   ctx.fillText(sentence.substring(position*10,position*10+10),width*.11,height*(.78 + 0.8*(position-printText)));
-	   drawTextBox(sentence.substring(position*10+10,sentence.length),position++);
+	   ctx.fillText(sentence.substring(position*10,position*10+10),width*.11,height*.78);
+	   ctx.fillText(sentence.substring(position*10+10,position*10+20),width*.11,height*(.86));
 	}
 }
 
