@@ -340,8 +340,9 @@ function drawTextBox(sentence,position) {
 	   ctx.fillRect(width*.10,height*.70,width*.80,height*.20);
 	   ctx.font = "60px Sniglet";
 	   ctx.fillStyle = "#000000";
-	   ctx.fillText(sentence.substring(position*10,position*10+10),width*.11,height*.78);
-	   ctx.fillText(sentence.substring(position*10+10,position*10+20),width*.11,height*(.86));
+	   ctx.fillText(sentence.substring(position*30,position*30+30),width*.11,height*.78);
+	if ( sentence.length < position*30+30 )
+	   ctx.fillText(sentence.substring(position*30+30,position*30+60),width*.11,height*(.86));
 	}
 }
 
