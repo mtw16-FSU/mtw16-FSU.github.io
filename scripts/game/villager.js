@@ -7,7 +7,7 @@ function initVillager(options) {
   that.endX = 2050;
   that.endY = 1050;
 
-  that.draw() = function(ctx) {
+  that.draw() = function() {
     ctx.fillStyle = "#FF0000";
     ctx.fillRect(that.startX,that.startY,50,50);
   };
