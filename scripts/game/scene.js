@@ -7,7 +7,7 @@ Player = new initPlayer({
 
 Enemy = new initEnemy({}); 
 
-Villager1 = new initVillager({});
+Villager = new initVillager({});
 
 //handles switching between different scenes and drawing from the scene that is loaded in
 function SceneHandler(scene){
