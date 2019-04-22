@@ -286,6 +286,10 @@ function levelHandler(){
         case 70: //f, toggles full screen
             toggleFullScreen();
             break;
+	case 86: //v
+	    if ( Player.iBox[0],Player.iBox[1],Player.iBox[2],Player.iBox[3],Villager.X1,Villager.X2,Villager.Y1,Villager.Y2 == true )
+		 alert("yay");
+	    break;
         default:
             break;
     }
