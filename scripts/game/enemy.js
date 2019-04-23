@@ -1,5 +1,6 @@
 var enemyImage = new Image();
 enemyImage.src = "images/spritesheets/skeleton_sprites.png";
+var enemyAnimation;
 
 function initEnemy(options) {
 	var that = {};
@@ -39,5 +40,7 @@ function basicEnemyAI() {
 		Enemy.Y+=5;
 	
 	if ( Enemy.death == false )
-		setTimeout(basicEnemyAI,1000/20);
+		enemyAnimation = requestAnimationFrame(basicEnemyAI);
+	else		
+    		cancelAnimationFrame(enemyAnimation);
 }
