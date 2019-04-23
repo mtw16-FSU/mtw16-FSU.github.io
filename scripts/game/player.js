@@ -54,7 +54,7 @@ function initPlayer(options) {
 			that.iBox[1]+=5;
 		}
 			
-		if (Right) 
+		if (Right)
 			that.direction = 3;
 		else if (Left) 
 			that.direction = 1;
@@ -63,6 +63,8 @@ function initPlayer(options) {
 		else if (Up)
 			that.direction = 0;
 		
+		changeIBox(that.direction,iBox,that.X,that.Y); 
+		 
 		if ( Up || Right || Down || Left ) {
 			that.aFrame++;
 			if ( that.aFrame == 9 )
@@ -114,6 +116,33 @@ function initPlayer(options) {
 	};
 	
 	return that;
+}
+
+function changeIBox(dir,iBox,X,Y) {
+	if ( dir == 0 ) { // up
+		iBox[0] = X+50;
+		iBox[1] = X+80;
+		iBox[2] = Y-16;
+		iBox[3] = Y+15;
+	}
+	else if ( dir == 1 ) { // left
+		iBox[0] = X+105;
+		iBox[1] = X+135;
+		iBox[2] = Y+57;
+		iBox[3] = Y+88;
+	}
+	else if ( dir == 2 ) { // down 
+		iBox[0] = X+50;
+		iBox[1] = X+80;
+		iBox[2] = Y+140;
+		iBox[3] = Y+171;
+	}
+	else { // right 
+		iBox[0] = X-45;
+		iBox[1] = X-15;
+		iBox[2] = Y+57;
+		iBox[3] = Y+88;	
+	}
 }
 
 function swordCollision(that,Enemy) {
