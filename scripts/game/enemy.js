@@ -28,15 +28,15 @@ function initEnemy(options) {
 
 function basicEnemyAI() {
 	if ( Player.standRight < Enemy.X ) 
-		Enemy.X-=2;
+		Enemy.X-=5;
 	else if ( Player.standLeft > Enemy.X )
-		Enemy.X+=2;
+		Enemy.X+=5;
 	
 	if ( Player.standDown < Enemy.Y )
-		Enemy.Y-=2;
+		Enemy.Y-=5;
 	else if ( Player.standUp > Enemy.Y )
-		Enemy.Y+=2;
+		Enemy.Y+=5;
 	
 	if ( Enemy.death == false )
-		setTimeout(basicEnemyAI,1000/10);
+		setTimeout(basicEnemyAI,1000/20);
 }
