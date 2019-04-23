@@ -12,6 +12,10 @@ Villager = new initVillager({});
 // Helps Textbox Printing
 printText = 0;
 
+//detects if all images have been loaded in before strtaing the level
+var isImage1Loaded = false;
+var isImage2Loaded = false;
+
 //handles switching between different scenes and drawing from the scene that is loaded in
 function SceneHandler(scene){
     this.scene = scene,
@@ -78,13 +82,11 @@ function Scene(name, map){
         if(isLevel){
             var tiles1 = [];
             var tiles2 = [];   
-
-		var image1Loaded = false;
-		var image2Loaded = false;
 		
 	    //creates temporary canvas to draw the map file on so its
 	    //pixel data can be extracted to draw the map
             var canvas = document.createElement('canvas');
+	    var canvas2 = document.createElement('canvas');
 	    image1.onload = function(){
 		//draws image to hidden canvas
                 canvas.width = image1.width;
@@ -111,14 +113,19 @@ function Scene(name, map){
                 map.rowSize = image1.height;
                 map.colSize = image1.width;
 		    
-		image1Loaded = true;
+		isImage1Loaded = true;
+		    
+		if(isImage1Loaded && isImage2Loaded){
+			drawing = requestAnimationFrame(sceneHandler.drawScene);
+			isImage1Loaded = false;
+			isImage2Loaded = false;
+		}
             }
 
 	    //repeats the same process for loading information about the foreground tiles
             image2.onload = function(){
-                while (!image1Loaded){}
-		canvas.getContext('2d').drawImage(image2,0,0,image1.width,image1.height);
-                pixelData = canvas.getContext('2d').getImageData(0,0,image2.width,image2.height).data;
+		canvas2.getContext('2d').drawImage(image2,0,0,image1.width,image1.height);
+                pixelData = canvas2.getContext('2d').getImageData(0,0,image2.width,image2.height).data;
                 for(var i = 0; i < image2.height; i++){
                    var row = i * image2.width * 4;
                    var foreTiles = [];
@@ -130,8 +137,13 @@ function Scene(name, map){
                 
                 map.foregroundTiles = tiles2;
             
-	    	image2Loaded = true;
-		drawing = requestAnimationFrame(sceneHandler.drawScene);
+	    	isImage2Loaded = true;
+		    
+		if(isImage1Loaded && isImage2Loaded){
+			drawing = requestAnimationFrame(sceneHandler.drawScene);
+			isImage1Loaded = false;
+			isImage2Loaded = false;
+		}
 	    }
             
             //sets default values for the level
