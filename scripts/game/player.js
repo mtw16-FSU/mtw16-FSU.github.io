@@ -108,6 +108,10 @@ function initPlayer(options) {
 				pRight = false;
 				pUp = false;
 				pDown = false;
+				up = false;
+				left = false;
+				right = false;
+				down = false;
 				Player.aFrame = 0;
 				Player.whichAction = "stand";
 				action = startWalk;
