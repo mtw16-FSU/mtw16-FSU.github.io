@@ -165,6 +165,7 @@ function Scene(name, map){
         }
         
 	//begins game loop
+	drawing = requestAnimationFrame(sceneHandler.loadScene);
         //drawing = requestAnimationFrame(sceneHandler.drawScene);
     },
     this.draw = function(){
