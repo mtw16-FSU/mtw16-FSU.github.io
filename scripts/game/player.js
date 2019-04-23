@@ -63,7 +63,7 @@ function initPlayer(options) {
 		else if (Up)
 			that.direction = 0;
 		
-		changeIBox(that.direction,iBox,that.X,that.Y); 
+		changeIBox(that.direction,that.iBox,that.X,that.Y); 
 		 
 		if ( Up || Right || Down || Left ) {
 			that.aFrame++;
