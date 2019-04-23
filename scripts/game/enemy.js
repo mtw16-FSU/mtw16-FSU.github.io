@@ -38,5 +38,5 @@ function basicEnemyAI() {
 		Enemy.Y+=2;
 	
 	if ( Enemy.death == false )
-		setTimeout(basicEnemyAI,1000/4);
+		setTimeout(basicEnemyAI,1000/10);
 }
