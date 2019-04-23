@@ -29,12 +29,12 @@ function initEnemy(options) {
 function basicEnemyAI() {
 	if ( Player.standRight < Enemy.X ) 
 		Enemy.X-=5;
-	else if ( Player.standLeft > Enemy.X )
+	if ( Player.standLeft > Enemy.X )
 		Enemy.X+=5;
 	
 	if ( Player.standDown < Enemy.Y )
 		Enemy.Y-=5;
-	else if ( Player.standUp > Enemy.Y )
+	if ( Player.standUp > Enemy.Y )
 		Enemy.Y+=5;
 	
 	if ( Enemy.death == false )
