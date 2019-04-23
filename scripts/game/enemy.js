@@ -37,5 +37,6 @@ function basicEnemyAI() {
 	else if ( Player.standUp > Enemy.Y )
 		Enemy.Y+=2;
 	
-	setTimeout(basicEnemyAI,1000/4);
+	if ( Enemy.death == false )
+		setTimeout(basicEnemyAI,1000/4);
 }
