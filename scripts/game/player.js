@@ -90,7 +90,7 @@ function initPlayer(options) {
 		setTimeout(animateAttack,0,that)
 	};
 	
-	that.canDamage() {
+	that.canDamage = function() {
 		Player.isDamaged = false;	
 	}
 	
