@@ -90,9 +90,9 @@ function initPlayer(options) {
 	
 	that.collisionCheck = function(Enemy) {
 		// Check X collision
-		if ( that.standRight >= Enemy.X+((dx/8)*64) && that.standLeft <= Enemy.X+((dx/8)*64)+Enemy.length && Enemy.death == false ) {
+		if ( that.standRight >= Enemy.X+((dx/8)*64) && that.standLeft <= Enemy.X+((dx/8)*64)+Enemy.lengthX && Enemy.death == false ) {
 			// Check Y collision
-			if ( that.standDown >= Enemy.Y+((dy/8)*64) && that.standUp <= Enemy.Y + ((dy/8)*64) + Enemy.length) {
+			if ( that.standDown >= Enemy.Y+((dy/8)*64) && that.standUp <= Enemy.Y + ((dy/8)*64) + Enemy.lengthY) {
 				Player.health -= 20;
 				dx -= 32;
 				dy -= 32;
@@ -194,38 +194,38 @@ function swordCollision(that,Enemy) {
 
 // Collision with sword and an enemy
 function collisionBetter(theX,theY,Enemy) {
-	if ( theX >= Enemy.X+((dx/8)*64) && theX <= Enemy.X+((dx/8)*64)+Enemy.length && theY >= Enemy.Y+((dy/8)*64) && theY <=Enemy.Y+((dy/8)*64)+Enemy.length )
+	if ( theX >= Enemy.X+((dx/8)*64) && theX <= Enemy.X+((dx/8)*64)+Enemy.lengthX && theY >= Enemy.Y+((dy/8)*64) && theY <=Enemy.Y+((dy/8)*64)+Enemy.lengthY )
 		return true;
 		// y = +/- sqrt(r^2 - (x-h)^2) + k
 	y1 = Math.sqrt(225-((Enemy.X+((dx/8)*64)-theX)*(Enemy.X+((dx/8)*64)-theX))) + theY;
 	y2 = -Math.sqrt(225-((Enemy.X+((dx/8)*64)-theX)*(Enemy.X+((dx/8)*64)-theX))) + theY;
-	if ( y1 >= Enemy.Y+((dy/8)*64) && y1 <= Enemy.Y+((dy/8)*64)+Enemy.length )
+	if ( y1 >= Enemy.Y+((dy/8)*64) && y1 <= Enemy.Y+((dy/8)*64)+Enemy.lengthY )
 		return true;
-	else if ( y2 >= Enemy.Y+((dy/8)*64) && y2 <= Enemy.Y+((dy/8)*64)+Enemy.length)
+	else if ( y2 >= Enemy.Y+((dy/8)*64) && y2 <= Enemy.Y+((dy/8)*64)+Enemy.lengthY)
 		return true;
 	
-	y1 = Math.sqrt(225-((Enemy.X+((dx/8)*64)+Enemy.length-theX)*(Enemy.X+((dx/8)*64)+Enemy.length-theX))) + theY;
-	y2 = -Math.sqrt(225-((Enemy.X+((dx/8)*64)+Enemy.length-theX)*(Enemy.X+((dx/8)*64)+Enemy.length-theX))) + theY;	
-	if ( y1 >= Enemy.Y+((dy/8)*64) && y1 <= Enemy.Y+((dy/8)*64)+Enemy.length )
+	y1 = Math.sqrt(225-((Enemy.X+((dx/8)*64)+Enemy.lengthX-theX)*(Enemy.X+((dx/8)*64)+Enemy.lengthX-theX))) + theY;
+	y2 = -Math.sqrt(225-((Enemy.X+((dx/8)*64)+Enemy.lengthX-theX)*(Enemy.X+((dx/8)*64)+Enemy.lengthX-theX))) + theY;	
+	if ( y1 >= Enemy.Y+((dy/8)*64) && y1 <= Enemy.Y+((dy/8)*64)+Enemy.lengthY )
 		return true;
-	else if ( y2 >= Enemy.Y+((dy/8)*64) && y2 <= Enemy.Y+((dy/8)*64)+Enemy.length)
+	else if ( y2 >= Enemy.Y+((dy/8)*64) && y2 <= Enemy.Y+((dy/8)*64)+Enemy.lengthY)
 		return true;
 	
 		// x = +/- sqrt(r^2 - (y-k)^2) + h
 	x1 = Math.sqrt(225-((Enemy.Y+((dy/8)*64)-theY)*(Enemy.Y+((dy/8)*64)-theY))) + theX;
 	x2 = -Math.sqrt(225-((Enemy.Y+((dy/8)*64)-theY)*(Enemy.Y+((dy/8)*64)-theY))) + theX;
 
-	if ( x1 >= Enemy.X+((dx/8)*64) && x1 <= Enemy.X+((dx/8)*64)+Enemy.length )
+	if ( x1 >= Enemy.X+((dx/8)*64) && x1 <= Enemy.X+((dx/8)*64)+Enemy.lengthX )
 		return true;
-	else if ( x2 >= Enemy.X+((dx/8)*64) && x2 <= Enemy.X+((dx/8)*64)+Enemy.length )
+	else if ( x2 >= Enemy.X+((dx/8)*64) && x2 <= Enemy.X+((dx/8)*64)+Enemy.lengthX )
 		return true;
 
-	x1 = Math.sqrt(225-((Enemy.Y+((dy/8)*64)+Enemy.length-theY)*(Enemy.Y+((dy/8)*64)+Enemy.length-theY))) + theX;
-	x2 = -Math.sqrt(225-((Enemy.Y+((dy/8)*64)+Enemy.length-theY)*(Enemy.Y+((dy/8)*64)+Enemy.length-theY))) + theX;
+	x1 = Math.sqrt(225-((Enemy.Y+((dy/8)*64)+Enemy.lengthY-theY)*(Enemy.Y+((dy/8)*64)+Enemy.lengthY-theY))) + theX;
+	x2 = -Math.sqrt(225-((Enemy.Y+((dy/8)*64)+Enemy.lengthY-theY)*(Enemy.Y+((dy/8)*64)+Enemy.lengthY-theY))) + theX;
 
-	if ( x1 >= Enemy.X+((dx/8)*64) && x1 <= Enemy.X+((dx/8)*64)+Enemy.length )
+	if ( x1 >= Enemy.X+((dx/8)*64) && x1 <= Enemy.X+((dx/8)*64)+Enemy.lengthX )
 		return true;
-	else if ( x2 >= Enemy.X+((dx/8)*64) && x2 <= Enemy.X+((dx/8)*64)+Enemy.length )
+	else if ( x2 >= Enemy.X+((dx/8)*64) && x2 <= Enemy.X+((dx/8)*64)+Enemy.lengthX )
 		return true;
 
 	return false;
