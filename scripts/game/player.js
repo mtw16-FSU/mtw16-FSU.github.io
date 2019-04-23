@@ -23,21 +23,36 @@ function initPlayer(options) {
 	that.health = 100;
 	that.weapon = "shortSword";
 	that.death = false;
+	// x1,x2,y1,y2
+	that.iBox = [that.X+105,that.X+135,that.Y+57,that.Y+88];
 	
 	that.draw = function() {
 		ctx.drawImage(that.image,63*that.aFrame,63*(action+that.direction),63,63,that.X,that.Y,126,126);
+		ctx.fillRect(that.iBox[0],that.iBox[2],30,31);
 	};
 	
 	that.moveCheck = function(Up,Down,Left,Right,width,height) {
 	 if ( that.whichAction == "stand" ) {
-		if (!up && Up && that.Y-5 >= -28)
+		if (!up && Up && that.Y-5 >= -28) {
 			that.Y-=5;
-		if (!down && Down && that.Y+5 <= height-128)
+			that.iBox[2]-=5;
+			that.iBox[3]-=5;
+		}
+		if (!down && Down && that.Y+5 <= height-128) {
 			that.Y+=5;
-		if (!left && Left && that.X-5 >= -28)
+			that.iBox[2]+=5;
+			that.iBox[3]+=5;
+		}
+		if (!left && Left && that.X-5 >= -28) {
 			that.X-=5;
-		if (!right && Right && that.X+5 <= width-100) 
+			that.iBox[0]-=5;
+			that.iBox[1]-=5;
+		}
+		if (!right && Right && that.X+5 <= width-100) {
 			that.X+=5;
+			that.iBox[0]+=5;
+			that.iBox[1]+=5;
+		}
 			
 		if (Right) 
 			that.direction = 3;
@@ -148,6 +163,7 @@ function swordCollision(that,Enemy) {
 	return false;
 }
 
+// Collision with sword and an enemy
 function collisionBetter(theX,theY,Enemy) {
 	if ( theX >= Enemy.X+((dx/8)*64) && theX <= Enemy.X+((dx/8)*64)+Enemy.length && theY >= Enemy.Y+((dy/8)*64) && theY <=Enemy.Y+((dy/8)*64)+Enemy.length )
 		return true;
@@ -184,7 +200,22 @@ function collisionBetter(theX,theY,Enemy) {
 		return true;
 
 	return false;
+}
 
+// Collision that deals with squares
+function collisionInteraction(pX1,pX2,pY1,pY2,oX1,oX2,oY1,oY2) {
+	if ( pX1 >= oX1 && pX2 <= oX2 && pY1 >= oY1 && pY2 <= oY2 )
+		return true;
+	
+	if ( pX1 >= oX1 && pX1 <= oX2 && oY1 <= pY2 && oY2 >= pY1) // pX1 collision
+		return true;
+	else if ( pX2 >= oX1 && pX2 <= oX2 && oY1 <= pY2 && oY2 >= pY1 ) // pX2 collision
+		return true;
+	else if ( pY1 >= oY1 && pY1 <= oY2 && oX1 <= pX2 && oX2 >= pX1 ) // pY1 collision
+		return true;
+	else if ( pY2 >= oY1 && pY2 <= oY2 && oX1 <= pX2 && oX2 >= pX1 ) // pY2 collision
+		return true;
+  	return false;
 }
 
 function animateAttack(that) {
