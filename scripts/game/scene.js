@@ -90,6 +90,7 @@ function SceneHandler(scene){
 	}
 	    
         drawing = requestAnimationFrame(sceneHandler.loadScene);
+    }
 }
 
 //handles loading maps and the logic for them
