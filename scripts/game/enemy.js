@@ -28,12 +28,12 @@ function initEnemy(options) {
 }
 
 function basicEnemyAI() {
-	if ( Player.standRight < Enemy.X +(dx/8)*64) 
+	if ( Player.standRight < Enemy.X +(dx/8)*64+Enemy.lengthX) 
 		Enemy.X-=5;
 	if ( Player.standLeft > Enemy.X + (dx/8)*64 )
 		Enemy.X+=5;
 	
-	if ( Player.standDown < Enemy.Y + (dy/8)*64)
+	if ( Player.standDown < Enemy.Y + (dy/8)*64+Enemy.lengthY)
 		Enemy.Y-=5;
 	if ( Player.standUp > Enemy.Y + (dy/8)*64)
 		Enemy.Y+=5;
