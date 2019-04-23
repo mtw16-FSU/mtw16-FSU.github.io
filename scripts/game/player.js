@@ -117,7 +117,7 @@ function initPlayer(options) {
 				action = startWalk;
 				Player.isDamaged = true;
 				setTimeout(Player.canDamage,3000);
-				alert("YOU TOUCH MR.BONES");
+				//alert("YOU TOUCH MR.BONES");
 				if(Player.health <= 0){
 					this.health = 120;
 					this.death = true;
