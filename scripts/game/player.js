@@ -273,7 +273,7 @@ function animateAttack(that) {
 		action = startWalk;
 	}
 	else 
-		setTimeout(animateAttack,1000/384,that); 
+		setTimeout(animateAttack,0,that); 
    }
 }
 
