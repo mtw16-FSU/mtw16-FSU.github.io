@@ -13,7 +13,7 @@ function initEnemy(options) {
 	//Call the draw function to create basic enemy rectangle
 	that.draw = function() {
 		if ( that.death == false ) {
-			basicEnemyAI(that);
+			basicEnemyAI();
 			ctx.drawImage(enemyImage,0,128,64,64,that.X+(dx/8)*64,that.Y+(dy/8)*64,128,128);
 		}
 	};
@@ -27,17 +27,16 @@ function initEnemy(options) {
 	return that;
 }
 
-function basicEnemyAI(that,playerX,playerY) {
-	if ( playerX < that.X ) 
-		that.X-=2;
-	else if ( playerX > that.X )
-		that.X+=2;
+function basicEnemyAI() {
+	if ( Player.standRight < Enemy.X ) 
+		Enemy.X-=2;
+	else if ( Player.standLeft > Enemy.X )
+		Enemy.X+=2;
 	
-	if ( playerY < that.Y )
-		that.Y-=2;
-	else if ( playerY > that.Y )
-		that.Y+=2;
+	if ( Player.standDown < Enemy.Y )
+		Enemy.Y-=2;
+	else if ( Player.standUp > Enemy.Y )
+		Enemy.Y+=2;
 	
-	//  call this function with players coords
-	// Can either be constantly aware or always pass in
+	setTimeout(basicEnemyAI,1000/4);
 }
