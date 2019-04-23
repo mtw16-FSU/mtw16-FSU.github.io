@@ -111,7 +111,7 @@ function initPlayer(options) {
 		if ( swordCollision(that,Enemy) == true && Enemy.death == false ) {
 			Enemy.health -= 20;
 			Enemy.checkDeath();
-			//alert(Enemy.health);
+			alert(Enemy.health);
 		}
 	};
 	
