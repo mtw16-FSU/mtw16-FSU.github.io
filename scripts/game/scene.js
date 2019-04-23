@@ -15,6 +15,7 @@ printText = 0;
 //detects if all images have been loaded in before strtaing the level
 var isImage1Loaded = false;
 var isImage2Loaded = false;
+var isSpreadsheetLoaded = false;
 
 //handles switching between different scenes and drawing from the scene that is loaded in
 function SceneHandler(scene){
@@ -29,6 +30,21 @@ function SceneHandler(scene){
 		cancelAnimationFrame(drawing);
             	showStartMenu();
 	}
+    },
+    this.loadScene = function(){
+    
+	if(isSpreadsheetLoaded && isImage1Loaded && isImage2Loaded){
+	   isImage1Loaded = false;
+	   isImage2Loaded = false;
+	   isSpreadsheetLoaded = false;
+		
+	   
+	   cancelAnimationFrame(drawing);
+			
+           drawing = requestAnimationFrame(sceneHandler.drawScene);
+	}
+	    
+        drawing = requestAnimationFrame(sceneHandler.loadScene);
     }
 }
 
@@ -114,12 +130,6 @@ function Scene(name, map){
                 map.colSize = image1.width;
 		    
 		isImage1Loaded = true;
-		    
-		if(isImage1Loaded && isImage2Loaded){
-			drawing = requestAnimationFrame(sceneHandler.drawScene);
-			isImage1Loaded = false;
-			isImage2Loaded = false;
-		}
             }
 
 	    //repeats the same process for loading information about the foreground tiles
@@ -138,12 +148,6 @@ function Scene(name, map){
                 map.foregroundTiles = tiles2;
             
 	    	isImage2Loaded = true;
-		    
-		if(isImage1Loaded && isImage2Loaded){
-			drawing = requestAnimationFrame(sceneHandler.drawScene);
-			isImage1Loaded = false;
-			isImage2Loaded = false;
-		}
 	    }
             
             //sets default values for the level
@@ -206,6 +210,9 @@ function Map(name){
     },
     this.getMap = function(sheetName){
         this.image.src = sheetName;
+	this.image.onload = function(){
+	     isSpreadsheetLoaded = true;
+	};
     }
 }
 
