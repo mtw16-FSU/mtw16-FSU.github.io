@@ -4,16 +4,17 @@ enemyImage.src = "images/spritesheets/skeleton_sprites.png";
 function initEnemy(options) {
 	var that = {};
 	//initialize Enemy variables
-	that.X = 500;
-	that.Y = 400;
+	that.X = 540;
+	that.Y = 420;
 	that.health = 300;
-	that.length = 100;
+	that.lengthX = 50;
+	that.lengthY = 105;
 	that.death = false;
 	
 	//Call the draw function to create basic enemy rectangle
 	that.draw = function() {
 		if ( that.death == false ) {
-			ctx.drawImage(enemyImage,0,128,64,64,that.X+(dx/8)*64,that.Y+(dy/8)*64,128,128);
+			ctx.drawImage(enemyImage,0,128,64,64,that.X+(dx/8)*64-40,that.Y+(dy/8)*64-20,128,128);
 		}
 	};
 	
