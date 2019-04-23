@@ -6,7 +6,7 @@ Player = new initPlayer({
     });
 
 Enemy = new initEnemy({}); 
-
+basicEnemyAI();
 Villager = new initVillager({});
 
 // Helps Textbox Printing

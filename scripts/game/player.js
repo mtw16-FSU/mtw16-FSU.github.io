@@ -22,7 +22,9 @@ function initPlayer(options) {
 	that.standDown = that.Y + 125;
 	that.health = 100;
 	that.weapon = "shortSword";
+	that.isDamaged = false;
 	that.death = false;
+	
 	// x1,x2,y1,y2
 	that.iBox = [that.X+105,that.X+135,that.Y+57,that.Y+88];
 	
@@ -88,11 +90,17 @@ function initPlayer(options) {
 		setTimeout(animateAttack,0,that)
 	};
 	
+	that.canDamage = function() {
+		Player.isDamaged = false;	
+	}
+	
 	that.collisionCheck = function(Enemy) {
 		// Check X collision
-		if ( that.standRight >= Enemy.X+((dx/8)*64) && that.standLeft <= Enemy.X+((dx/8)*64)+Enemy.length && Enemy.death == false ) {
+		if ( Player.isDamaged == true ) 
+			return;
+		if ( that.standRight >= Enemy.X+((dx/8)*64) && that.standLeft <= Enemy.X+((dx/8)*64)+Enemy.lengthX && Enemy.death == false ) {
 			// Check Y collision
-			if ( that.standDown >= Enemy.Y+((dy/8)*64) && that.standUp <= Enemy.Y + ((dy/8)*64) + Enemy.length) {
+			if ( that.standDown >= Enemy.Y+((dy/8)*64) && that.standUp <= Enemy.Y + ((dy/8)*64) + Enemy.lengthY) {
 				Player.health -= 20;
 				dx -= 32;
 				dy -= 32;
@@ -100,7 +108,16 @@ function initPlayer(options) {
 				pRight = false;
 				pUp = false;
 				pDown = false;
-				alert("YOU TOUCH MR.BONES");
+				up = false;
+				left = false;
+				right = false;
+				down = false;
+				Player.aFrame = 0;
+				Player.whichAction = "stand";
+				action = startWalk;
+				Player.isDamaged = true;
+				setTimeout(Player.canDamage,3000);
+				//alert("YOU TOUCH MR.BONES");
 				if(Player.health <= 0){
 					this.health = 120;
 					this.death = true;
@@ -194,38 +211,38 @@ function swordCollision(that,Enemy) {
 
 // Collision with sword and an enemy
 function collisionBetter(theX,theY,Enemy) {
-	if ( theX >= Enemy.X+((dx/8)*64) && theX <= Enemy.X+((dx/8)*64)+Enemy.length && theY >= Enemy.Y+((dy/8)*64) && theY <=Enemy.Y+((dy/8)*64)+Enemy.length )
+	if ( theX >= Enemy.X+((dx/8)*64) && theX <= Enemy.X+((dx/8)*64)+Enemy.lengthX && theY >= Enemy.Y+((dy/8)*64) && theY <=Enemy.Y+((dy/8)*64)+Enemy.lengthY )
 		return true;
 		// y = +/- sqrt(r^2 - (x-h)^2) + k
 	y1 = Math.sqrt(225-((Enemy.X+((dx/8)*64)-theX)*(Enemy.X+((dx/8)*64)-theX))) + theY;
 	y2 = -Math.sqrt(225-((Enemy.X+((dx/8)*64)-theX)*(Enemy.X+((dx/8)*64)-theX))) + theY;
-	if ( y1 >= Enemy.Y+((dy/8)*64) && y1 <= Enemy.Y+((dy/8)*64)+Enemy.length )
+	if ( y1 >= Enemy.Y+((dy/8)*64) && y1 <= Enemy.Y+((dy/8)*64)+Enemy.lengthY )
 		return true;
-	else if ( y2 >= Enemy.Y+((dy/8)*64) && y2 <= Enemy.Y+((dy/8)*64)+Enemy.length)
+	else if ( y2 >= Enemy.Y+((dy/8)*64) && y2 <= Enemy.Y+((dy/8)*64)+Enemy.lengthY)
 		return true;
 	
-	y1 = Math.sqrt(225-((Enemy.X+((dx/8)*64)+Enemy.length-theX)*(Enemy.X+((dx/8)*64)+Enemy.length-theX))) + theY;
-	y2 = -Math.sqrt(225-((Enemy.X+((dx/8)*64)+Enemy.length-theX)*(Enemy.X+((dx/8)*64)+Enemy.length-theX))) + theY;	
-	if ( y1 >= Enemy.Y+((dy/8)*64) && y1 <= Enemy.Y+((dy/8)*64)+Enemy.length )
+	y1 = Math.sqrt(225-((Enemy.X+((dx/8)*64)+Enemy.lengthX-theX)*(Enemy.X+((dx/8)*64)+Enemy.lengthX-theX))) + theY;
+	y2 = -Math.sqrt(225-((Enemy.X+((dx/8)*64)+Enemy.lengthX-theX)*(Enemy.X+((dx/8)*64)+Enemy.lengthX-theX))) + theY;	
+	if ( y1 >= Enemy.Y+((dy/8)*64) && y1 <= Enemy.Y+((dy/8)*64)+Enemy.lengthY )
 		return true;
-	else if ( y2 >= Enemy.Y+((dy/8)*64) && y2 <= Enemy.Y+((dy/8)*64)+Enemy.length)
+	else if ( y2 >= Enemy.Y+((dy/8)*64) && y2 <= Enemy.Y+((dy/8)*64)+Enemy.lengthY)
 		return true;
 	
 		// x = +/- sqrt(r^2 - (y-k)^2) + h
 	x1 = Math.sqrt(225-((Enemy.Y+((dy/8)*64)-theY)*(Enemy.Y+((dy/8)*64)-theY))) + theX;
 	x2 = -Math.sqrt(225-((Enemy.Y+((dy/8)*64)-theY)*(Enemy.Y+((dy/8)*64)-theY))) + theX;
 
-	if ( x1 >= Enemy.X+((dx/8)*64) && x1 <= Enemy.X+((dx/8)*64)+Enemy.length )
+	if ( x1 >= Enemy.X+((dx/8)*64) && x1 <= Enemy.X+((dx/8)*64)+Enemy.lengthX )
 		return true;
-	else if ( x2 >= Enemy.X+((dx/8)*64) && x2 <= Enemy.X+((dx/8)*64)+Enemy.length )
+	else if ( x2 >= Enemy.X+((dx/8)*64) && x2 <= Enemy.X+((dx/8)*64)+Enemy.lengthX )
 		return true;
 
-	x1 = Math.sqrt(225-((Enemy.Y+((dy/8)*64)+Enemy.length-theY)*(Enemy.Y+((dy/8)*64)+Enemy.length-theY))) + theX;
-	x2 = -Math.sqrt(225-((Enemy.Y+((dy/8)*64)+Enemy.length-theY)*(Enemy.Y+((dy/8)*64)+Enemy.length-theY))) + theX;
+	x1 = Math.sqrt(225-((Enemy.Y+((dy/8)*64)+Enemy.lengthY-theY)*(Enemy.Y+((dy/8)*64)+Enemy.lengthY-theY))) + theX;
+	x2 = -Math.sqrt(225-((Enemy.Y+((dy/8)*64)+Enemy.lengthY-theY)*(Enemy.Y+((dy/8)*64)+Enemy.lengthY-theY))) + theX;
 
-	if ( x1 >= Enemy.X+((dx/8)*64) && x1 <= Enemy.X+((dx/8)*64)+Enemy.length )
+	if ( x1 >= Enemy.X+((dx/8)*64) && x1 <= Enemy.X+((dx/8)*64)+Enemy.lengthX )
 		return true;
-	else if ( x2 >= Enemy.X+((dx/8)*64) && x2 <= Enemy.X+((dx/8)*64)+Enemy.length )
+	else if ( x2 >= Enemy.X+((dx/8)*64) && x2 <= Enemy.X+((dx/8)*64)+Enemy.lengthX )
 		return true;
 
 	return false;
@@ -248,6 +265,7 @@ function collisionInteraction(pX1,pX2,pY1,pY2,oX1,oX2,oY1,oY2) {
 }
 
 function animateAttack(that) {
+   if ( that.whichAction == "attack" ) {
 	that.aFrame++;
 	if ( that.aFrame == swordAFrame ) {
 		that.aFrame = 0;
@@ -255,6 +273,7 @@ function animateAttack(that) {
 		action = startWalk;
 	}
 	else 
-		setTimeout(animateAttack,1000/24,that);
+		setTimeout(animateAttack,1000/24,that); 
+   }
 }
 
