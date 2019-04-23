@@ -1,4 +1,5 @@
-
+var villagerImage = new Image();
+villagerImage.src = "images/spritesheets/villager.png";
 
 function initVillager(options) {
   var that = {};
@@ -10,8 +11,7 @@ function initVillager(options) {
   that.sentence = "1234567890 1234567890 1234567890 1234567890 1234567890 1234567890 1234567890 ";
   
   that.draw = function() {
-    ctx.fillStyle = "#FF0000";
-    ctx.fillRect(that.startX + (dx/8)*64,that.startY+(dy/8)*64,100,100);
+    ctx.drawImage(villagerImage,0,128,64,64,that.startX+(dx/8)*64-40,that.startY+(dy/8)*64-20,128,128);
     that.endX = that.startX + (dx/8)*64 + 100;
     that.endY = that.startY + (dy/8)*64 + 100; 
   };
