@@ -100,6 +100,10 @@ function initPlayer(options) {
 				pRight = false;
 				pUp = false;
 				pDown = false;
+				Player.aFrame = 0;
+				Player.whichAction = "stand";
+				action = startWalk;
+				
 				alert("YOU TOUCH MR.BONES");
 				if(Player.health <= 0){
 					this.health = 120;
@@ -248,6 +252,7 @@ function collisionInteraction(pX1,pX2,pY1,pY2,oX1,oX2,oY1,oY2) {
 }
 
 function animateAttack(that) {
+   if ( that.whichAction == "attack" ) {
 	that.aFrame++;
 	if ( that.aFrame == swordAFrame ) {
 		that.aFrame = 0;
@@ -255,6 +260,7 @@ function animateAttack(that) {
 		action = startWalk;
 	}
 	else 
-		setTimeout(animateAttack,1000/24,that);
+		setTimeout(animateAttack,1000/24,that); 
+   }
 }
 
