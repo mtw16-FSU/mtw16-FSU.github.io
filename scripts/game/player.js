@@ -126,10 +126,10 @@ function changeIBox(dir,iBox,X,Y) {
 		iBox[3] = Y+15;
 	}
 	else if ( dir == 1 ) { // left
-		iBox[0] = X+105;
-		iBox[1] = X+135;
+		iBox[0] = X-45;
+		iBox[1] = X-15;
 		iBox[2] = Y+57;
-		iBox[3] = Y+88;
+		iBox[3] = Y+88;	
 	}
 	else if ( dir == 2 ) { // down 
 		iBox[0] = X+50;
@@ -138,10 +138,10 @@ function changeIBox(dir,iBox,X,Y) {
 		iBox[3] = Y+171;
 	}
 	else { // right 
-		iBox[0] = X-45;
-		iBox[1] = X-15;
+		iBox[0] = X+105;
+		iBox[1] = X+135;
 		iBox[2] = Y+57;
-		iBox[3] = Y+88;	
+		iBox[3] = Y+88;
 	}
 }
 
