@@ -22,7 +22,9 @@ function initPlayer(options) {
 	that.standDown = that.Y + 125;
 	that.health = 100;
 	that.weapon = "shortSword";
+	that.isDamaged = false;
 	that.death = false;
+	
 	// x1,x2,y1,y2
 	that.iBox = [that.X+105,that.X+135,that.Y+57,that.Y+88];
 	
@@ -88,8 +90,14 @@ function initPlayer(options) {
 		setTimeout(animateAttack,0,that)
 	};
 	
+	that.canDamage() {
+		Player.isDamaged = false;	
+	}
+	
 	that.collisionCheck = function(Enemy) {
 		// Check X collision
+		if ( Player.isDamaged == true ) 
+			return;
 		if ( that.standRight >= Enemy.X+((dx/8)*64) && that.standLeft <= Enemy.X+((dx/8)*64)+Enemy.lengthX && Enemy.death == false ) {
 			// Check Y collision
 			if ( that.standDown >= Enemy.Y+((dy/8)*64) && that.standUp <= Enemy.Y + ((dy/8)*64) + Enemy.lengthY) {
@@ -103,7 +111,8 @@ function initPlayer(options) {
 				Player.aFrame = 0;
 				Player.whichAction = "stand";
 				action = startWalk;
-				
+				Player.isDamaged = true;
+				setTimeout(Player.canDamage,3000);
 				alert("YOU TOUCH MR.BONES");
 				if(Player.health <= 0){
 					this.health = 120;
