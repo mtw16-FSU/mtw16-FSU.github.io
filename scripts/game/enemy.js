@@ -13,6 +13,7 @@ function initEnemy(options) {
 	//Call the draw function to create basic enemy rectangle
 	that.draw = function() {
 		if ( that.death == false ) {
+			basicEnemyAI(that);
 			ctx.drawImage(enemyImage,0,128,64,64,that.X+(dx/8)*64,that.Y+(dy/8)*64,128,128);
 		}
 	};
@@ -24,4 +25,19 @@ function initEnemy(options) {
 	};
 	
 	return that;
+}
+
+function basicEnemyAI(that,playerX,playerY) {
+	if ( playerX < that.X ) 
+		that.X-=2;
+	else if ( playerX > that.X )
+		that.X+=2;
+	
+	if ( playerY < that.Y )
+		that.Y-=2;
+	else if ( playerY > that.Y )
+		that.Y+=2;
+	
+	//  call this function with players coords
+	// Can either be constantly aware or always pass in
 }
