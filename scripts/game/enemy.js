@@ -30,14 +30,14 @@ function initEnemy(options) {
 
 function basicEnemyAI() {
 	if ( Player.standRight < Enemy.X +(dx/8)*64+Enemy.lengthX) 
-		Enemy.X-=5;
+		Enemy.X-=2;
 	if ( Player.standLeft > Enemy.X + (dx/8)*64 )
-		Enemy.X+=5;
+		Enemy.X+=2;
 	
 	if ( Player.standDown < Enemy.Y + (dy/8)*64+Enemy.lengthY)
-		Enemy.Y-=5;
+		Enemy.Y-=2;
 	if ( Player.standUp > Enemy.Y + (dy/8)*64)
-		Enemy.Y+=5;
+		Enemy.Y+=2;
 	
 	if ( Enemy.death == false )
 		enemyAnimation = requestAnimationFrame(basicEnemyAI);
