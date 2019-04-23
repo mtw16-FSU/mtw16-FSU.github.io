@@ -12,10 +12,13 @@ Villager = new initVillager({});
 // Helps Textbox Printing
 printText = 0;
 
-//detects if all images have been loaded in before strtaing the level
+//detects if all images have been loaded in before starting the level
 var isImage1Loaded = false;
 var isImage2Loaded = false;
 var isSpreadsheetLoaded = false;
+
+var image1;
+var image2;
 
 //handles switching between different scenes and drawing from the scene that is loaded in
 function SceneHandler(scene){
@@ -32,20 +35,61 @@ function SceneHandler(scene){
 	}
     },
     this.loadScene = function(){
-    
-	if(isSpreadsheetLoaded && isImage1Loaded && isImage2Loaded){
+   	if(isSpreadsheetLoaded && isImage1Loaded && isImage2Loaded){
 	   isImage1Loaded = false;
 	   isImage2Loaded = false;
 	   isSpreadsheetLoaded = false;
-		
 	   
+	   var tiles1 = [];
+           var tiles2 = [];   
+
+	   //creates temporary canvas to draw the map file on so its
+	   //pixel data can be extracted to draw the map
+           var canvas = document.createElement('canvas');
+
+	   //draws image to hidden canvas
+           canvas.width = image1.width;
+           canvas.height = image1.height;
+           canvas.getContext('2d').drawImage(image1,0,0,image1.width,image1.height);
+
+	   //gets the pixel data of the map file represented as an array where every 4 indexes
+	   //represent the Red, Green, Blue, and Alpha values of a pixel respectively
+	   var pixelData = canvas.getContext('2d').getImageData(0,0,image1.width,image1.height).data;
+
+	   //goes through the pixel array and converts it to a 2d array where each
+	   //entry represents a type of tile that will be drawn to the screen
+	   for(var i = 0; i < image1.height; i++){
+       		    var row = i * image1.width * 4;
+		    var backTiles = [];
+                    for(var j = 0; j < image1.width*4; j += 4){
+                        backTiles.push([pixelData[row+j+1],y=pixelData[row+j+2]]);
+                    }
+                    tiles1.push(backTiles);
+            }
+
+           scene.map.backgroundTiles = tiles1;
+           scene.map.rowSize = image1.height;
+           scene.map.colSize = image1.width;		
+		
+	   canvas.getContext('2d').drawImage(image2,0,0,image1.width,image1.height);
+           pixelData = canvas.getContext('2d').getImageData(0,0,image2.width,image2.height).data;
+           for(var i = 0; i < image2.height; i++){
+               var row = i * image2.width * 4;
+               var foreTiles = [];
+               for(var j = 0; j < image2.width*4; j += 4){
+                   foreTiles.push([pixelData[row+j+1],y=pixelData[row+j+2]]);
+               }
+               tiles2.push(foreTiles);
+           }
+     
+           scene.map.foregroundTiles = tiles2;
+	  
 	   cancelAnimationFrame(drawing);
 			
            drawing = requestAnimationFrame(sceneHandler.drawScene);
 	}
 	    
         drawing = requestAnimationFrame(sceneHandler.loadScene);
-    }
 }
 
 //handles loading maps and the logic for them
@@ -60,8 +104,10 @@ function Scene(name, map){
         document.onkeydown = null;
         
         var isLevel = true;
-        var image1 = new Image();
-        var image2 = new Image();
+        image1 = new Image();
+        image2 = new Image();
+	    
+    	drawLoadingScreen();
         
         switch(this.name){
             case "Level 1":
@@ -96,57 +142,13 @@ function Scene(name, map){
         }
 
         if(isLevel){
-            var tiles1 = [];
-            var tiles2 = [];   
-		
-	    //creates temporary canvas to draw the map file on so its
-	    //pixel data can be extracted to draw the map
-            var canvas = document.createElement('canvas');
-	    var canvas2 = document.createElement('canvas');
-	    image1.onload = function(){
-		//draws image to hidden canvas
-                canvas.width = image1.width;
-                canvas.height = image1.height;
-                canvas.getContext('2d').drawImage(image1,0,0,image1.width,image1.height);
-                
-		//gets the pixel data of the map file represented as an array where every 4 indexes
-		//represent the Red, Green, Blue, and Alpha values of a pixel respectively
-		var pixelData = canvas.getContext('2d').getImageData(0,0,image1.width,image1.height).data;
-                
-		//goes through the pixel array and converts it to a 2d array where each
-		//entry represents a type of tile that will be drawn to the screen
-		for(var i = 0; i < image1.height; i++){
-		    var row = i * image1.width * 4;
-		    var backTiles = [];
-                    for(var j = 0; j < image1.width*4; j += 4){
-                        backTiles.push([pixelData[row+j+1],y=pixelData[row+j+2]]);
-                    }
-                    tiles1.push(backTiles);
-                }
-                
-                map.backgroundTiles = tiles1;
             
-                map.rowSize = image1.height;
-                map.colSize = image1.width;
-		    
+	    image1.onload = function(){		    
 		isImage1Loaded = true;
             }
 
 	    //repeats the same process for loading information about the foreground tiles
             image2.onload = function(){
-		canvas2.getContext('2d').drawImage(image2,0,0,image1.width,image1.height);
-                pixelData = canvas2.getContext('2d').getImageData(0,0,image2.width,image2.height).data;
-                for(var i = 0; i < image2.height; i++){
-                   var row = i * image2.width * 4;
-                   var foreTiles = [];
-                    for(var j = 0; j < image2.width*4; j += 4){
-                        foreTiles.push([pixelData[row+j+1],y=pixelData[row+j+2]]);
-                    }
-                    tiles2.push(foreTiles);
-                }
-                
-                map.foregroundTiles = tiles2;
-            
 	    	isImage2Loaded = true;
 	    }
             
@@ -424,7 +426,6 @@ function initOptions(){
 
 function drawOptionsScreen(){
     ctx.clearRect(0,0,width,height);
-    drawLoadingScreen();
     
     ctx.drawImage(background, 0, 0, width, height);
 
@@ -462,7 +463,6 @@ function initSaveFile(){
 
 function drawSaveFileScreen(){
     ctx.clearRect(0,0,width,height);
-    drawLoadingScreen();
     ctx.drawImage(background, 0, 0, width, height);
 
     ctx.fillStyle = "white";
