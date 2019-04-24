@@ -22,6 +22,7 @@ function showSignUp(){
     var signup = document.getElementById("signup");
     var login = document.getElementById("login");
 
+    //clears error messages if there is a failed login attempt prior to sign-up
     var formFields = document.getElementsByTagName("input");
     for(var i = 0; i < formFields.length; i++){
         formFields[i].className = "";
