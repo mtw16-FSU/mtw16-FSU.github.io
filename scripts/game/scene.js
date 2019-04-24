@@ -209,7 +209,8 @@ function Map(name){
 		if(!mainMenuOn){
 			Player.moveCheck(pUp,pDown,pLeft,pRight,width,height);
 			Player.draw();
-			Player.collisionCheck(Enemy);
+			for ( i = 0; i < Enemies.length; i++ )
+				Player.collisionCheck(Enemies[i]);
 			Villager.draw();
 			if ( Villager.drawText == true )
 				drawTextBox(Villager.sentence,printText);
