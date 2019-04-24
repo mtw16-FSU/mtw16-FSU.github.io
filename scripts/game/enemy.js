@@ -80,6 +80,7 @@ function basicEnemyAI(Enemy) {
 
 function enemyDeath(Enemy) {
 	Enemy.aFrame++;
+	alert(Enemy.aFrame);
 	if ( Enemy.aFrame == Enemy.deathAFrame ) {
 		Enemy.aFrame = 0;
 		Enemy.death = true;
