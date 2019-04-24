@@ -166,13 +166,13 @@ function changeIBox(dir,iBox,X,Y) {
 }
 
 function drawHealth(Entity) {
-	if ( Entity.type = "Player" ) {
+	if ( Entity.type == "Player" ) {
 	  X = Entity.X;
 	  Y = Entity.Y;
 	}
 	else {
-	  X = Entity.X //- Entity.xOff-(dx/8)*64
-	  Y = Entity.Y //- Entity.yOff-(dy/8)*64
+	  X = Entity.X - Entity.xOff-(dx/8)*64
+	  Y = Entity.Y - Entity.yOff-(dy/8)*64
 	}
 	
 	ctx.fillStyle = "#000000";
