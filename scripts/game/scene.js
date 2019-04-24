@@ -255,7 +255,14 @@ function drawLevel(map, backgroundTiles, foregroundTiles, rowSize, colSize){
     if(((rowSize-1+(dy/8))+0.75)*64 < height || Player.Y < 512){
     	down = false;
     }
-		
+	
+    if ( Player.whichAction == "attack" ) {
+	left = false;
+	right = false;
+	up = false;
+	down = false;
+    }
+	
     //moves map to the left if left arrow key is pressed
     if(left){
 	dx++;
