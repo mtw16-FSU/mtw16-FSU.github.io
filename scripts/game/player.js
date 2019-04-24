@@ -20,6 +20,7 @@ function initPlayer(options) {
 	that.standLeft = that.X +40;
 	that.standUp = that.Y + 20;
 	that.standDown = that.Y + 125;
+	that.totalHealth = 100;
 	that.health = 100;
 	that.weapon = "shortSword";
 	that.isDamaged = false;
