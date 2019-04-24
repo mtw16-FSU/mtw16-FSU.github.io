@@ -29,7 +29,11 @@ function initEnemy(options) {
 		if ( that.death == false ) {
 			if ( that.health > 0 )
 			basicEnemyAI(that);
-			else 
+			else if ( that.health <= 0 && that.action != 12 ) {
+			that.action = 12;
+			that.aFrame = 0;	
+			}
+			else
 			enemyDeath(that);
 			ctx.drawImage(enemyImage,64*that.aFrame,64*(that.direction+that.action),64,64,that.X+(dx/8)*64-that.xOff,that.Y+(dy/8)*64-that.yOff,128,128);
 			drawHealth(that);
@@ -72,11 +76,6 @@ function basicEnemyAI(Enemy) {
 	Enemy.aFrame++;
 		if ( Enemy.aFrame == Enemy.moveAFrame )
 			Enemy.aFrame = 0;
-	
-	if ( Enemy.health < 0 )	{	
-		Enemy.aFrame = 0;
-		Enemy.action = 12;
-	}
 }
 
 function enemyDeath(Enemy) {
