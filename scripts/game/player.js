@@ -25,6 +25,7 @@ function initPlayer(options) {
 	that.weapon = "shortSword";
 	that.isDamaged = false;
 	that.death = false;
+	that.type = "Player";
 	
 	// x1,x2,y1,y2
 	that.iBox = [that.X+105,that.X+135,that.Y+57,that.Y+88];
@@ -165,13 +166,22 @@ function changeIBox(dir,iBox,X,Y) {
 }
 
 function drawHealth(Entity) {
+	if ( Entity.type = "Player" ) {
+	  X = Entity.X;
+	  Y = Entity.Y;
+	}
+	else {
+	  X = Entity.X - Entity.xOff + (dx/8)*64;
+	  Y = Entity.Y - Entity.yOff + (dy/8)*64;
+	}
+	
 	ctx.fillStyle = "#000000";
-	ctx.fillRect(Entity.X,Entity.Y-5,128,5);
-	ctx.fillRect(Entity.X-5,Entity.Y,5,10);
-	ctx.fillRect(Entity.X,Entity.Y+10,128,5);
-	ctx.fillRect(Entity.X+128,Entity.Y,5,10);
+	ctx.fillRect(X,Y-5,128,5);
+	ctx.fillRect(X-5,Y,5,10);
+	ctx.fillRect(X,Y+10,128,5);
+	ctx.fillRect(X+128,Y,5,10);
 	ctx.fillStyle = "#00FF00";
-	ctx.fillRect(Entity.X,Entity.Y,128*(Entity.health/Entity.totalHealth),10);
+	ctx.fillRect(X,Y,128*(Entity.health/Entity.totalHealth),10);
 }
 
 function swordCollision(that,Enemy) {
