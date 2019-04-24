@@ -448,7 +448,7 @@ function drawTextBox(sentence,position) {
 function textHandler(event) {
 	var j = 0;
 	for ( i = 0; i < Villagers.length; i++ ) {
-		if ( textInteraction(Villagers[i] == true ) {
+		if ( textInteraction(Villagers[i]) == true ){
 		    j = i;
 		    break;
 		}
