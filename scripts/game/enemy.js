@@ -64,7 +64,7 @@ function basicEnemyAI(Enemy) {
 			Enemy.direction = 2;
 		}
 	}
-	alert(Enemy.aFrame);
+	//alert(Enemy.aFrame);
 	Enemy.aFrame++;
 		if ( Enemy.aFrame == Enemy.moveAFrame )
 			Enemy.aFrame = 0;
