@@ -37,7 +37,8 @@ function initEnemy(options) {
 			}
 			else
 			enemyDeath(that);
-			ctx.drawImage(enemyImage,64*that.aFrame,64*(that.direction+that.action),64,64,that.X+(dx/8)*64-that.xOff,that.Y+(dy/8)*64-that.yOff,128,128);
+			if ( that.whichAction != "dead" )
+			ctx.drawImage(enemyImage,64*Math.Floor(that.aFrame),64*(that.direction+that.action),64,64,that.X+(dx/8)*64-that.xOff,that.Y+(dy/8)*64-that.yOff,128,128);
 			drawHealth(that);
 		}
 	};
@@ -81,7 +82,7 @@ function basicEnemyAI(Enemy) {
 }
 
 function enemyDeath(Enemy) {
-	Enemy.aFrame++;
+	Enemy.aFrame+=0.5;
 	if ( Enemy.aFrame == Enemy.deathAFrame ) {
 		Enemy.aFrame = 0;
 		Enemy.whichAction = "dead";
