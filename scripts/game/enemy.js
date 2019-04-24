@@ -41,7 +41,7 @@ function initEnemy(options) {
 	return that;
 }
 
-function basicEnemyAI(Enemy) {
+function basicEnemyAI() {
 	if(Enemy.time + 800 < Date.now()){
 		if(Enemy.time + 1600 < Date.now()){
 			Enemy.time = Date.now();
@@ -64,13 +64,13 @@ function basicEnemyAI(Enemy) {
 			Enemy.direction = 2;
 		}
 	}
-	//alert(Enemy.aFrame);
+
 	Enemy.aFrame++;
 		if ( Enemy.aFrame == Enemy.moveAFrame )
 			Enemy.aFrame = 0;
 	
 	if ( Enemy.health > 0 )
-		Enemy.enemyAnimation = requestAnimationFrame(function(){ basicEnemyAI(Enemy) });
+		Enemy.enemyAnimation = requestAnimationFrame(function(){ basicEnemyAI() });
 	else	{	
     		cancelAnimationFrame(Enemy.enemyAnimation);
 		Enemy.aFrame = 0;
