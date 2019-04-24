@@ -31,6 +31,7 @@ function initPlayer(options) {
 	that.draw = function() {
 		ctx.drawImage(that.image,63*that.aFrame,63*(action+that.direction),63,63,that.X,that.Y,126,126);
 		ctx.fillRect(that.iBox[0],that.iBox[2],30,31);
+		drawHealth(Player);
 	};
 	
 	that.moveCheck = function(Up,Down,Left,Right,width,height) {
@@ -160,6 +161,11 @@ function changeIBox(dir,iBox,X,Y) {
 		iBox[2] = Y+57;
 		iBox[3] = Y+88;
 	}
+}
+
+function drawHealth(Object) {
+	ctx.fillStyle = "#00FF00";
+	ctx.fillRect(Object.X,Object.Y,128,10);
 }
 
 function swordCollision(that,Enemy) {
