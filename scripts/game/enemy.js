@@ -15,10 +15,10 @@ function initEnemy(options) {
 	that.whichAction = "alive";
 	that.xOff = 40; //34
 	that.yOff = 20; // 30
-	that.X = 500+that.xOff;
-	that.Y = 400+that.xOff;
-	that.totalHealth = 300;
-	that.health = 300;
+	that.X = options.X+that.xOff;  // O
+	that.Y = options.Y+that.xOff;  // O 
+	that.totalHealth = options.totalHealth;  // O
+	that.health = options.health;       // O
 	that.lengthX = 60;
 	that.lengthY = 92;
 	that.time = Date.now();
