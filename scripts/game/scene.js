@@ -23,6 +23,16 @@ var isSpreadsheetLoaded = false;
 var image1;
 var image2;
 
+//Save File information
+function SaveFile(data){
+	this.name = data.name,
+	this.location = data.location,
+	this.time = data.time
+}
+
+var saveFile1;
+
+
 //handles switching between different scenes and drawing from the scene that is loaded in
 function SceneHandler(scene){
     this.scene = scene,
@@ -468,7 +478,7 @@ function optionsHandler(event){
 
 //--------------------------------Save Menu Option---------------------------------
 function initSaveFile(){
-    options = ["Save File 1", "Save File 2", "Save File 3", "Exit"];
+    options = ["1. " + saveFile1.name + " - Location: " + saveFile1.location + " " + saveFile1.time + ":00", "Exit"];
     currentOption = 0;
     
     background.src= "images/backgrounds/SaveMenuBackground.png";
@@ -478,10 +488,14 @@ function drawSaveFileScreen(){
     ctx.clearRect(0,0,width,height);
     ctx.drawImage(background, 0, 0, width, height);
 
+    ctx.textAlign = "center"; 
     ctx.fillStyle = "white";
-    ctx.font = "100px Sniglet";
-    ctx.fillText("Save Files", width / 2 - 200, 200);
-    
+    ctx.font = "bold 120px Sniglet";
+    ctx.fillText("Save Files", width / 2, 200);
+    ctx.strokeStyle = "black";
+    ctx.lineWidth = 2;
+    ctx.strokeText("Save Files", width / 2, 200);
+	
     ctx.font = "60px Sniglet";
     for(var i = 0; i < options.length-1; i++){
         if(i == currentOption){
@@ -499,6 +513,8 @@ function drawSaveFileScreen(){
         ctx.fillStyle = "white";
     }
     ctx.fillText(options[options.length-1], width / 2 - 50, 800);
+	
+    ctx.textAlign = "start"; 
 }
 
 function saveFileHandler(){
