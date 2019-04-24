@@ -13,6 +13,7 @@ function initEnemy(options) {
 	that.health = 300;
 	that.lengthX = 60;
 	that.lengthY = 92;
+	that.time = Date.now();
 	that.death = false;
 	that.type = "Enemy";
 	
@@ -34,15 +35,20 @@ function initEnemy(options) {
 }
 
 function basicEnemyAI() {
-	if ( Player.standRight < Enemy.X +(dx/8)*64+Enemy.lengthX) 
-		Enemy.X-=2;
-	if ( Player.standLeft > Enemy.X + (dx/8)*64 )
-		Enemy.X+=2;
+	if(Enemy.time + 800 < Date.now()){
+		if(Enemy.time + 1600 < Date.now()){
+			Enemy.time = Date.now();
+		}
+		if ( Player.standRight < Enemy.X +(dx/8)*64+Enemy.lengthX) 
+			Enemy.X-=2;
+		if ( Player.standLeft > Enemy.X + (dx/8)*64)
+			Enemy.X+=2;
 	
-	if ( Player.standDown < Enemy.Y + (dy/8)*64+Enemy.lengthY)
-		Enemy.Y-=2;
-	if ( Player.standUp > Enemy.Y + (dy/8)*64)
-		Enemy.Y+=2;
+		if ( Player.standDown < Enemy.Y + (dy/8)*64+Enemy.lengthY)
+			Enemy.Y-=2;
+		if ( Player.standUp > Enemy.Y + (dy/8)*64)
+			Enemy.Y+=2;
+	}
 	
 	if ( Enemy.death == false )
 		enemyAnimation = requestAnimationFrame(basicEnemyAI);
