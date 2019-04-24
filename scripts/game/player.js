@@ -32,7 +32,7 @@ function initPlayer(options) {
 	that.draw = function() {
 		ctx.drawImage(that.image,63*that.aFrame,63*(action+that.direction),63,63,that.X,that.Y,126,126);
 		ctx.fillRect(that.iBox[0],that.iBox[2],30,31);
-		//drawHealth(Player);
+		drawHealth(Player);
 	};
 	
 	that.moveCheck = function(Up,Down,Left,Right,width,height) {
@@ -165,8 +165,11 @@ function changeIBox(dir,iBox,X,Y) {
 }
 
 function drawHealth(Entity) {
-	//ctx.fillStyle = "#000000";
-	//ctx.rect(Object.X,Object.Y,128,10);
+	ctx.fillStyle = "#000000";
+	ctx.fillRect(Entity.X,Entity.Y,128,1);
+	ctx.fillRect(Entity.X,Entity.Y,1,10);
+	ctx.fillRect(Entity.X,Entity.Y+10,128,1);
+	ctx.fillRect(Entity.X+128,Entity.Y,1,10);
 	ctx.fillStyle = "#00FF00";
 	ctx.fillRect(Entity.X,Entity.Y,128*(Entity.health/Entity.totalHealth),10);
 }
