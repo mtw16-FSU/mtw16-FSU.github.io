@@ -266,6 +266,8 @@ function drawLevel(map, backgroundTiles, foregroundTiles, rowSize, colSize){
 	down = false;
     }
 	
+    generalCollision();
+	
     //moves map to the left if left arrow key is pressed
     if(left){
 	dx++;
@@ -536,4 +538,20 @@ function drawLoadingScreen(){
     ctx.fillStyle = "white";
     ctx.font = "100px Sniglet";
     ctx.fillText("Loading...", width / 2 - 200, height / 2 - 50);
+}
+
+function generalCollision() {
+	for ( int i = 0; i < bounds.length; i++ ) {
+		if ( collisionInteraction(Player.standLeft,Player.standRight,Player.standUp,Player.standDown,bounds[i].x1,bounds[i].x2,bounds[i].y1,bounds[i].y2) == true ) {
+			pLeft = false;
+			pRight = false;
+			pUp = false;
+			pDown = false;
+			left = false;
+			right = false;
+			up = false;
+			down = false;
+			break;
+		}
+	}
 }
