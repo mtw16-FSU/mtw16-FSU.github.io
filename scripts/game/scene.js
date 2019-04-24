@@ -408,16 +408,16 @@ function drawTextBox(sentence,position) {
 	   ctx.fillRect(width*.10,height*.70,width*.80,height*.20);
 	   ctx.font = "60px Sniglet";
 	   ctx.fillStyle = "#000000";
-	   ctx.fillText(sentence.substring(position*30,position*30+30),width*.11,height*.78);
-	if ( sentence.length > position*30+30 )
-	   ctx.fillText(sentence.substring(position*30+30,position*30+60),width*.11,height*(.86));
+	   ctx.fillText(sentence.substring(position*60,position*60+60),width*.11,height*.78);
+	if ( sentence.length > position*60+60 )
+	   ctx.fillText(sentence.substring(position*60+60,position*60+120),width*.11,height*(.86));
 	}
 }
 
 function textHandler(event) {
 	var keyCode = event.which || event.keyCode;
 	if ( keyCode == 32 ) {
-	 if ( Villager.sentence.length <= printText*30 + 60 ){
+	 if ( Villager.sentence.length <= printText*60 + 120 ){
 	   Villager.drawText = false;
 	   document.onkeydown = null;
 	   document.onkeydown = levelHandler;
