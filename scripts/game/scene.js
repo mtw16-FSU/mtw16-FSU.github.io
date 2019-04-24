@@ -430,7 +430,10 @@ function initTextBox(i) {
 	Villagers[i].drawText = true;
 	document.onkeydown = null;
 	document.onkeyup = null;
-	document.onkeydown = textHandler;		
+	document.onkeydown = textHandler;
+	for ( j = 0; j < Enemies.length; j++ )
+		Enemies[j].whichAction = "listen";
+	Player.whichAction = "listen";
 }
 
 function drawTextBox(sentence,position) {
@@ -460,6 +463,9 @@ function textHandler(event) {
 	   document.onkeydown = null;
 	   document.onkeydown = levelHandler;
 	   document.onkeyup = levelHandler2;
+	   for ( i = 0; i < Enemies.length; i++ )
+		   Enemies[i].whichAction = "alive";
+	   Player.whichAction = "stand";
 	 }
 	 else 
 	 printText+=2;
