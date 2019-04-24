@@ -69,7 +69,7 @@ function basicEnemyAI(Enemy) {
 			Enemy.aFrame = 0;
 	
 	if ( Enemy.health > 0 )
-		Enemy.enemyAnimation = requestAnimationFrame(function(Enemy) {basicEnemyAI(Enemy);};);
+		Enemy.enemyAnimation = requestAnimationFrame(function() {basicEnemyAI(Enemy);};);
 	else	{	
     		cancelAnimationFrame(Enemy.enemyAnimation);
 		{
@@ -86,7 +86,7 @@ function enemyDeath(Enemy) {
 		Enemy.death = true;
 	}
 	else
-		Enemy.enemyAnimation = requestAnimationFrame(function(Enemy){enemyDeath(Enemy)};);
+		Enemy.enemyAnimation = requestAnimationFrame(function(){enemyDeath(Enemy)};);
 	
 }
 	
