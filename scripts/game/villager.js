@@ -16,6 +16,7 @@ function initVillager(options) {
     ctx.drawImage(villagerImage,0,128,64,64,that.startX+(dx/8)*64-40,that.startY+(dy/8)*64-20,128,128);
     that.endX = that.startX + (dx/8)*64+that.xLength;
     that.endY = that.startY + (dy/8)*64+that.yLength; 
+    ctx.fillRect(that.startX+(dx/8)*64,that.startY+(dy/8)*64,128,128);
   };
   
   that.interaction = function(options) {
