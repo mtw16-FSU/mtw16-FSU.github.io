@@ -12,6 +12,7 @@ function initEnemy(options) {
 	that.aFrame = 0;
 	that.direction = 0; // up,left,down,right
 	that.action = 0;
+	that.whichAction = "alive";
 	that.xOff = 40; //34
 	that.yOff = 20; // 30
 	that.X = 500+that.xOff;
@@ -26,7 +27,7 @@ function initEnemy(options) {
 	
 	//Call the draw function to create basic enemy rectangle
 	that.draw = function() {
-		if ( that.death == false ) {
+		if ( that.witchAction != "dead" ) {
 			if ( that.health > 0 )
 			basicEnemyAI(that);
 			else if ( that.health <= 0 && that.action != 12 ) {
@@ -42,7 +43,7 @@ function initEnemy(options) {
 	
 	//if enemy's health is 0, just dead
 	that.checkDeath = function() {
-		if ( that.health <= 0 )
+		if ( that.health <= 0  )
 			that.death = true;
 	};
 	
@@ -83,7 +84,7 @@ function enemyDeath(Enemy) {
 	alert(Enemy.aFrame);
 	if ( Enemy.aFrame == Enemy.deathAFrame ) {
 		Enemy.aFrame = 0;
-		Enemy.death = true;
+		Enemy.whichAction = "dead";
 	}
 	
 }
