@@ -89,9 +89,3 @@ function enemyDeath(Enemy) {
 		Enemy.enemyAnimation = requestAnimationFrame(function(){ enemyDeath(Enemy) });
 	
 }
-	
-	
-	
-	
-	
-}
