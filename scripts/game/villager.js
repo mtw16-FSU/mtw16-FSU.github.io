@@ -5,17 +5,17 @@ function initVillager(options) {
   var that = {};
   that.xLength = 60;
   that.yLength = 96;
-  that.startX = 2000;
-  that.startY = 1000; 
-  that.endX = that.startX+that.xLength;
-  that.endY = that.startY+that.yLength;
+  that.X = options.X; // O 
+  that.Y = options.Y; // O
+  that.endX = that.X+that.xLength;
+  that.endY = that.Y+that.yLength;
   that.drawText = false;
-  that.sentence = "My Lord! The prophecies heralded your return. Your path to take back your throne begins now, sire. Your rivals stand in your way, once you defeat them, you may leave this province in the top right and head towards the castle!";
+  that.sentence = options.sentence; // O
   
   that.draw = function() {
-    ctx.drawImage(villagerImage,0,128,64,64,that.startX+(dx/8)*64-40,that.startY+(dy/8)*64-20,128,128);
-    that.endX = that.startX + (dx/8)*64+that.xLength;
-    that.endY = that.startY + (dy/8)*64+that.yLength;
+    ctx.drawImage(villagerImage,0,128,64,64,that.X+(dx/8)*64-40,that.Y+(dy/8)*64-20,128,128);
+    that.endX = that.X + (dx/8)*64+that.xLength;
+    that.endY = that.Y + (dy/8)*64+that.yLength;
   };
   
   that.interaction = function(options) {
