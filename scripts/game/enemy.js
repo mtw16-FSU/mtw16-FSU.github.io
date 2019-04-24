@@ -19,6 +19,7 @@ function initEnemy(options) {
 	that.draw = function() {
 		if ( that.death == false ) {
 			ctx.drawImage(enemyImage,0,128,64,64,that.X-that.xOff+(dx/8)*64-40,that.Y-that.yOff+(dy/8)*64-20,128,128);
+			drawHealth(that);
 		}
 	};
 	
