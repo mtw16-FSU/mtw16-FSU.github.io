@@ -27,7 +27,10 @@ function initEnemy(options) {
 	//Call the draw function to create basic enemy rectangle
 	that.draw = function() {
 		if ( that.death == false ) {
+			if ( that.health > 0 )
 			basicEnemyAI(that);
+			else 
+			enemyDeath(that);
 			ctx.drawImage(enemyImage,64*that.aFrame,64*(that.direction+that.action),64,64,that.X+(dx/8)*64-that.xOff,that.Y+(dy/8)*64-that.yOff,128,128);
 			drawHealth(that);
 		}
@@ -71,10 +74,8 @@ function basicEnemyAI(Enemy) {
 			Enemy.aFrame = 0;
 	
 	if ( Enemy.health < 0 )	{	
-    		cancelAnimationFrame(Enemy.enemyAnimation);
 		Enemy.aFrame = 0;
 		Enemy.action = 12;
-		enemyDeath(Enemy);
 	}
 }
 
@@ -83,9 +84,6 @@ function enemyDeath(Enemy) {
 	if ( Enemy.aFrame == Enemy.deathAFrame ) {
 		Enemy.aFrame = 0;
 		Enemy.death = true;
-		cancelAnimationFrame(Enemy.enemyAnimation);
 	}
-	else
-		Enemy.enemyAnimation = requestAnimationFrame(function(){ enemyDeath(Enemy) });
 	
 }
