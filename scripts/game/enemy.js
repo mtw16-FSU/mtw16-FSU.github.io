@@ -9,6 +9,7 @@ function initEnemy(options) {
 	that.yOff = 0; // 30
 	that.X = 540+that.xOff;
 	that.Y = 420+that.xOff;
+	that.totalHealth = 300;
 	that.health = 300;
 	that.lengthX = 60;
 	that.lengthY = 92;
