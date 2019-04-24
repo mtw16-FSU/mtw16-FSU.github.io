@@ -12,6 +12,9 @@ basicEnemyAI();
 // Helps Textbox Printing
 printText = 0;
 
+// Creates array of boundary conditions
+var bounds = new Array(1);
+
 //detects if all images have been loaded in before starting the level
 var isImage1Loaded = false;
 var isImage2Loaded = false;
