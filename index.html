@@ -49,9 +49,9 @@
             <h3>Log In</h3>
             <div class="form-row"><label>Username: </label><input id="username" type="text"></div>
             <div class="form-row"><label>Password: </label><input id="password" type="password"></div>
-            <div class="button" onclick="signInUser()">Submit</div>
+            <div class="button" onclick="logInUser()">Submit</div>
         </form>
-        <p id="signup-link" class="center">New player? <span class="underline" onclick="showSignUp()">Sign in</span></p>
+        <p id="signup-link" class="center">New player? <span class="underline" onclick="showSignUp()">Sign up</span></p>
         <form id="signup">
             <h3>Sign Up</h3>
             <div class="form-row"><label>Username: </label><input id="usernameNew" type="text"></div>
@@ -60,6 +60,7 @@
             <div class="button" onclick="createUser()">Submit</div>
         </form>
         <p id="waiting" class="center"></p>
+        <br />
         <p id="error-message" class="center"></p>
         
         <img id="hidden" style="display:none;" src="maps/Level1.png">
