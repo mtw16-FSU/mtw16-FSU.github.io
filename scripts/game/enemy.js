@@ -82,8 +82,8 @@ function basicEnemyAI(Enemy) {
 }
 
 function enemyDeath(Enemy) {
-	Enemy.aFrame+=0.5;
-	if ( Enemy.aFrame == Enemy.deathAFrame ) {
+	Enemy.aFrame+=1/10;
+	if ( Enemy.aFrame >= Enemy.deathAFrame ) {
 		Enemy.aFrame = 0;
 		Enemy.whichAction = "dead";
 	}
