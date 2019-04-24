@@ -10,6 +10,7 @@ function checkLogin(){
             showStartMenu();
             
             db.collection('SaveFile').doc(user.uid).get().then(doc=> {
+                //alert("Here: " + doc.data().name);
                 saveFile1 = new SaveFile(doc.data());
             }).catch(function(error) {
                 alert(error.message);
@@ -20,10 +21,6 @@ function checkLogin(){
 
 //sign up function
 function createUser(){
-    //displays loading message while attempting to connect to the Firebase database
-    var waiting = document.getElementById("waiting");
-    waiting.innerHTML = "Waiting...";
-
     var errorMessage = document.getElementById("error-message");
 
     //gets the values entered in the form for the new user
@@ -63,10 +60,12 @@ function createUser(){
 }
 
 //login function
-function signInUser(){
+function logInUser(){
     //removes link to create new user
-    document.getElementById("signup-link").innerHTML = "";
-
+    var signupLink = document.getElementById("signup-link");
+    var signupLinkMessage = signupLink.innerHTML;
+    signupLink.innerHTML = "";
+    
     //displays loading message
     var waiting = document.getElementById("waiting");
     waiting.innerHTML = "Waiting...";
@@ -87,6 +86,7 @@ function signInUser(){
                 formFields[i].className += " form-error";
         }
         
+        signupLink.innerHTML = signupLinkMessage;
         waiting.innerHTML = "";
     });
 }
