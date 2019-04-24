@@ -18,7 +18,7 @@ function initEnemy(options) {
 	that.X = options.X+that.xOff;  // O
 	that.Y = options.Y+that.xOff;  // O 
 	that.totalHealth = options.totalHealth;  // O
-	that.health = options.health;       // O
+	that.health = options.totalHealth;       // O
 	that.lengthX = 60;
 	that.lengthY = 92;
 	that.time = Date.now();
