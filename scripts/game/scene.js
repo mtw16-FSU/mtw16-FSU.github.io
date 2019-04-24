@@ -193,10 +193,10 @@ function Map(name){
 			Player.moveCheck(pUp,pDown,pLeft,pRight,width,height);
 			Player.draw();
 			Player.collisionCheck(Enemy);
-			Enemy.draw();
 			Villager.draw();
 			if ( Villager.drawText == true )
 				drawTextBox(Villager.sentence,printText);
+			Enemy.draw();
 		}
                 break;
             case "Options":
