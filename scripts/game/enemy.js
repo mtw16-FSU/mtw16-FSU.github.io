@@ -5,20 +5,21 @@ var enemyAnimation;
 function initEnemy(options) {
 	var that = {};
 	//initialize Enemy variables
-	that.xOff = 0; //34
-	that.yOff = 0; // 30
-	that.X = 540+that.xOff;
-	that.Y = 420+that.xOff;
+	that.xOff = 40; //34
+	that.yOff = 20; // 30
+	that.X = 500+that.xOff;
+	that.Y = 400+that.xOff;
 	that.totalHealth = 300;
 	that.health = 300;
 	that.lengthX = 60;
 	that.lengthY = 92;
 	that.death = false;
+	that.type = "Enemy";
 	
 	//Call the draw function to create basic enemy rectangle
 	that.draw = function() {
 		if ( that.death == false ) {
-			ctx.drawImage(enemyImage,0,128,64,64,that.X-that.xOff+(dx/8)*64-40,that.Y-that.yOff+(dy/8)*64-20,128,128);
+			ctx.drawImage(enemyImage,0,128,64,64,that.X-that.xOff+(dx/8)*64-that.xOff,that.Y-that.yOff+(dy/8)*64-that.yOff,128,128);
 			drawHealth(that);
 		}
 	};
