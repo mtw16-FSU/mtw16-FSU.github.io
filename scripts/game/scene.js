@@ -431,8 +431,10 @@ function initTextBox(i) {
 	document.onkeydown = null;
 	document.onkeyup = null;
 	document.onkeydown = textHandler;
-	for ( j = 0; j < Enemies.length; j++ )
+	for ( j = 0; j < Enemies.length; j++ ) {
+		if ( Enemies[j].death == false )
 		Enemies[j].whichAction = "listen";
+	}
 	Player.whichAction = "listen";
 }
 
@@ -463,8 +465,10 @@ function textHandler(event) {
 	   document.onkeydown = null;
 	   document.onkeydown = levelHandler;
 	   document.onkeyup = levelHandler2;
-	   for ( i = 0; i < Enemies.length; i++ )
+	   for ( i = 0; i < Enemies.length; i++ ) {
+		if ( Enemies[i].death == false )
 		   Enemies[i].whichAction = "alive";
+	   }
 	   Player.whichAction = "stand";
 	 }
 	 else 
