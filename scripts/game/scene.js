@@ -446,10 +446,17 @@ function drawTextBox(sentence,position) {
 }
 
 function textHandler(event) {
+	var j = 0;
+	for ( i = 0; i < Villagers.length; i++ ) {
+		if ( textInteraction(Villagers[i] == true ) {
+		    j = i;
+		    break;
+		}
+	}
 	var keyCode = event.which || event.keyCode;
 	if ( keyCode == 32 ) {
-	 if ( Villagers[0].sentence.length <= printText*60 + 120 ){
-	   Villagers[0].drawText = false;
+	 if ( Villagers[j].sentence.length <= printText*60 + 120 ){
+	   Villagers[j].drawText = false;
 	   document.onkeydown = null;
 	   document.onkeydown = levelHandler;
 	   document.onkeyup = levelHandler2;
