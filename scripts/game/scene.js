@@ -213,7 +213,7 @@ function Map(name){
 			Villager.draw();
 			if ( Villager.drawText == true )
 				drawTextBox(Villager.sentence,printText);
-			for ( int i = 0; i < Enemies.length; i++ )
+			for ( i = 0; i < Enemies.length; i++ )
 				Enemies[i].draw();
 		}
                 break;
