@@ -504,7 +504,7 @@ function drawSaveFileScreen(){
             ctx.fillStyle = "white";
         }
 
-        ctx.fillText(options[i], width / 2 - 130, 450+i*100);
+        ctx.fillText(options[i], width / 2, 450+i*100);
     }
     
     if(options.length - 1 == currentOption){
