@@ -167,8 +167,8 @@ function changeIBox(dir,iBox,X,Y) {
 function drawHealth(Object) {
 	//ctx.fillStyle = "#000000";
 	//ctx.rect(Object.X,Object.Y,128,10);
-	ctx.fillStyle = "#00FF00";
-	ctx.fillRect(Object.X,Object.Y,128*(Object.health/Object.totalHealth),10);
+	//ctx.fillStyle = "#00FF00";
+	//ctx.fillRect(Object.X,Object.Y,128*(Object.health/Object.totalHealth),10);
 }
 
 function swordCollision(that,Enemy) {
