@@ -7,7 +7,6 @@ Player = new initPlayer({
 Villager = new initVillager({});
 
 Enemy = new initEnemy({}); 
-basicEnemyAI();
 
 // Helps Textbox Printing
 printText = 0;
