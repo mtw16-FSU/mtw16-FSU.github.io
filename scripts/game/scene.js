@@ -12,7 +12,12 @@ Enemies.push(new initEnemy({
 	Y: 300,
 	totalHealth: 300
 })); 	     
-	     
+Enemies.push(new initEnemy({
+X: 1000,
+Y: 600,
+totalHealth: 100
+}));
+
 // Helps Textbox Printing
 printText = 0;
 
