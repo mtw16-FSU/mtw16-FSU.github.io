@@ -72,7 +72,6 @@ function basicEnemyAI(Enemy) {
 		Enemy.enemyAnimation = requestAnimationFrame(function(){ basicEnemyAI(Enemy) });
 	else	{	
     		cancelAnimationFrame(Enemy.enemyAnimation);
-		{
 		Enemy.aFrame = 0;
 		Enemy.action = 12;
 		enemyDeath(Enemy);
