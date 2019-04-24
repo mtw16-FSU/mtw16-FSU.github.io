@@ -5,8 +5,8 @@ var enemyAnimation;
 function initEnemy(options) {
 	var that = {};
 	//initialize Enemy variables
-	that.xOff = 34;
-	that.yOff = 30;
+	that.xOff = 0; //34
+	that.yOff = 0; // 30
 	that.X = 540+that.xOff;
 	that.Y = 420+that.xOff;
 	that.health = 300;
