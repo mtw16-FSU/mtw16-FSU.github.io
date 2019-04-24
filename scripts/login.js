@@ -8,6 +8,12 @@ function checkLogin(){
             document.getElementById("waiting").innerHTML = "";
             document.getElementById("error-message").innerHTML = "";
             showStartMenu();
+            
+            db.collection('SaveFile').doc(user.uid).get().then(doc=> {
+                saveFile1 = new SaveFile(doc.data());
+            }).catch(function(error) {
+                alert(error.message);
+            });
         }
       });
 }
@@ -23,21 +29,36 @@ function createUser(){
     //gets the values entered in the form for the new user
     var username = document.getElementById("usernameNew").value;
     var password = document.getElementById("passwordNew").value;
-    
-    //Firebase authorization requires a password to login,
-    //so automatically adds a fake email account suffix to every username
-    username += "@dummy.com";
-    
-    firebase.auth().createUserWithEmailAndPassword(username, password).catch(function(error) {
-        //if an error occured, displays the error message to the user
-        errorMessage.innerHTML = error.message;
-        var formFields = document.getElementsByTagName("input");
-        for(var i = 0; i < formFields.length; i++){
-                formFields[i].className += " form-error";
-        }
-        
-        waiting.innerHTML = "";
-    });
+    var displayName = document.getElementById("displayNameNew").value;
+
+    if(!displayName){
+        errorMessage.innerHTML = "Display name cannot be blank.";
+    }else{
+        //displays loading message while attempting to connect to the Firebase database
+        var waiting = document.getElementById("waiting");
+        waiting.innerHTML = "Waiting...";
+
+        //Firebase authorization requires a password to login,
+        //so automatically adds a fake email account suffix to every username
+        username += "@dummy.com";
+
+        firebase.auth().createUserWithEmailAndPassword(username, password).catch(function(error) {
+            //if an error occured, displays the error message to the user
+            errorMessage.innerHTML = error.message;
+            var formFields = document.getElementsByTagName("input");
+            for(var i = 0; i < formFields.length; i++){
+                    formFields[i].className += " form-error";
+            }
+            
+            waiting.innerHTML = "";
+        }).then( cred => {
+            db.collection('SaveFile').doc(cred.user.uid).set({
+                location: "start",
+                name: displayName,
+                time: 0
+            });
+        });
+    }
 
 }
 
