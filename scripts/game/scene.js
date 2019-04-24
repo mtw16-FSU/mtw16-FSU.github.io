@@ -6,8 +6,13 @@ Player = new initPlayer({
     });
 Villager = new initVillager({});
 
-Enemy = new initEnemy({}); 
-
+var Enemies = new Array();
+Enemies.push(new initEnemy({ 
+	X: 500,
+	Y: 300,
+	totalHealth: 300
+}); 	     
+	     
 // Helps Textbox Printing
 printText = 0;
 
@@ -208,7 +213,8 @@ function Map(name){
 			Villager.draw();
 			if ( Villager.drawText == true )
 				drawTextBox(Villager.sentence,printText);
-			Enemy.draw();
+			for ( int i = 0; i < Enemies.length; i++ )
+				Enemies[i].draw();
 		}
                 break;
             case "Options":
