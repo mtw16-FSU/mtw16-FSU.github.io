@@ -3,10 +3,10 @@ villagerImage.src = "images/spritesheets/villager.png";
 
 function initVillager(options) {
   var that = {};
-  that.xOff = 34;
-  that.yOff = 28;
-  that.xLength = 60;
-  that.yLength = 96;
+  that.xOff = 17;
+  that.yOff = 14;
+  that.xLength = 30;
+  that.yLength = 48;
   that.startX = 2000+that.xOff;
   that.startY = 1000+that.yOff; 
   that.endX = that.startX+that.xLength;
