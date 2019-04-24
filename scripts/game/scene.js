@@ -4,10 +4,10 @@ Player = new initPlayer({
        Y: 512,
        aFrame: 0
     });
+Villager = new initVillager({});
 
 Enemy = new initEnemy({}); 
 basicEnemyAI();
-Villager = new initVillager({});
 
 // Helps Textbox Printing
 printText = 0;
