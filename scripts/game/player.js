@@ -166,8 +166,8 @@ function changeIBox(dir,iBox,X,Y) {
 
 function drawHealth(Entity) {
 	ctx.fillStyle = "#000000";
-	ctx.fillRect(Entity.X,Entity.Y,128,5);
-	ctx.fillRect(Entity.X,Entity.Y,5,10);
+	ctx.fillRect(Entity.X,Entity.Y-5,128,5);
+	ctx.fillRect(Entity.X-5,Entity.Y,5,10);
 	ctx.fillRect(Entity.X,Entity.Y+10,128,5);
 	ctx.fillRect(Entity.X+128,Entity.Y,5,10);
 	ctx.fillStyle = "#00FF00";
