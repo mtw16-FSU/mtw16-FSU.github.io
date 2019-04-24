@@ -14,7 +14,7 @@ printText = 0;
 
 // Creates array of boundary conditions
 var bounds = new Array(1);
-
+bounds.push({x1: Villager.startX+(dx/8)*64 ,x2: Villager.endX ,y1: Villager.startY+(dy/8)*64 ,y2: Villager.endY });
 //detects if all images have been loaded in before starting the level
 var isImage1Loaded = false;
 var isImage2Loaded = false;
