@@ -32,7 +32,8 @@ function initEnemy(options) {
 			basicEnemyAI(that);
 			else if ( that.health <= 0 && that.action != 12 ) {
 			that.action = 12;
-			that.aFrame = 0;	
+			that.aFrame = 0;
+			that.direction = 0;
 			}
 			else
 			enemyDeath(that);
