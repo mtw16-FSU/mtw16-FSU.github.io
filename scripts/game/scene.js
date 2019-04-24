@@ -284,7 +284,7 @@ function drawLevel(map, backgroundTiles, foregroundTiles, rowSize, colSize){
     	down = false;
     }
 	
-    if ( Player.whichAction == "attack" ) {
+    if ( Player.whichAction == "attack" || Player.whichAction == "listen" ) {
 	left = false;
 	right = false;
 	up = false;
