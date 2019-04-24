@@ -27,6 +27,7 @@ function initEnemy(options) {
 	//Call the draw function to create basic enemy rectangle
 	that.draw = function() {
 		if ( that.death == false ) {
+			basicEnemyAI(that);
 			ctx.drawImage(enemyImage,64*that.aFrame,64*(that.direction+that.action),64,64,that.X+(dx/8)*64-that.xOff,that.Y+(dy/8)*64-that.yOff,128,128);
 			drawHealth(that);
 		}
@@ -41,7 +42,7 @@ function initEnemy(options) {
 	return that;
 }
 
-function basicEnemyAI() {
+function basicEnemyAI(Enemy) {
 	if(Enemy.time + 800 < Date.now()){
 		if(Enemy.time + 1600 < Date.now()){
 			Enemy.time = Date.now();
@@ -69,9 +70,7 @@ function basicEnemyAI() {
 		if ( Enemy.aFrame == Enemy.moveAFrame )
 			Enemy.aFrame = 0;
 	
-	if ( Enemy.health > 0 )
-		Enemy.enemyAnimation = requestAnimationFrame(function(){ basicEnemyAI() });
-	else	{	
+	if ( Enemy.health < 0 )	{	
     		cancelAnimationFrame(Enemy.enemyAnimation);
 		Enemy.aFrame = 0;
 		Enemy.action = 12;
