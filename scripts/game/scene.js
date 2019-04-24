@@ -266,7 +266,7 @@ function drawLevel(map, backgroundTiles, foregroundTiles, rowSize, colSize){
 	down = false;
     }
 	
-    generalCollision();
+    //generalCollision();
 	
     //moves map to the left if left arrow key is pressed
     if(left){
