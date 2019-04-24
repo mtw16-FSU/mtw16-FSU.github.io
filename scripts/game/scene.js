@@ -18,7 +18,7 @@ Enemies.push(new initEnemy({
 	totalHealth: 300
 })); 	     
 Enemies.push(new initEnemy({
-X: 1000,
+X: 500,
 Y: 600,
 totalHealth: 100
 }));
