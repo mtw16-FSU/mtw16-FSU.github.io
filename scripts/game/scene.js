@@ -4,7 +4,12 @@ Player = new initPlayer({
        Y: 512,
        aFrame: 0
     });
-Villager = new initVillager({});
+var Villagers = new Array();
+Villagers.push(new initVillager({
+X: 2000,
+Y: 1000,
+sentence: "My Lord! The prophecies heralded your return. Your path to take back your throne begins now, sire. Your rivals stand in your way, once you defeat them, you may leave this province in the top right and head towards the castle!"
+}));
 
 var Enemies = new Array();
 Enemies.push(new initEnemy({ 
@@ -21,9 +26,6 @@ totalHealth: 100
 // Helps Textbox Printing
 printText = 0;
 
-// Creates array of boundary conditions
-var bounds = new Array(1);
-bounds.push({x1: Villager.startX+(dx/8)*64 ,x2: Villager.endX ,y1: Villager.startY+(dy/8)*64 ,y2: Villager.endY });
 //detects if all images have been loaded in before starting the level
 var isImage1Loaded = false;
 var isImage2Loaded = false;
@@ -216,9 +218,11 @@ function Map(name){
 			Player.draw();
 			for ( i = 0; i < Enemies.length; i++ )
 				Player.collisionCheck(Enemies[i]);
-			Villager.draw();
-			if ( Villager.drawText == true )
-				drawTextBox(Villager.sentence,printText);
+			for ( i = 0; i < Villagers.length; i++ ) {
+				Villagers[i].draw();
+				if ( Villagers[i].drawText == true )
+					drawTextBox(Villagers[i].sentence,printText);
+			}		
 			for ( i = 0; i < Enemies.length; i++ )
 				Enemies[i].draw();
 		}
@@ -357,8 +361,12 @@ function levelHandler(){
             toggleFullScreen();
             break;
 	case 86: //v
-	    if ( collisionInteraction(Player.iBox[0],Player.iBox[1],Player.iBox[2],Player.iBox[3],Villager.startX+(dx/8)*64,Villager.endX,Villager.startY+(dy/8)*64,Villager.endY) == true )
-		 initTextBox();
+	for ( i = 0; i < Villagers.length; i++ ) {
+	    if ( collisionInteraction(Player.iBox[0],Player.iBox[1],Player.iBox[2],Player.iBox[3],Villagers[i].startX+(dx/8)*64,Villagers[i].endX,Villagers[i].startY+(dy/8)*64,Villagers[i].endY) == true ) {
+		 initTextBox(i);
+	    	break;
+	    }
+	}
 	    break;
         default:
             break;
@@ -417,9 +425,9 @@ function moveMap(direction){
 }
 
 //------------------------------Text Box-------------------------------------------
-function initTextBox() {
+function initTextBox(i) {
 	printText = 0;
-	Villager.drawText = true;
+	Villagers[i].drawText = true;
 	document.onkeydown = null;
 	document.onkeyup = null;
 	document.onkeydown = textHandler;		
@@ -440,8 +448,8 @@ function drawTextBox(sentence,position) {
 function textHandler(event) {
 	var keyCode = event.which || event.keyCode;
 	if ( keyCode == 32 ) {
-	 if ( Villager.sentence.length <= printText*60 + 120 ){
-	   Villager.drawText = false;
+	 if ( Villagers[0].sentence.length <= printText*60 + 120 ){
+	   Villagers[0].drawText = false;
 	   document.onkeydown = null;
 	   document.onkeydown = levelHandler;
 	   document.onkeyup = levelHandler2;
