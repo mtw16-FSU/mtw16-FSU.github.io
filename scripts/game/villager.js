@@ -24,3 +24,10 @@ function initVillager(options) {
   
   return that;
 }
+
+function textInteraction(Villager) {
+ if ( Villager.drawText == false )
+   return false;
+  else
+    return true;
+}
