@@ -141,7 +141,7 @@ function Scene(name, map){
 		map.getMap("images/spritesheets/level1.png");
 		
 		//loads in enemy
-		Enemy = new initEnemy({});
+		//Enemy = new initEnemy({});
                 break;
             case "Options":
                 initOptions();
