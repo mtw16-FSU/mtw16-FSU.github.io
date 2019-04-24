@@ -33,7 +33,7 @@ function initPlayer(options) {
 	that.draw = function() {
 		ctx.drawImage(that.image,63*that.aFrame,63*(action+that.direction),63,63,that.X,that.Y,126,126);
 		ctx.fillRect(that.iBox[0],that.iBox[2],30,31);
-		drawHealth(Player);
+		drawHealth(that);
 	};
 	
 	that.moveCheck = function(Up,Down,Left,Right,width,height) {
