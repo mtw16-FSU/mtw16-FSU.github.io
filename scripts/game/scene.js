@@ -541,7 +541,7 @@ function drawLoadingScreen(){
 }
 
 function generalCollision() {
-	for ( int i = 0; i < bounds.length; i++ ) {
+	for ( i = 0; i < bounds.length; i++ ) {
 		if ( collisionInteraction(Player.standLeft,Player.standRight,Player.standUp,Player.standDown,bounds[i].x1,bounds[i].x2,bounds[i].y1,bounds[i].y2) == true ) {
 			pLeft = false;
 			pRight = false;
