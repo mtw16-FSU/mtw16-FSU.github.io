@@ -26,6 +26,10 @@ totalHealth: 100
 // Helps Textbox Printing
 printText = 0;
 
+var bounds = new Array();
+bounds.push(Villager);
+
+
 //detects if all images have been loaded in before starting the level
 var isImage1Loaded = false;
 var isImage2Loaded = false;
