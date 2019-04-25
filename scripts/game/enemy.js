@@ -9,6 +9,7 @@ function initEnemy(options) {
 	that.startDeath = 12;
 	that.moveAFrame = 9;
 	that.deathAFrame = 6;
+	that.attackAFrame = 6;
 	that.aFrame = 0;
 	that.direction = 0; // up,left,down,right
 	that.action = 0;
