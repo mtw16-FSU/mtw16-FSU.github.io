@@ -269,21 +269,28 @@ function collisionBetter(theX,theY,Enemy) {
 
 	return false;
 }
-
 // Collision that deals with squares
 function collisionInteraction(pX1,pX2,pY1,pY2,oX1,oX2,oY1,oY2) {
-	if ( pX1 >= oX1 && pX2 <= oX2 && pY1 >= oY1 && pY2 <= oY2 )
-		return true;
-	
-	if ( pX1 >= oX1 && pX1 <= oX2 && oY1 <= pY2 && oY2 >= pY1) // pX1 collision
-		return true;
-	else if ( pX2 >= oX1 && pX2 <= oX2 && oY1 <= pY2 && oY2 >= pY1 ) // pX2 collision
-		return true;
-	else if ( pY1 >= oY1 && pY1 <= oY2 && oX1 <= pX2 && oX2 >= pX1 ) // pY1 collision
-		return true;
-	else if ( pY2 >= oY1 && pY2 <= oY2 && oX1 <= pX2 && oX2 >= pX1 ) // pY2 collision
-		return true;
-  	return false;
+	var collision = [0, 0, 0, 0];
+	if ( pX1 >= oX1 && pX2 <= oX2 && pY1 >= oY1 && pY2 <= oY2 ){
+		collision[0] = -1;
+		collision[1] = -1;
+		collision[2] = -1;
+		collision[3] = -1;
+		
+		return collision;
+	}
+		
+	if ( pX1 <= oX2 && (pX2+2) >= oX2 ) // right block collision
+		collision[0] = 1;
+	if ( pX2 >= oX1 && (pX1 - 2) <= oX1 ) // left block collision
+		collision[1] = 1;
+	if ( pY2 >= oY1 && pY1 <= oY1 ) // top block collision
+		collision[2] = 1;	
+	if ( pY1 <= oY2 && pY2 >= oY2 ) // bottom block collision
+		collision[3] = 1;
+  	
+	return collision;
 }
 
 function animateAttack(that) {
