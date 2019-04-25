@@ -398,29 +398,26 @@ function levelHandler2(){
 	}
 }
 
-function moveMap(direction){
-	switch(direction){
-		case 37: //left, moves player left
-		    pLeft = true;
-		    left = true;
-		    break;
-		case 38: //up, moves player up
-		    pUp = true;
-		    up = true;
-		    break;
-		case 39: //right, moves player right
-		    pRight = true;
-		    right = true;
-		    break;
-		case 40: //down, moves player down
-		    pDown = true;
-		    down = true;
-		    break;
-		case 70: //f, toggles full screen
-		    toggleFullScreen();
-		    break;
-		default:
-		    break;
+function moveMap(direction){	
+    	var collision = generalCollision();
+	
+	var upperLeft = collision[1] + collision[2];
+	var upperRight = collision[0] + collision[2];
+	var lowerLeft = collision[1] + collision[3];
+	var lowerRight = collision[0] + collision[3];
+	
+	if(direction == 37 && lowerRight != 2 && upperRight != 2){
+		pLeft = true;
+		left = true;
+	}else if(direction == 38 && lowerLeft != 2 && lowerRight != 2){
+		pUp = true;
+		up = true;
+	}else if(direction == 39 && lowerLeft != 2 && upperLeft != 2){
+		pRight = true;
+		right = true;
+	}else if(direction == 40 && upperRight != 2 && upperLeft != 2){
+		pDown = true;
+		down = true;
 	}
 }
 
@@ -591,10 +588,14 @@ function drawLoadingScreen(){
     ctx.font = "100px Sniglet";
     ctx.fillText("Loading...", width / 2 - 200, height / 2 - 50);
 }
-/*
+
 function generalCollision() {
-	for ( i = 0; i < bounds.length; i++ ) {
-		if ( collisionInteraction(Player.standLeft,Player.standRight,Player.standUp,Player.standDown,bounds[i].x1,bounds[i].x2,bounds[i].y1,bounds[i].y2) == true ) {
+	var hit = [0, 0, 0, 0];
+	for (var i = 0; i < bounds.length; i++ ) {
+		hit = collisionInteraction(Player.standLeft,Player.standRight,Player.standUp,Player.standDown,
+				bounds[i].startX+(dx/8)*64,bounds[i].endX,bounds[i].startY+(dy/8)*64,bounds[i].endY);
+		var isEmpty = hit[0] + hit[1] + hit[2] + hit[3];
+		if ( isEmpty != 0) {
 			pLeft = false;
 			pRight = false;
 			pUp = false;
@@ -603,8 +604,10 @@ function generalCollision() {
 			right = false;
 			up = false;
 			down = false;
-			break;
+			
+			return hit;
 		}
 	}
+	
+	return hit;
 }
-*/
