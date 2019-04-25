@@ -27,7 +27,7 @@ totalHealth: 100
 printText = 0;
 
 var bounds = new Array();
-bounds.push(Villager);
+bounds.push(Villagers[0]);
 
 
 //detects if all images have been loaded in before starting the level
