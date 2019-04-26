@@ -58,7 +58,8 @@ function initEnemy(options) {
 	that.attack = function() {
 		that.action = that.startAttack;
 		that.aFrame = -1;
-		setTimeout(animateAttack,0,that)
+		that.whichAction = "attack";
+		setTimeout(animateAttack,0,that);
 	};
 	
 	return that;
@@ -96,10 +97,10 @@ function basicEnemyAI(Enemy) {
 		Enemy.iBox[3] = Enemy.Y + (dy/8)*64;
 	  }
 	else if ( Enemy.direction == 1 ) {
-		Enemy.iBox[0] = Enemy.X + (dx/8)*64 - 11;
+		Enemy.iBox[0] = Enemy.X + (dx/8)*64 - 22;
 		Enemy.iBox[1] = Enemy.X + (dx/8)*64;
-		Enemy.iBox[2] = Enemy.Y + (dy/8)*64 + 22;
-		Enemy.iBox[3] = Enemy.Y + (dy/8)*64 + 33;
+		Enemy.iBox[2] = Enemy.Y + (dy/8)*64 + 44;
+		Enemy.iBox[3] = Enemy.Y + (dy/8)*64 + 66;
 	  }
 	else if ( Enemy.direction == 2 ) {
 		Enemy.iBox[0] = Enemy.X + (dx/8)*64;
@@ -109,21 +110,18 @@ function basicEnemyAI(Enemy) {
 	  }
 	else {
 		Enemy.iBox[0] = Enemy.X + (dx/8)*64 + Enemy.lengthX;
-		Enemy.iBox[1] = Enemy.X + (dx/8)*64 + Enemy.lengthX + 11;
-		Enemy.iBox[2] = Enemy.Y + (dy/8)*64 + 22;
-		Enemy.iBox[3] = Enemy.Y + (dy/8)*64 + 33;	
+		Enemy.iBox[1] = Enemy.X + (dx/8)*64 + Enemy.lengthX + 22;
+		Enemy.iBox[2] = Enemy.Y + (dy/8)*64 + 44;
+		Enemy.iBox[3] = Enemy.Y + (dy/8)*64 + 66;	
           }
 	
 	Enemy.aFrame++;
 		if ( Enemy.aFrame == Enemy.moveAFrame )
 			Enemy.aFrame = 0;
 	
-	if ( collisionSquare(Enemy.iBox[0],Enemy.iBox[1],Enemy.iBox[2],Enemy.iBox[3],Player.standLeft,Player.standRight,Player.standUp,Player.standDown) == true ) {
-		Enemy.aFrame = 0;
-		Enemy.action = Enemy.startAttack;
-		Enemy.whichAction = "attack";
+	if ( collisionSquare(Enemy.iBox[0],Enemy.iBox[1],Enemy.iBox[2],Enemy.iBox[3],Player.standLeft,Player.standRight,Player.standUp,Player.standDown) == true ) 
 		Enemy.attack();
-	}
+	
    }
 }
 
@@ -135,3 +133,5 @@ function enemyDeath(Enemy) {
 	}
 	
 }
+
+function 
