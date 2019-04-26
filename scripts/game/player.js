@@ -269,7 +269,7 @@ function collisionBetter(theX,theY,Enemy) {
 
 	return false;
 }
-// Collision that deals with squares
+// Collision that deals with tiles
 function collisionInteraction(pX1,pX2,pY1,pY2,oX1,oX2,oY1,oY2) {
 	var collision = [0, 0, 0, 0];
 	if ( pX1 >= oX1 && pX2 <= oX2 && pY1 >= oY1 && pY2 <= oY2 ){
@@ -291,6 +291,24 @@ function collisionInteraction(pX1,pX2,pY1,pY2,oX1,oX2,oY1,oY2) {
 		collision[3] = 1;
   	
 	return collision;
+}
+
+// Collision that deals with squares
+function collisionSquare(pX1,pX2,pY1,pY2,oX1,oX2,oY1,oY2) {
+
+	if ( pX1 >= oX1 && pX2 <= oX2 && pY1 >= oY1 && pY2 <= oY2 )
+		return true;
+	
+	if ( pX1 >= oX1 && pX1 <= oX2 && oY1 <= pY2 && oY2 >= pY1) // pX1 collision
+		return true;
+	else if ( pX2 >= oX1 && pX2 <= oX2 && oY1 <= pY2 && oY2 >= pY1 ) // pX2 collision
+		return true;
+	else if ( pY1 >= oY1 && pY1 <= oY2 && oX1 <= pX2 && oX2 >= pX1 ) // pY1 collision
+		return true;
+	else if ( pY2 >= oY1 && pY2 <= oY2 && oX1 <= pX2 && oX2 >= pX1 ) // pY2 collision
+		return true;
+  	
+	return false;
 }
 
 function animateAttack(that) {
