@@ -133,5 +133,3 @@ function enemyDeath(Enemy) {
 	}
 	
 }
-
-function 
