@@ -314,10 +314,15 @@ function collisionSquare(pX1,pX2,pY1,pY2,oX1,oX2,oY1,oY2) {
 function animateAttack(that) {
    if ( that.whichAction == "attack" ) {
 	that.aFrame++;
-	if ( that.aFrame == swordAFrame ) {
+	if ( that.type == "Player" && that.aFrame == swordAFrame ) {
 		that.aFrame = 0;
 		that.whichAction = "stand";
 		action = startWalk;
+	}
+	else if ( that.type == "Enemy" && that.aFrame == that.attackAFrame ) {
+		that.aFrame = 0;
+		that.whichAction = "alive";
+		that.action = that.startWalk;
 	}
 	else 
 		setTimeout(animateAttack,0,that); 
