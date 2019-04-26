@@ -55,7 +55,8 @@ function initEnemy(options) {
 			that.death = true;
 	};
 	
-	that.attack = function() {
+	that.attack = function() { 
+		// Still have to calculate boundson skeleton arm for collision
 		that.action = that.startAttack;
 		that.aFrame = -1;
 		that.whichAction = "attack";
