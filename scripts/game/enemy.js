@@ -98,7 +98,7 @@ function basicEnemyAI(Enemy) {
 		Enemy.iBox[3] = Enemy.Y + (dy/8)*64;
 	  }
 	else if ( Enemy.direction == 1 ) {
-		Enemy.iBox[0] = Enemy.X + (dx/8)*64 - 22;
+		Enemy.iBox[0] = Enemy.X + (dx/8)*64 - 10;
 		Enemy.iBox[1] = Enemy.X + (dx/8)*64;
 		Enemy.iBox[2] = Enemy.Y + (dy/8)*64 + 44;
 		Enemy.iBox[3] = Enemy.Y + (dy/8)*64 + 66;
@@ -131,7 +131,7 @@ function basicEnemyAI(Enemy) {
 			Player.isDamaged = true;
 		}
 		else if ( Enemy.direction == 3 ) {
-		   if  ( collisionSquare(Enemy.X+Enemy.lengthX+(dx/8)*64,Enemy.X+Enemy.lengthX+(dx/8)*64+22,Enemy.Y+(dy/8)*64+20,Enemy.Y+(dy/8)*64+34,Player.standLeft,Player.standRight,Player.Up,Player.Down) == true )	    
+		   if  ( collisionSquare(Enemy.X+Enemy.lengthX+(dx/8)*64,Enemy.X+Enemy.lengthX+(dx/8)*64+11,Enemy.Y+(dy/8)*64+20,Enemy.Y+(dy/8)*64+34,Player.standLeft,Player.standRight,Player.Up,Player.Down) == true )	    
 			Player.isDamaged = true;	
 		}
 	}
@@ -141,7 +141,7 @@ function basicEnemyAI(Enemy) {
 			Player.isDamaged = true;
 		}
 		else if ( Enemy.direction == 3 ) {
-		   if  ( collisionSquare(Enemy.X+Enemy.lengthX+(dx/8)*64,Enemy.X+Enemy.lengthX+(dx/8)*64+26,Enemy.Y+(dy/8)*64+15,Enemy.Y+(dy/8)*64+24,Player.standLeft,Player.standRight,Player.Up,Player.Down) == true )	    
+		   if  ( collisionSquare(Enemy.X+Enemy.lengthX+(dx/8)*64,Enemy.X+Enemy.lengthX+(dx/8)*64+13,Enemy.Y+(dy/8)*64+15,Enemy.Y+(dy/8)*64+24,Player.standLeft,Player.standRight,Player.Up,Player.Down) == true )	    
 			Player.isDamaged = true;	
 		}	
 	}
@@ -151,7 +151,7 @@ function basicEnemyAI(Enemy) {
 			Player.isDamaged = true;
 		}
 		else if ( Enemy.direction == 3 ) {
-		   if  ( collisionSquare(Enemy.X+Enemy.lengthX+(dx/8)*64,Enemy.X+Enemy.lengthX+(dx/8)*64+20,Enemy.Y+(dy/8)*64+14,Enemy.Y+(dy/8)*64+24,Player.standLeft,Player.standRight,Player.Up,Player.Down) == true )	    
+		   if  ( collisionSquare(Enemy.X+Enemy.lengthX+(dx/8)*64,Enemy.X+Enemy.lengthX+(dx/8)*64+10,Enemy.Y+(dy/8)*64+14,Enemy.Y+(dy/8)*64+24,Player.standLeft,Player.standRight,Player.Up,Player.Down) == true )	    
 			Player.isDamaged = true;	
 		}	
 	}
