@@ -26,7 +26,7 @@ function initPlayer(options) {
 	that.isDamaged = false;
 	that.death = false;
 	that.type = "Player";
-	
+	that.attackSpeed = 1000/10;
 	// x1,x2,y1,y2
 	that.iBox = [that.X+105,that.X+135,that.Y+57,that.Y+88];
 	
@@ -325,7 +325,7 @@ function animateAttack(that) {
 		that.action = that.startWalk;
 	}
 	else 
-		setTimeout(animateAttack,0,that); 
+		setTimeout(animateAttack,that.attackSpeed,that); 
    }
 }
 
