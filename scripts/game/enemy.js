@@ -31,7 +31,7 @@ function initEnemy(options) {
 	
 	//Call the draw function to create basic enemy rectangle
 	that.draw = function() {
-		if ( that.whichAction == "alive" ) {
+		if ( that.whichAction == "alive" == that.whichAction == "attack" ) {
 			if ( that.health > 0 )
 			basicEnemyAI(that);
 			else if ( that.health <= 0 && that.action != 12 ) {
@@ -90,8 +90,7 @@ function basicEnemyAI(Enemy) {
 			Enemy.direction = 3;
 		}
 
-
-	}	
+	}
 	if ( Enemy.direction == 0 ) {
 		Enemy.iBox[0] = Enemy.X + (dx/8)*64;
 		Enemy.iBox[1] = Enemy.X + (dx/8)*64;
@@ -125,6 +124,38 @@ function basicEnemyAI(Enemy) {
 		Enemy.attack();
 	
    }
+   else if ( Enemy.whichAction == "attack" ) {
+	if ( Enemy.aFrame == 3 ) {
+		if ( Enemy.direction == 1 ) {
+		   if ( collisionSquare(Enemy.X+(dx/8)*64-11,Enemy.X+(dx/8)*64,Enemy.Y+(dy/8)*64+20,Enemy.Y+(dy/8)*64+34,Player.standLeft,Player.standRight,Player.standUp,Player.standDown) == true )
+			Player.isDamaged = true;
+		}
+		else if ( Enemy.direction == 3 ) {
+		   if  ( collisionSquare(Enemy.X+Enemy.lengthX+(dx/8)*64,Enemy.X+Enemy.lengthX+(dx/8)*64+11,Enemy.Y+(dy/8)*64+20,Enemy.Y+(dy/8)*64+34,Player.standLeft,Player.standRight,Player.Up,Player.Down) == true )	    
+			Player.isDamaged = true;	
+		}
+	}
+	else if ( Enemy.aFrame == 4 ) {
+		if ( Enemy.direction == 1 ) {
+		   if ( collisionSquare(Enemy.X+(dx/8)*64+13,Enemy.X+(dx/8)*64,Enemy.Y+(dy/8)*64+15,Enemy.Y+(dy/8)*64+24,Player.standLeft,Player.standRight,Player.standUp,Player.standDown) == true )
+			Player.isDamaged = true;
+		}
+		else if ( Enemy.direction == 3 ) {
+		   if  ( collisionSquare(Enemy.X+Enemy.lengthX+(dx/8)*64,Enemy.X+Enemy.lengthX+(dx/8)*64+13,Enemy.Y+(dy/8)*64+15,Enemy.Y+(dy/8)*64+24,Player.standLeft,Player.standRight,Player.Up,Player.Down) == true )	    
+			Player.isDamaged = true;	
+		}	
+	}
+	else if ( Enemy.aFrame == 5 ) {
+		if ( Enemy.direction == 1 ) {
+		   if ( collisionSquare(Enemy.X+(dx/8)*64-10,Enemy.X+(dx/8)*64,Enemy.Y+(dy/8)*64+14,Enemy.Y+(dy/8)*64+24,Player.standLeft,Player.standRight,Player.standUp,Player.standDown) == true )
+			Player.isDamaged = true;
+		}
+		else if ( Enemy.direction == 3 ) {
+		   if  ( collisionSquare(Enemy.X+Enemy.lengthX+(dx/8)*64,Enemy.X+Enemy.lengthX+(dx/8)*64+10,Enemy.Y+(dy/8)*64+14,Enemy.Y+(dy/8)*64+24,Player.standLeft,Player.standRight,Player.Up,Player.Down) == true )	    
+			Player.isDamaged = true;	
+		}	
+	}
+ }
 }
 
 function enemyDeath(Enemy) {
