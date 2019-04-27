@@ -32,9 +32,7 @@ function iMenuHandler(event) {
     switch(keyCode) {
      case: 13 // enter
         if ( currentOption == 0 ) { // interact 
-          document.onkeydown = null;
-          document.onkeydown = textHandler;
-          printText = 0;
+          initTextBox();
         }
         else if ( currentOption == 1 ) { // shop 
           // shop stuff here   
