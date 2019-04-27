@@ -455,6 +455,10 @@ function levelHandler(){
     switch(keyCode){        
         case 27: //escape key, toggles the pause menu
                 mainMenuOn = true;
+		for ( i = 0; i < Enemies.length; i++ ){
+			if ( Enemies[i].death == false)
+ 			  Enemies.whichAction[i] = "listen";
+		}
                 currentOption = 0;
                 options = ["Resume", "Exit"];
             break;
