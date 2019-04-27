@@ -111,7 +111,7 @@ function basicEnemyAI(Enemy) {
 	  }
 	else {
 		Enemy.iBox[0] = Enemy.X + (dx/8)*64 + Enemy.lengthX;
-		Enemy.iBox[1] = Enemy.X + (dx/8)*64 + Enemy.lengthX + 1;
+		Enemy.iBox[1] = Enemy.X + (dx/8)*64 + Enemy.lengthX + 22;
 		Enemy.iBox[2] = Enemy.Y + (dy/8)*64 + 44;
 		Enemy.iBox[3] = Enemy.Y + (dy/8)*64 + 66;	
           }
@@ -139,7 +139,7 @@ function basicEnemyAI(Enemy) {
 	}
 	else if ( Enemy.aFrame == 4 ) {
 		if ( Enemy.direction == 1 ) {
-		   if ( collisionSquare(Enemy.X+(dx/8)*64+26,Enemy.X+(dx/8)*64,Enemy.Y+(dy/8)*64+30,Enemy.Y+(dy/8)*64+48,Player.standLeft,Player.standRight,Player.standUp,Player.standDown) == true ){
+		   if ( collisionSquare(Enemy.X+(dx/8)*64-26,Enemy.X+(dx/8)*64,Enemy.Y+(dy/8)*64+30,Enemy.Y+(dy/8)*64+48,Player.standLeft,Player.standRight,Player.standUp,Player.standDown) == true ){
 			alert("2");
 			   Player.isDamaged = true;}
 		}
