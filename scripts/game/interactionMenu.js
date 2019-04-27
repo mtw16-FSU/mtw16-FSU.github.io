@@ -30,7 +30,7 @@ function drawIMenu() {
 function iMenuHandler(event) {
    keyCode = event.which || event.keyCode;
     switch(keyCode) {
-     case: 13 // enter
+	    case 13: // enter
         if ( currentOption == 0 ) { // interact 
           initTextBox();
         }
@@ -50,13 +50,13 @@ function iMenuHandler(event) {
           Player.whichAction = "stand";
         } 
         break;
-     case: 38 // up
+     case 38: // up
         if ( currentOption == 0 )
           currentOption = options.length-1;
         else 
           currentOption--;
         break;
-     case: 40 // down
+	    case 40: // down
         if ( currentOption == options.length-1 )
           currentOption = 0;
         else
