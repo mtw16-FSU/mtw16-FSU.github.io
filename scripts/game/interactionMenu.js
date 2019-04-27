@@ -23,7 +23,7 @@ function drawIMenu() {
          ctx.fillStyle = "red";
       else 
          ctx.fillStyle = "black"
-	   ctx.fillText(options[i],width*.11,height*(.78+0.8*i));
+	   ctx.fillText(options[i],width*.11,height*(.70+0.8*i));
 	}
 }
 
@@ -45,7 +45,7 @@ function iMenuHandler(event) {
           document.onkeyup = levelHandler2;
           for ( i = 0; i < Enemies.length; i++ ) {
             if ( Enemies[i].death == false )
-              Enemies.whichAction = "alive";
+              Enemies[i].whichAction = "alive";
           }
           Player.whichAction = "stand";
         } 
