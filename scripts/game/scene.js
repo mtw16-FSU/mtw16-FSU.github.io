@@ -224,8 +224,10 @@ function Map(name){
 				Player.collisionCheck(Enemies[i]);
 			for ( i = 0; i < Villagers.length; i++ ) {
 				Villagers[i].draw();
-				if ( Villagers[i].drawText == true )
+				if ( Villagers[i].drawText == true && printText >= 0)
 					drawTextBox(Villagers[i].sentence,printText);
+				else if ( Villagers[i].drawText == true )
+					drawIMenu();
 			}		
 			for ( i = 0; i < Enemies.length; i++ )
 				Enemies[i].draw();
@@ -367,7 +369,7 @@ function levelHandler(){
 	case 86: //v
 	for ( i = 0; i < Villagers.length; i++ ) {
 	    if ( collisionSquare(Player.iBox[0],Player.iBox[1],Player.iBox[2],Player.iBox[3],Villagers[i].startX+(dx/8)*64,Villagers[i].endX,Villagers[i].startY+(dy/8)*64,Villagers[i].endY) == true ) {
-		 initTextBox(i);
+		 initIMenu(i);
 	    	break;
 	    }
 	}
@@ -426,17 +428,10 @@ function moveMap(direction){
 }
 
 //------------------------------Text Box-------------------------------------------
-function initTextBox(i) {
+function initTextBox() {
 	printText = 0;
-	Villagers[i].drawText = true;
 	document.onkeydown = null;
-	document.onkeyup = null;
 	document.onkeydown = textHandler;
-	for ( j = 0; j < Enemies.length; j++ ) {
-		if ( Enemies[j].death == false )
-		Enemies[j].whichAction = "listen";
-	}
-	Player.whichAction = "listen";
 }
 
 function drawTextBox(sentence,position) {
@@ -462,15 +457,9 @@ function textHandler(event) {
 	var keyCode = event.which || event.keyCode;
 	if ( keyCode == 32 ) {
 	 if ( Villagers[j].sentence.length <= printText*60 + 120 ){
-	   Villagers[j].drawText = false;
 	   document.onkeydown = null;
-	   document.onkeydown = levelHandler;
-	   document.onkeyup = levelHandler2;
-	   for ( i = 0; i < Enemies.length; i++ ) {
-		if ( Enemies[i].death == false )
-		   Enemies[i].whichAction = "alive";
-	   }
-	   Player.whichAction = "stand";
+	   document.onkeydown = iMenuHandler;
+	   printText = -1;
 	 }
 	 else 
 	 printText+=2;
