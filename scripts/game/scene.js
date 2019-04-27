@@ -4,30 +4,9 @@ Player = new initPlayer({
        Y: 512,
        aFrame: 0
     });
+
 var Villagers = new Array();
-Villagers.push(new initVillager({
-X: 2000,
-Y: 1000,
-sentence: "My Lord! The prophecies heralded your return. Your path to take back your throne begins now, sire. Your rivals stand in your way, once you defeat them, you may leave this province in the top right and head towards the castle!"
-}));
-
-Villagers.push(new initVillager({
-X: 500,
-Y: 800,
-sentence: "Second villager"
-}));
-
 var Enemies = new Array();
-Enemies.push(new initEnemy({ 
-	X: 500,
-	Y: 300,
-	totalHealth: 300
-})); 	     
-Enemies.push(new initEnemy({
-X: 500,
-Y: 600,
-totalHealth: 100
-}));
 
 // Helps Textbox Printing
 printText = 0;
@@ -46,9 +25,6 @@ function Tile(X, Y, collision){
 }
 
 var bounds = new Array();
-bounds.push(Villagers[0]);
-bounds.push(Villagers[1]);
-
 var endTiles = new Array();
 
 //detects if all images have been loaded in before starting the level
@@ -67,7 +43,6 @@ function SaveFile(data){
 }
 
 var saveFile1;
-
 
 //handles switching between different scenes and drawing from the scene that is loaded in
 function SceneHandler(scene){
@@ -185,6 +160,9 @@ function Scene(name, map){
         image1 = new Image();
         image2 = new Image();
 	    
+	bounds = [];
+	Enemies = [];
+	Villagers = [];
 	    
         dx = 0;
         dy = 0;
@@ -205,6 +183,8 @@ function Scene(name, map){
 		map.getMap("images/spritesheets/level1.png");
 			
 		this.nextMaps[0] = "Level 2";
+			
+		loadLevel1();
 		
                 break;
 	    case "Level 2":
@@ -308,27 +288,15 @@ function Map(name){
 			var hit = generalCollision();
 			if((hit[0] - 2) == 1 && sceneHandler.scene.nextMaps[0] != -1){
 				cancelAnimationFrame(drawing);
-				bounds = [];
-				Enemies = [];
-				Villagers = [];
                 		sceneHandler.scene.getScene(sceneHandler.scene.nextMaps[0]);
 			}else if((hit[0] - 2) == 2 && sceneHandler.scene.nextMaps[1] != -1){
 				cancelAnimationFrame(drawing);
-				bounds = [];
-				Enemies = [];
-				Villagers = [];
                 		sceneHandler.scene.getScene(sceneHandler.scene.nextMaps[1]);
 			}else if((hit[0] - 2) == 3 && sceneHandler.scene.nextMaps[2] != -1){
 				cancelAnimationFrame(drawing);
-				bounds = [];
-				Enemies = [];
-				Villagers = [];
                 		sceneHandler.scene.getScene(sceneHandler.scene.nextMaps[2]);
 			}else if((hit[0] - 2) == 4 && sceneHandler.scene.nextMaps[3] != -1){
 				cancelAnimationFrame(drawing);
-				bounds = [];
-				Enemies = [];
-				Villagers = [];
                 		sceneHandler.scene.getScene(sceneHandler.scene.nextMaps[3]);
 			}
 		}
