@@ -141,7 +141,7 @@ function initPlayer(options) {
 				}
 		}
 			
-		if (Player.weapon == "shortsword"){
+		if (Player.weapon == "shortSword"){
 			if ( swordCollision(that,Enemy) == true && Enemy.death == false ) {
 				Enemy.health -= 20;
 				Enemy.checkDeath();
