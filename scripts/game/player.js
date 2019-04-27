@@ -3,8 +3,10 @@ playerImage.src = "maps/character.png";
 
 var moveAFrame = 9;
 var swordAFrame = 6;
+var spearAFrame = 8;
 var startWalk = 8;
 var startSword = 12;
+var startSpear = 4; 
 var action = startWalk;
 
 function initPlayer(options) {
@@ -24,9 +26,10 @@ function initPlayer(options) {
 	that.health = 100;
 	that.weapon = "shortSword";
 	that.isDamaged = false;
+	that.invincible = false;
 	that.death = false;
 	that.type = "Player";
-	that.attackSpeed = 1000/20;
+	
 	// x1,x2,y1,y2
 	that.iBox = [that.X+105,that.X+135,that.Y+57,that.Y+88];
 	
@@ -93,20 +96,28 @@ function initPlayer(options) {
 		setTimeout(animateAttack,0,that)
 	};
 	
+	that.spearAttack = function() {
+		that.whichAction = "attack";
+		action = startSpear;
+		that.aFrame = -1;
+		setTimeout(animateAttack,0,that)
+	};
+	
 	that.canDamage = function() {
-		Player.isDamaged = false;	
+		Player.invincible = false;	
 	}
 	
 	that.collisionCheck = function(Enemy) {
 		// Check X collision
-		if ( Player.isDamaged == true ) 
-			return;
-		if ( that.standRight >= Enemy.X+((dx/8)*64) && that.standLeft <= Enemy.X+((dx/8)*64)+Enemy.lengthX && Enemy.death == false ) {
+		
+		//if ( that.standRight >= Enemy.X+((dx/8)*64) && that.standLeft <= Enemy.X+((dx/8)*64)+Enemy.lengthX && Enemy.death == false ) {
 			// Check Y collision
-			if ( that.standDown >= Enemy.Y+((dy/8)*64) && that.standUp <= Enemy.Y + ((dy/8)*64) + Enemy.lengthY) {
+		//	if ( that.standDown >= Enemy.Y+((dy/8)*64) && that.standUp <= Enemy.Y + ((dy/8)*64) + Enemy.lengthY) {
+		if ( collisionSquare(Player.standLeft,Player.standRight,Player.standUp,Player.standDown,Enemy.X+(dx/8)*64,Enemy.X+(dx/8)*64+Enemy.lengthX,Enemy.Y+(dy/8)*64,Enemy.Y+(dy/8)*64+Enemy.lengthY) == true )
+			Player.isDamaged = true;
+		
+		if ( Player.isDamaged == true && Player.invincible == false) {
 				Player.health -= 20;
-				dx -= 32;
-				dy -= 32;
 				pLeft = false;
 				pRight = false;
 				pUp = false;
@@ -118,21 +129,31 @@ function initPlayer(options) {
 				Player.aFrame = 0;
 				Player.whichAction = "stand";
 				action = startWalk;
-				Player.isDamaged = true;
-				setTimeout(Player.canDamage,3000);
+				Player.isDamaged = false;
+				Player.invincible = true;
+				setTimeout(Player.canDamage,1500);
 				//alert("YOU TOUCH MR.BONES");
 				if(Player.health <= 0){
 					this.health = 120;
 					this.death = true;
 				}
+		}
+			
+		if (Player.weapon == "shortsword"){
+			if ( swordCollision(that,Enemy) == true && Enemy.death == false ) {
+				Enemy.health -= 20;
+				Enemy.checkDeath();
+				//alert(Enemy.health);
 			}
 		}
-		
-		if ( swordCollision(that,Enemy) == true && Enemy.death == false ) {
-			Enemy.health -= 20;
-			Enemy.checkDeath();
-			//alert(Enemy.health);
+		else if (Player.weapon == "spear"){
+			if ( spearCollision(that,Enemy) == true && Enemy.death == false ) {
+				Enemy.health -= 20;
+				Enemy.checkDeath();
+				//alert(Enemy.health);
+			}
 		}
+
 	};
 	
 	return that;
@@ -231,6 +252,67 @@ function swordCollision(that,Enemy) {
 	return false;
 }
 
+//spear Collision
+function spearCollision(that,Enemy) {
+	if ( that.aFrame == 2 && that.whichAction == "attack" ) {
+		if ( that.direction == 1 ) 
+			 return collisionSquare(Player.standLeft - 19, Player.standLeft - 7, Player.standUp + 27, Player.standUp + 31, Enemy.X + (dx/8) * 64, Enemy.X + Enemy.lengthX + (dx/8) * 64, Enemy.Y + (dy/8) * 64, Enemy.Y + Enemy.lengthY + (dy/8) * 64);                  
+		else if ( that.direction == 3 ) 
+			 return collisionSquare(Player.standRight + 7, Player.standRight + 19, Player.standUp + 27, Player.standUp + 31, Enemy.X + (dx/8) * 64, Enemy.X + Enemy.lengthX + (dx/8) * 64, Enemy.Y + (dy/8) * 64, Enemy.Y + Enemy.lengthY + (dy/8) * 64);
+		
+		else
+			  return false;
+		  
+	}
+	if ( that.aFrame == 3 && that.whichAction == "attack" ) {
+		if ( that.direction == 1 ) 
+	 		return collisionSquare(Player.standLeft - 15, Player.standLeft - 3, Player.standUp + 27, Player.standUp + 31, Enemy.X + (dx/8) * 64, Enemy.X + Enemy.lengthX + (dx/8) * 64, Enemy.Y + (dy/8) * 64, Enemy.Y + Enemy.lengthY + (dy/8) * 64);                  
+		else if ( that.direction == 3 ) 
+			return collisionSquare(Player.standRight + 3, Player.standRight + 15, Player.standUp + 27, Player.standUp + 31, Enemy.X + (dx/8) * 64, Enemy.X + Enemy.lengthX + (dx/8) * 64, Enemy.Y + (dy/8) * 64, Enemy.Y + Enemy.lengthY + (dy/8) * 64);                  
+		
+		else
+			  return false;
+	}
+	else if ( that.aFrame == 4 && that.whichAction == "attack" ) {
+		if ( that.direction == 1 ) 
+	 		return collisionSquare(Player.standLeft - 19, Player.standLeft - 8, Player.standUp + 27, Player.standUp + 31, Enemy.X + (dx/8) * 64, Enemy.X + Enemy.lengthX + (dx/8) * 64, Enemy.Y + (dy/8) * 64, Enemy.Y + Enemy.lengthY + (dy/8) * 64);                  
+		else if ( that.direction == 3 ) 
+			return collisionSquare(Player.standRight + 8, Player.standRight + 19, Player.standUp + 27, Player.standUp + 31, Enemy.X + (dx/8) * 64, Enemy.X + Enemy.lengthX + (dx/8) * 64, Enemy.Y + (dy/8) * 64, Enemy.Y + Enemy.lengthY + (dy/8) * 64);                  
+		
+		else
+			  return false;
+	}
+	else if ( that.aFrame == 5 && that.whichAction == "attack" ) {
+		if ( that.direction == 1 ) 
+	 		return collisionSquare(Player.standLeft - 22, Player.standLeft - 10, Player.standUp + 27, Player.standUp + 31, Enemy.X + (dx/8) * 64, Enemy.X + Enemy.lengthX + (dx/8) * 64, Enemy.Y + (dy/8) * 64, Enemy.Y + Enemy.lengthY + (dy/8) * 64);                  
+		else if ( that.direction == 3 ) 
+			return collisionSquare(Player.standRight + 10, Player.standRight + 22, Player.standUp + 27, Player.standUp + 31, Enemy.X + (dx/8) * 64, Enemy.X + Enemy.lengthX + (dx/8) * 64, Enemy.Y + (dy/8) * 64, Enemy.Y + Enemy.lengthY + (dy/8) * 64);                  
+
+		else
+			  return false;
+	}
+	else if ( that.aFrame == 6 && that.whichAction == "attack" ) {
+		if ( that.direction == 1 ) 
+	 		return collisionSquare(Player.standLeft - 19, Player.standLeft - 7, Player.standUp + 27, Player.standUp + 31, Enemy.X + (dx/8) * 64, Enemy.X + Enemy.lengthX + (dx/8) * 64, Enemy.Y + (dy/8) * 64, Enemy.Y + Enemy.lengthY + (dy/8) * 64);                  
+		else if ( that.direction == 3 ) 
+			return collisionSquare(Player.standRight + 7, Player.standRight + 19, Player.standUp + 27, Player.standUp + 31, Enemy.X + (dx/8) * 64, Enemy.X + Enemy.lengthX + (dx/8) * 64, Enemy.Y + (dy/8) * 64, Enemy.Y + Enemy.lengthY + (dy/8) * 64);                  
+		  	
+		else
+			  return false;
+	}
+	else if ( that.aFrame == 7 && that.whichAction == "attack" ) {
+		if ( that.direction == 1 ) 
+	 		return collisionSquare(Player.standLeft - 14, Player.standLeft - 3, Player.standUp + 27, Player.standUp + 31, Enemy.X + (dx/8) * 64, Enemy.X + Enemy.lengthX + (dx/8) * 64, Enemy.Y + (dy/8) * 64, Enemy.Y + Enemy.lengthY + (dy/8) * 64);                  
+		else if ( that.direction == 3 ) 
+			return collisionSquare(Player.standRight + 3, Player.standRight + 14, Player.standUp + 27, Player.standUp + 31, Enemy.X + (dx/8) * 64, Enemy.X + Enemy.lengthX + (dx/8) * 64, Enemy.Y + (dy/8) * 64, Enemy.Y + Enemy.lengthY + (dy/8) * 64);                  
+		
+		else
+			  return false;
+	}
+
+	return false;
+}
+
 // Collision with sword and an enemy
 function collisionBetter(theX,theY,Enemy) {
 	if ( theX >= Enemy.X+((dx/8)*64) && theX <= Enemy.X+((dx/8)*64)+Enemy.lengthX && theY >= Enemy.Y+((dy/8)*64) && theY <=Enemy.Y+((dy/8)*64)+Enemy.lengthY )
@@ -269,7 +351,7 @@ function collisionBetter(theX,theY,Enemy) {
 
 	return false;
 }
-// Collision that deals with tiles
+// Collision that deals with squares
 function collisionInteraction(pX1,pX2,pY1,pY2,oX1,oX2,oY1,oY2) {
 	var collision = [0, 0, 0, 0];
 	if ( pX1 >= oX1 && pX2 <= oX2 && pY1 >= oY1 && pY2 <= oY2 ){
@@ -293,39 +375,30 @@ function collisionInteraction(pX1,pX2,pY1,pY2,oX1,oX2,oY1,oY2) {
 	return collision;
 }
 
-// Collision that deals with squares
-function collisionSquare(pX1,pX2,pY1,pY2,oX1,oX2,oY1,oY2) {
-
-	if ( pX1 >= oX1 && pX2 <= oX2 && pY1 >= oY1 && pY2 <= oY2 )
-		return true;
-	
-	if ( pX1 >= oX1 && pX1 <= oX2 && oY1 <= pY2 && oY2 >= pY1) // pX1 collision
-		return true;
-	else if ( pX2 >= oX1 && pX2 <= oX2 && oY1 <= pY2 && oY2 >= pY1 ) // pX2 collision
-		return true;
-	else if ( pY1 >= oY1 && pY1 <= oY2 && oX1 <= pX2 && oX2 >= pX1 ) // pY1 collision
-		return true;
-	else if ( pY2 >= oY1 && pY2 <= oY2 && oX1 <= pX2 && oX2 >= pX1 ) // pY2 collision
-		return true;
-  	
-	return false;
-}
-
 function animateAttack(that) {
    if ( that.whichAction == "attack" ) {
 	that.aFrame++;
-	if ( that.type == "Player" && that.aFrame == swordAFrame ) {
+	if ( that.aFrame == swordAFrame ) {
 		that.aFrame = 0;
 		that.whichAction = "stand";
 		action = startWalk;
 	}
-	else if ( that.type == "Enemy" && that.aFrame == that.attackAFrame ) {
+	else 
+		setTimeout(animateAttack,0,that); 
+   }
+}
+
+//spear
+function animateSpearAttack(that) {
+   if ( that.whichAction == "attack" ) {
+	that.aFrame++;
+	if ( that.aFrame == spearAFrame ) {
 		that.aFrame = 0;
-		that.whichAction = "alive";
-		that.action = that.startWalk;
+		that.whichAction = "stand";
+		action = startWalk;
 	}
 	else 
-		setTimeout(animateAttack,that.attackSpeed,that); 
+		setTimeout(animateAttack,0,that); 
    }
 }
 
