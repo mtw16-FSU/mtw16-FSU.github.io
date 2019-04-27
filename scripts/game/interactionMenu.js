@@ -24,7 +24,7 @@ function drawIMenu() {
       else 
          ctx.fillStyle = "black";
       
-      ctx.fillText(options[i],width*.11,height*((.90-.10*options.length+0.8)+0.8*i));
+      ctx.fillText(options[i],width*.11,height*((.90-.10*options.length)+0.8*i));
   }
 }
 
