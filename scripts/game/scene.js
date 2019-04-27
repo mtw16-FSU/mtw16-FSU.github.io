@@ -424,13 +424,13 @@ function drawLevel(map, backgroundTiles, foregroundTiles, rowSize, colSize){
         for(var j = 0; j < colSize; j++){
 		
 	    //gets the image to be cropped from the spritesheet to be displayed for the current tile
-	    xPos = backgroundTiles[i][j].X / 16;
-            yPos = backgroundTiles[i][j].Y / 16;
+	    xPos = Math.ceil(backgroundTiles[i][j].X / 16);
+            yPos = Math.ceil(backgroundTiles[i][j].Y / 16);
             
             ctx.drawImage(map.image,xPos*64,yPos*64,64,64,(j+(dx/8))*64,(i+(dy/8))*64,64,64);
 		
-	    xPos = foregroundTiles[i][j].X / 16;
-            yPos = foregroundTiles[i][j].Y / 16;
+	    xPos = Math.ceil(foregroundTiles[i][j].X / 16);
+            yPos = Math.ceil(foregroundTiles[i][j].Y / 16);
             
 	    if(!foregroundTiles[i][j].empty){
             	ctx.drawImage(map.image,xPos*64,yPos*64,64,64,(j+(dx/8))*64,(i+(dy/8))*64,64,64);
