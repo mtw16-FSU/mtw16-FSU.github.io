@@ -18,13 +18,13 @@ function drawIMenu() {
   ctx.fillRect(width*.10,height*(.90-.10*options.length),width*.80,height*(.10*options.length));
   ctx.font = "60px Sniglet";
   
-  for ( i = 0; i < options.length; i++ ) {
-      if ( currentOption == i )
+  for(var i = 0; i < options.length; i++ ){
+     if ( currentOption == i )
          ctx.fillStyle = "red";
-      else 
+     else 
          ctx.fillStyle = "black";
       
-      ctx.fillText(options[i],width*.11,height*((.90-.10*options.length)+0.8*i));
+      ctx.fillText(options[i],width*.11,height*((.90-.10*options.length+0.8)+0.8*i));
   }
 }
 
