@@ -15,16 +15,17 @@ function initIMenu(i) {
 
 function drawIMenu() {
   ctx.fillStyle = "#FFFFFF";
-	ctx.fillRect(width*.10,height*(.90-.10*options.length),width*.80,height*(.10*options.length));
-	ctx.font = "60px Sniglet";
+  ctx.fillRect(width*.10,height*(.90-.10*options.length),width*.80,height*(.10*options.length));
+  ctx.font = "60px Sniglet";
   
   for ( i = 0; i < options.length; i++ ) {
       if ( currentOption == i )
          ctx.fillStyle = "red";
       else 
          ctx.fillStyle = "black"
-	   ctx.fillText(options[i],width*.11,height*(.70+0.8*i));
-	}
+      
+      ctx.fillText(options[i],width*.11,height*((.90-.10*options.length)+0.8*i));
+  }
 }
 
 function iMenuHandler(event) {
