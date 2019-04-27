@@ -29,6 +29,10 @@ function mainMenuHandler(){
                 mainMenuOn = false;
                 document.onkeydown = null;
                 document.onkeydown = levelHandler;
+                for ( i = 0; i < Enemies.length; i++ ) {
+                    if ( Enemies[i].death == false )
+                      Enemies[i].whichAction = "alive";
+                }
             }else if(currentOption == 1){
                 mainMenuOn = false;
                 document.onkeydown = null;
