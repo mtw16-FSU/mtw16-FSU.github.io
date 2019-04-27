@@ -111,7 +111,7 @@ function basicEnemyAI(Enemy) {
 	  }
 	else {
 		Enemy.iBox[0] = Enemy.X + (dx/8)*64 + Enemy.lengthX;
-		Enemy.iBox[1] = Enemy.X + (dx/8)*64 + Enemy.lengthX + 15;
+		Enemy.iBox[1] = Enemy.X + (dx/8)*64 + Enemy.lengthX + 1;
 		Enemy.iBox[2] = Enemy.Y + (dy/8)*64 + 44;
 		Enemy.iBox[3] = Enemy.Y + (dy/8)*64 + 66;	
           }
