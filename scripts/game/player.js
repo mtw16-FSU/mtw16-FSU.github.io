@@ -106,6 +106,7 @@ function initPlayer(options) {
 	
 	that.canDamage = function() {
 		Player.invincible = false;	
+		Player.isDamaged = false;
 	}
 	
 	that.collisionCheck = function(Enemy) {
