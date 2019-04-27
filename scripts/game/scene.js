@@ -295,6 +295,8 @@ function Map(name){
 			Player.draw();
 			for ( i = 0; i < Enemies.length; i++ )
 				Player.collisionCheck(Enemies[i]);
+			for ( i = 0; i < Enemies.length; i++ )
+				Enemies[i].draw();
 			for ( i = 0; i < Villagers.length; i++ ) {
 				Villagers[i].draw();
 				if ( Villagers[i].drawText == true && printText >= 0)
@@ -302,8 +304,6 @@ function Map(name){
 				else if ( Villagers[i].drawText == true )
 					drawIMenu();
 			}		
-			for ( i = 0; i < Enemies.length; i++ )
-				Enemies[i].draw();
 		
 			var hit = generalCollision();
 			if((hit[0] - 2) == 1 && sceneHandler.scene.nextMaps[0] != -1){
@@ -560,7 +560,7 @@ function textHandler(event) {
 		}
 	}
 	var keyCode = event.which || event.keyCode;
-	if ( keyCode == 32 ) {
+	if ( keyCode == 13 ) {
 	 if ( Villagers[j].sentence.length <= printText*60 + 120 ){
 	   document.onkeydown = null;
 	   document.onkeydown = iMenuHandler;
