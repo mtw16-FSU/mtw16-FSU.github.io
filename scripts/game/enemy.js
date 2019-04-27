@@ -27,6 +27,7 @@ function initEnemy(options) {
 	that.death = false;
 	that.type = "Enemy";
 	that.iBox = [that.X+(dx/8)*64,that.X+(dx/8)*64,that.Y+(dy/8)*64,that.Y+(dy/8)*64]; //x1,x2,y1,y2
+	that.attackSpeed = 1000/5;
 	
 	//Call the draw function to create basic enemy rectangle
 	that.draw = function() {
