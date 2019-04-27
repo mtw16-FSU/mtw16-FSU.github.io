@@ -11,6 +11,12 @@ Y: 1000,
 sentence: "My Lord! The prophecies heralded your return. Your path to take back your throne begins now, sire. Your rivals stand in your way, once you defeat them, you may leave this province in the top right and head towards the castle!"
 }));
 
+Villagers.push(new initVillager({
+X: 500,
+Y: 800,
+sentence: "Second villager"
+}));
+
 var Enemies = new Array();
 Enemies.push(new initEnemy({ 
 	X: 500,
@@ -26,9 +32,24 @@ totalHealth: 100
 // Helps Textbox Printing
 printText = 0;
 
+function Tile(X, Y, collision){
+  this.X = X,
+  this.Y = Y,
+  this.startX,
+  this.startY,
+  this.endX,
+  this.endY,
+  this.empty = false,
+  this.solid = false,
+  this.side = -1,
+  this.collision = collision
+}
+
 var bounds = new Array();
 bounds.push(Villagers[0]);
+bounds.push(Villagers[1]);
 
+var endTiles = new Array();
 
 //detects if all images have been loaded in before starting the level
 var isImage1Loaded = false;
@@ -90,14 +111,17 @@ function SceneHandler(scene){
        		    var row = i * image1.width * 4;
 		    var backTiles = [];
                     for(var j = 0; j < image1.width*4; j += 4){
-                        backTiles.push([pixelData[row+j+1],y=pixelData[row+j+2]]);
+                        //backTiles.push([pixelData[row+j+1],y=pixelData[row+j+2]]);
+			backTiles.push(new Tile(pixelData[row+j+1],pixelData[row+j+2], false));
                     }
                     tiles1.push(backTiles);
             }
 
            scene.map.backgroundTiles = tiles1;
            scene.map.rowSize = image1.height;
-           scene.map.colSize = image1.width;		
+           scene.map.colSize = image1.width;
+		
+	   canvas.getContext('2d').clearRect(0,0,image1.width,image1.height);
 		
 	   canvas.getContext('2d').drawImage(image2,0,0,image1.width,image1.height);
            pixelData = canvas.getContext('2d').getImageData(0,0,image2.width,image2.height).data;
@@ -105,7 +129,31 @@ function SceneHandler(scene){
                var row = i * image2.width * 4;
                var foreTiles = [];
                for(var j = 0; j < image2.width*4; j += 4){
-                   foreTiles.push([pixelData[row+j+1],y=pixelData[row+j+2]]);
+		       
+		   var tile = new Tile(pixelData[row+j+1],pixelData[row+j+2], true);
+		   tile.startX = (j/4)*64;
+		   tile.startY = i*64;
+		   tile.endX = ((j/4)+1)*64;
+		   tile.endY = (i+1)*64;
+		   foreTiles.push(tile);
+		    
+		   if(pixelData[row+j+1] == 0 && pixelData[row+j+2] == 0){
+		   	tile.empty = true;   
+		   }
+		       
+		   if((pixelData[row+j+1] == 0 && pixelData[row+j+2] == 176) ||
+		     	(pixelData[row+j+1] == 16 && pixelData[row+j+2] == 176)){
+			  	if(i < 5){
+					tile.side = 1;
+				}else if (j < 5){					
+					tile.side = 2;
+				}else if(i > (image2.height - 5)){
+					tile.side = 3;
+				}else if(j > (image2.height - 5)){
+					tile.side = 4;
+				}
+			bounds.push(tile);	
+		   }
                }
                tiles2.push(foreTiles);
            }
@@ -125,6 +173,7 @@ function SceneHandler(scene){
 function Scene(name, map){
     this.map = map,
     this.name = name,
+    this.nextMaps = [-1,-1,-1,-1],
     this.getScene = function(name){
         this.name = name;
         this.map.name = name;
@@ -135,6 +184,10 @@ function Scene(name, map){
         var isLevel = true;
         image1 = new Image();
         image2 = new Image();
+	    
+	    
+        dx = 0;
+        dy = 0;
 	    
     	drawLoadingScreen();
         
@@ -150,10 +203,31 @@ function Scene(name, map){
                 
 		//loads in the spritesheet that will be used
 		map.getMap("images/spritesheets/level1.png");
+			
+		this.nextMaps[0] = "Level 2";
 		
-		//loads in enemy
-		//Enemy = new initEnemy({});
                 break;
+	    case "Level 2":
+		//sets keyboard input handlers for player movement and map logic
+		document.onkeydown = levelHandler;
+                document.onkeyup = levelHandler2;
+		
+		//loads in map files
+                image1.src = "maps/Level2Background.png";
+                image2.src = "maps/Level2Foreground.png";
+                
+		//loads in the spritesheet that will be used
+		map.getMap("images/spritesheets/level2.png");
+			
+		Player.X = 1024;
+		Player.Y = 512;
+			
+		dx = 0;
+		dy = -50;
+			
+		this.nextMaps[0] = "Level 1";
+		
+		break;	
             case "Options":
                 initOptions();
                 document.onkeydown = optionsHandler;
@@ -183,8 +257,6 @@ function Scene(name, map){
             
             //sets default values for the level
             mainMenuOn = false;
-            dx = 0;
-            dy = 0;
             left = false;
             up = false;
             right = false;
@@ -214,6 +286,7 @@ function Map(name){
     this.draw = function(){
         switch(this.name){
             case "Level 1":
+	    case "Level 2":
                 drawLevel(this, this.backgroundTiles,this.foregroundTiles, this.rowSize, this.colSize);
 		
 		//only draws player and updates player logic if the pause menu is not toggled
@@ -224,14 +297,41 @@ function Map(name){
 				Player.collisionCheck(Enemies[i]);
 			for ( i = 0; i < Villagers.length; i++ ) {
 				Villagers[i].draw();
-				if ( Villagers[i].drawText == true && printText >= 0)
+				if ( Villagers[i].drawText == true )
 					drawTextBox(Villagers[i].sentence,printText);
-				else if ( Villagers[i].drawText == true )
-					drawIMenu();
 			}		
 			for ( i = 0; i < Enemies.length; i++ )
 				Enemies[i].draw();
+		
+			var hit = generalCollision();
+			if((hit[0] - 2) == 1 && sceneHandler.scene.nextMaps[0] != -1){
+				cancelAnimationFrame(drawing);
+				bounds = [];
+				Enemies = [];
+				Villagers = [];
+                		sceneHandler.scene.getScene(sceneHandler.scene.nextMaps[0]);
+			}else if((hit[0] - 2) == 2 && sceneHandler.scene.nextMaps[1] != -1){
+				cancelAnimationFrame(drawing);
+				bounds = [];
+				Enemies = [];
+				Villagers = [];
+                		sceneHandler.scene.getScene(sceneHandler.scene.nextMaps[1]);
+			}else if((hit[0] - 2) == 3 && sceneHandler.scene.nextMaps[2] != -1){
+				cancelAnimationFrame(drawing);
+				bounds = [];
+				Enemies = [];
+				Villagers = [];
+                		sceneHandler.scene.getScene(sceneHandler.scene.nextMaps[2]);
+			}else if((hit[0] - 2) == 4 && sceneHandler.scene.nextMaps[3] != -1){
+				cancelAnimationFrame(drawing);
+				bounds = [];
+				Enemies = [];
+				Villagers = [];
+                		sceneHandler.scene.getScene(sceneHandler.scene.nextMaps[3]);
+			}
 		}
+			
+		
                 break;
             case "Options":
                 drawOptionsScreen();
@@ -297,8 +397,6 @@ function drawLevel(map, backgroundTiles, foregroundTiles, rowSize, colSize){
 	down = false;
     }
 	
-    //generalCollision();
-	
     //moves map to the left if left arrow key is pressed
     if(left){
 	dx++;
@@ -324,15 +422,20 @@ function drawLevel(map, backgroundTiles, foregroundTiles, rowSize, colSize){
         for(var j = 0; j < colSize; j++){
 		
 	    //gets the image to be cropped from the spritesheet to be displayed for the current tile
-            xPos = backgroundTiles[i][j][0] / 16;
-            yPos = backgroundTiles[i][j][1] / 16;
+	    xPos = backgroundTiles[i][j].X / 16;
+            yPos = backgroundTiles[i][j].Y / 16;
             
             ctx.drawImage(map.image,xPos*64,yPos*64,64,64,(j+(dx/8))*64,(i+(dy/8))*64,64,64);
 		
-            xPos = foregroundTiles[i][j][0] / 16;
-            yPos = foregroundTiles[i][j][1] / 16;
+	    xPos = foregroundTiles[i][j].X / 16;
+            yPos = foregroundTiles[i][j].Y / 16;
             
-            ctx.drawImage(map.image,xPos*64,yPos*64,64,64,(j+(dx/8))*64,(i+(dy/8))*64,64,64);
+	    if(!foregroundTiles[i][j].empty){
+            	ctx.drawImage(map.image,xPos*64,yPos*64,64,64,(j+(dx/8))*64,(i+(dy/8))*64,64,64);
+	    }
+	    
+	    foregroundTiles[i][j].endX = foregroundTiles[i][j].startX + (dx/8)*64 + 64;
+    	    foregroundTiles[i][j].endY = foregroundTiles[i][j].startY + (dy/8)*64 + 64;
         }
     }
     
@@ -369,7 +472,7 @@ function levelHandler(){
 	case 86: //v
 	for ( i = 0; i < Villagers.length; i++ ) {
 	    if ( collisionSquare(Player.iBox[0],Player.iBox[1],Player.iBox[2],Player.iBox[3],Villagers[i].startX+(dx/8)*64,Villagers[i].endX,Villagers[i].startY+(dy/8)*64,Villagers[i].endY) == true ) {
-		 initIMenu(i);
+		 initTextBox(i);
 	    	break;
 	    }
 	}
@@ -428,10 +531,17 @@ function moveMap(direction){
 }
 
 //------------------------------Text Box-------------------------------------------
-function initTextBox() {
+function initTextBox(i) {
 	printText = 0;
+	Villagers[i].drawText = true;
 	document.onkeydown = null;
+	document.onkeyup = null;
 	document.onkeydown = textHandler;
+	for ( j = 0; j < Enemies.length; j++ ) {
+		if ( Enemies[j].death == false )
+		Enemies[j].whichAction = "listen";
+	}
+	Player.whichAction = "listen";
 }
 
 function drawTextBox(sentence,position) {
@@ -457,9 +567,15 @@ function textHandler(event) {
 	var keyCode = event.which || event.keyCode;
 	if ( keyCode == 32 ) {
 	 if ( Villagers[j].sentence.length <= printText*60 + 120 ){
+	   Villagers[j].drawText = false;
 	   document.onkeydown = null;
-	   document.onkeydown = iMenuHandler;
-	   printText = -1;
+	   document.onkeydown = levelHandler;
+	   document.onkeyup = levelHandler2;
+	   for ( i = 0; i < Enemies.length; i++ ) {
+		if ( Enemies[i].death == false )
+		   Enemies[i].whichAction = "alive";
+	   }
+	   Player.whichAction = "stand";
 	 }
 	 else 
 	 printText+=2;
@@ -588,7 +704,8 @@ function generalCollision() {
 		hit = collisionInteraction(Player.standLeft,Player.standRight,Player.standUp,Player.standDown,
 				bounds[i].startX+(dx/8)*64,bounds[i].endX,bounds[i].startY+(dy/8)*64,bounds[i].endY);
 		var isEmpty = hit[0] + hit[1] + hit[2] + hit[3];
-		if ( isEmpty != 0) {
+		
+		if(isEmpty > 1 && bounds[i].solid){
 			pLeft = false;
 			pRight = false;
 			pUp = false;
@@ -597,6 +714,14 @@ function generalCollision() {
 			right = false;
 			up = false;
 			down = false;
+			
+			return hit;
+		}else if(isEmpty > 1){
+			hit[0] = bounds[i].side+2;
+			hit[1] = 0;			
+			hit[2] = 0;			
+			hit[3] = 0;
+			//console.log("Inside but not hit: " + isEmpty);
 			
 			return hit;
 		}
