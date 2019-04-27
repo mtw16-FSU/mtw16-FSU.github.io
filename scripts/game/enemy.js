@@ -31,7 +31,7 @@ function initEnemy(options) {
 	
 	//Call the draw function to create basic enemy rectangle
 	that.draw = function() {
-		if ( that.whichAction == "alive" == that.whichAction == "attack" ) {
+		if ( that.whichAction == "alive" || that.whichAction == "attack" ) {
 			if ( that.health > 0 )
 			basicEnemyAI(that);
 			else if ( that.health <= 0 && that.action != 12 ) {
