@@ -457,7 +457,7 @@ function levelHandler(){
                 mainMenuOn = true;
 		for ( i = 0; i < Enemies.length; i++ ){
 			if ( Enemies[i].death == false)
- 			  Enemies.whichAction[i] = "listen";
+ 			  Enemies[i].whichAction = "listen";
 		}
                 currentOption = 0;
                 options = ["Resume", "Exit"];
