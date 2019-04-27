@@ -29,6 +29,7 @@ function initPlayer(options) {
 	that.invincible = false;
 	that.death = false;
 	that.type = "Player";
+	that.attackSpeed = 1000/20;
 	
 	// x1,x2,y1,y2
 	that.iBox = [that.X+105,that.X+135,that.Y+57,that.Y+88];
@@ -375,16 +376,39 @@ function collisionInteraction(pX1,pX2,pY1,pY2,oX1,oX2,oY1,oY2) {
 	return collision;
 }
 
+// Collision that deals with squares	
+function collisionSquare(pX1,pX2,pY1,pY2,oX1,oX2,oY1,oY2) {	
+
+ 	if ( pX1 >= oX1 && pX2 <= oX2 && pY1 >= oY1 && pY2 <= oY2 )	
+		return true;	
+
+ 	if ( pX1 >= oX1 && pX1 <= oX2 && oY1 <= pY2 && oY2 >= pY1) // pX1 collision	
+		return true;	
+	else if ( pX2 >= oX1 && pX2 <= oX2 && oY1 <= pY2 && oY2 >= pY1 ) // pX2 collision	
+		return true;	
+	else if ( pY1 >= oY1 && pY1 <= oY2 && oX1 <= pX2 && oX2 >= pX1 ) // pY1 collision	
+		return true;	
+	else if ( pY2 >= oY1 && pY2 <= oY2 && oX1 <= pX2 && oX2 >= pX1 ) // pY2 collision	
+		return true;	
+
+ 	return false;	
+}
+
 function animateAttack(that) {
    if ( that.whichAction == "attack" ) {
 	that.aFrame++;
-	if ( that.aFrame == swordAFrame ) {
+	if ( that.type == "Player" && that.aFrame == swordAFrame ) {
 		that.aFrame = 0;
 		that.whichAction = "stand";
 		action = startWalk;
 	}
-	else 
-		setTimeout(animateAttack,0,that); 
+	else if ( that.type == "Enemy" & that.aFrame == that.attackAFrame ) {
+		that.aFrame = 0;
+		that.whichAction = "alive";
+		that.action = that.startWalk;
+	}
+	else
+		setTimeout(animateAttack,that.attackSpeed,that); 
    }
 }
 
