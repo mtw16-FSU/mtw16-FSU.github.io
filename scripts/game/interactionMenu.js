@@ -144,6 +144,7 @@ function iMenuHandler(event) {
 				Player.health = Player.totalHealth;
 			Player.inventory[currentIption+1]--;
 			options[currentOption+1]--;
+			alert("Potion Used");
 		}
 	    }
 	    else if ( Player.gold-options[currentOption+1] >= 0 ) {
