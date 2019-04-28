@@ -35,7 +35,6 @@ function Tile(X, Y, collision){
 }
 
 var bounds = new Array();
-var endTiles = new Array();
 
 //detects if all images have been loaded in before starting the level
 var isImage1Loaded = false;
