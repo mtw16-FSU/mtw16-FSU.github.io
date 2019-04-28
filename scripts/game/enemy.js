@@ -100,16 +100,23 @@ function basicEnemyAI(Enemy) {
 			Enemy.Y+=Enemy.moveSpeed;
 			Enemy.direction = 2;
 		}
-		else if ( Player.standDown < Enemy.Y + (dy/8)*64+Enemy.lengthY) {
+		if ( Player.standDown < Enemy.Y + (dy/8)*64+Enemy.lengthY) {
 			Enemy.Y-=Enemy.moveSpeed;
 			Enemy.direction = 0;
 		}
-		else if ( Player.standRight < Enemy.X +(dx/8)*64) {
+	       if ( Player.standRight < Enemy.X +(dx/8)*64) {
 			Enemy.X-=Enemy.moveSpeed;
-			Enemy.direction = 1;
+		       if ( (Enemy.X +(dx/8)*64 - Player.standRight) > (Enemy.Y + (dy/8)*64 - Player.standUp ) )
+				Enemy.direction = 1;
+		     	else if ( (Enemy.X +(dx/8)*64 - Player.standRight) > (Enemy.Y + (dy/8)*64 + Enemy.lengthY - Player.standUp ) )
+				Enemy.direction = 1;
 		}
 		else if ( Player.standLeft > Enemy.X + (dx/8)*64 + Enemy.lengthX) {
 			Enemy.X+=Enemy.moveSpeed;
+			if ( (Enemy.X +(dx/8)*64 + Enemy.lengthX - Player.standLeft) > (Enemy.Y + (dy/8)*64 - Player.standUp ) )
+				Enemy.direction = 1;
+		     	else if ( (Enemy.X +(dx/8)*64 + Enemy.lengthX - Player.standLeft) > (Enemy.Y + (dy/8)*64 + Enemy.lengthY - Player.standUp ) )
+				Enemy.direction = 1;
 			Enemy.direction = 3;
 		}
 
