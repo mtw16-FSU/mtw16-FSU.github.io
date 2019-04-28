@@ -1,11 +1,3 @@
-var width, height;
-var canvas, ctx;
-var background;
-var isFullScreen = false;
-var sceneHandler = new SceneHandler(new Scene("", new Map("")));
-var menuImage;
-var currentOption = 0, size;
-
 //initializes the canvas as soon as the webpage loads
 function init(){
     canvas = document.getElementById("canvas");
