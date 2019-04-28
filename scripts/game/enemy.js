@@ -28,6 +28,7 @@ function initEnemy(options) {
 	that.type = "Enemy";
 	that.iBox = [that.X+(dx/8)*64,that.X+(dx/8)*64,that.Y+(dy/8)*64,that.Y+(dy/8)*64]; //x1,x2,y1,y2
 	that.attackSpeed = 1000/10;
+	that.moveSpeed = options.moveSpeed;
 	
 	//Call the draw function to create basic enemy rectangle
 	that.draw = function() {
@@ -72,19 +73,19 @@ function basicEnemyAI(Enemy) {
 			Enemy.time = Date.now();
 		}
 		if ( Player.standUp > Enemy.Y + (dy/8)*64) {
-			Enemy.Y+=2;
+			Enemy.Y+=Enemy.moveSpeed;
 			Enemy.direction = 2;
 		}
 		if ( Player.standDown < Enemy.Y + (dy/8)*64+Enemy.lengthY) {
-			Enemy.Y-=2;
+			Enemy.Y-=Enemy.moveSpeed;
 			Enemy.direction = 0;
 		}
 		if ( Player.standRight < Enemy.X +(dx/8)*64+Enemy.lengthX) {
-			Enemy.X-=2;
+			Enemy.X-=Enemy.moveSpeed;
 			Enemy.direction = 1;
 		}
 		if ( Player.standLeft > Enemy.X + (dx/8)*64) {
-			Enemy.X+=2;
+			Enemy.X+=Enemy.moveSpeed;
 			Enemy.direction = 3;
 		}
 
