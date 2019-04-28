@@ -291,7 +291,8 @@ function spearCollision(that,Enemy) {
 	 		return collisionSquare(Player.standLeft - 15, Player.standLeft - 3, Player.standUp + 27, Player.standUp + 31, Enemy.X + (dx/8) * 64, Enemy.X + Enemy.lengthX + (dx/8) * 64, Enemy.Y + (dy/8) * 64, Enemy.Y + Enemy.lengthY + (dy/8) * 64);                  
 		else if ( that.direction == 3 ) 
 			return collisionSquare(Player.standRight + 3, Player.standRight + 15, Player.standUp + 27, Player.standUp + 31, Enemy.X + (dx/8) * 64, Enemy.X + Enemy.lengthX + (dx/8) * 64, Enemy.Y + (dy/8) * 64, Enemy.Y + Enemy.lengthY + (dy/8) * 64);                  
-		
+		else if ( that.direction == 0 )
+			 return collisionSquare(Player.standLeft + 14, Player.standLeft + 19, Player.standUp - 7, Player.standUp, Enemy.X + (dx/8) * 64, Enemy.X + Enemy.lengthX + (dx/8) * 64, Enemy.Y + (dy/8) * 64, Enemy.Y + Enemy.lengthY + (dy/8) * 64); 
 		else
 			  return false;
 	}
@@ -300,7 +301,8 @@ function spearCollision(that,Enemy) {
 	 		return collisionSquare(Player.standLeft - 19, Player.standLeft - 8, Player.standUp + 27, Player.standUp + 31, Enemy.X + (dx/8) * 64, Enemy.X + Enemy.lengthX + (dx/8) * 64, Enemy.Y + (dy/8) * 64, Enemy.Y + Enemy.lengthY + (dy/8) * 64);                  
 		else if ( that.direction == 3 ) 
 			return collisionSquare(Player.standRight + 8, Player.standRight + 19, Player.standUp + 27, Player.standUp + 31, Enemy.X + (dx/8) * 64, Enemy.X + Enemy.lengthX + (dx/8) * 64, Enemy.Y + (dy/8) * 64, Enemy.Y + Enemy.lengthY + (dy/8) * 64);                  
-		
+		else if ( that.direction == 0 )
+			 return collisionSquare(Player.standLeft + 11, Player.standLeft + 16, Player.standUp - 12, Player.standUp, Enemy.X + (dx/8) * 64, Enemy.X + Enemy.lengthX + (dx/8) * 64, Enemy.Y + (dy/8) * 64, Enemy.Y + Enemy.lengthY + (dy/8) * 64); 
 		else
 			  return false;
 	}
@@ -309,7 +311,8 @@ function spearCollision(that,Enemy) {
 	 		return collisionSquare(Player.standLeft - 22, Player.standLeft - 10, Player.standUp + 27, Player.standUp + 31, Enemy.X + (dx/8) * 64, Enemy.X + Enemy.lengthX + (dx/8) * 64, Enemy.Y + (dy/8) * 64, Enemy.Y + Enemy.lengthY + (dy/8) * 64);                  
 		else if ( that.direction == 3 ) 
 			return collisionSquare(Player.standRight + 10, Player.standRight + 22, Player.standUp + 27, Player.standUp + 31, Enemy.X + (dx/8) * 64, Enemy.X + Enemy.lengthX + (dx/8) * 64, Enemy.Y + (dy/8) * 64, Enemy.Y + Enemy.lengthY + (dy/8) * 64);                  
-
+		else if ( that.direction == 0 )
+			 return collisionSquare(Player.standLeft + 12, Player.standLeft + 17, Player.standUp - 16, Player.standUp, Enemy.X + (dx/8) * 64, Enemy.X + Enemy.lengthX + (dx/8) * 64, Enemy.Y + (dy/8) * 64, Enemy.Y + Enemy.lengthY + (dy/8) * 64); 
 		else
 			  return false;
 	}
@@ -318,7 +321,8 @@ function spearCollision(that,Enemy) {
 	 		return collisionSquare(Player.standLeft - 19, Player.standLeft - 7, Player.standUp + 27, Player.standUp + 31, Enemy.X + (dx/8) * 64, Enemy.X + Enemy.lengthX + (dx/8) * 64, Enemy.Y + (dy/8) * 64, Enemy.Y + Enemy.lengthY + (dy/8) * 64);                  
 		else if ( that.direction == 3 ) 
 			return collisionSquare(Player.standRight + 7, Player.standRight + 19, Player.standUp + 27, Player.standUp + 31, Enemy.X + (dx/8) * 64, Enemy.X + Enemy.lengthX + (dx/8) * 64, Enemy.Y + (dy/8) * 64, Enemy.Y + Enemy.lengthY + (dy/8) * 64);                  
-		  	
+		else if ( that.direction == 0 )
+			 return collisionSquare(Player.standLeft + 12, Player.standLeft + 17, Player.standUp - 12, Player.standUp, Enemy.X + (dx/8) * 64, Enemy.X + Enemy.lengthX + (dx/8) * 64, Enemy.Y + (dy/8) * 64, Enemy.Y + Enemy.lengthY + (dy/8) * 64);   	
 		else
 			  return false;
 	}
@@ -327,7 +331,8 @@ function spearCollision(that,Enemy) {
 	 		return collisionSquare(Player.standLeft - 14, Player.standLeft - 3, Player.standUp + 27, Player.standUp + 31, Enemy.X + (dx/8) * 64, Enemy.X + Enemy.lengthX + (dx/8) * 64, Enemy.Y + (dy/8) * 64, Enemy.Y + Enemy.lengthY + (dy/8) * 64);                  
 		else if ( that.direction == 3 ) 
 			return collisionSquare(Player.standRight + 3, Player.standRight + 14, Player.standUp + 27, Player.standUp + 31, Enemy.X + (dx/8) * 64, Enemy.X + Enemy.lengthX + (dx/8) * 64, Enemy.Y + (dy/8) * 64, Enemy.Y + Enemy.lengthY + (dy/8) * 64);                  
-		
+		else if ( that.direction == 0 )
+			 return collisionSquare(Player.standLeft + 12, Player.standLeft + 17, Player.standUp - 7, Player.standUp, Enemy.X + (dx/8) * 64, Enemy.X + Enemy.lengthX + (dx/8) * 64, Enemy.Y + (dy/8) * 64, Enemy.Y + Enemy.lengthY + (dy/8) * 64); 
 		else
 			  return false;
 	}
