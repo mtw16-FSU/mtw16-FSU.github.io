@@ -31,6 +31,7 @@ function initPlayer(options) {
 	that.type = "Player";
 	that.attackSpeed = 1000/20;
 	that.inventory = ["shortSword",1,"spear",0,"potion",5];
+	that.drawInv = false;
 	// x1,x2,y1,y2
 	that.iBox = [that.X+105,that.X+135,that.Y+57,that.Y+88];
 	
@@ -103,7 +104,9 @@ function initPlayer(options) {
 		for ( i = 0; i < Player.inventory.length; i+=2 ) {
 			options.push(Player.inventory[i]);	
 		}
-		currentOption = 0;	
+		options.push("Exit");
+		currentOption = 0;
+		Player.drawInv = true;
 	}
 	
 	that.attack = function() {
