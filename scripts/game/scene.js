@@ -35,15 +35,6 @@ var isSpreadsheetLoaded = false;
 var image1;
 var image2;
 
-//Save File information
-function SaveFile(data){
-	this.name = data.name,
-	this.location = data.location,
-	this.time = data.time
-}
-
-var saveFile1;
-
 var mainMenuOn = false;
 var dx = 0, dy = 0;
 var left = false, up = false, right = false, down = false;
@@ -113,10 +104,10 @@ function SceneHandler(scene){
                for(var j = 0; j < image2.width*4; j += 4){
 		       
 		   var tile = new Tile(pixelData[row+j+1],pixelData[row+j+2], true);
-		   tile.startX = (j/4)*64;
-		   tile.startY = i*64;
-		   tile.endX = ((j/4)+1)*64;
-		   tile.endY = (i+1)*64;
+		   tile.startX = ((j/4)*64)-5;
+		   tile.startY = (i*64)-5;
+		   tile.endX = (((j/4)+1)*64+5);
+		   tile.endY = ((i+1)*64)+5;
 		   foreTiles.push(tile);
 		    
 		   if(pixelData[row+j+1] == 0 && pixelData[row+j+2] == 0){
@@ -181,7 +172,7 @@ function Scene(name, map){
             case "Level 1":
 		loadLevel1(sideOfScreen);		
                 break;
-	    case "Level 2":			
+	    case "Level 2":
 		loadLevel2(sideOfScreen);		
 		break;
 	case "Castle":			
@@ -404,7 +395,7 @@ function levelHandler(){
  			  Enemies[i].whichAction = "listen";
 		}
                 currentOption = 0;
-                options = ["Resume", "Exit"];
+                options = ["Resume", "Map", "Save Game", "Exit"];
             break;
         case 32: // space, begins attacking if not already attacking
 	if ( Player.whichAction != "attack" )
@@ -568,7 +559,22 @@ function optionsHandler(event){
 
 //--------------------------------Save Menu Option---------------------------------
 function initSaveFile(){
-    options = ["1. " + saveFile1.name + " - Location: " + saveFile1.location + " " + saveFile1.time + ":00", "Exit"];
+    options = [];
+    var secondsString = (saveFiles[0].seconds < 10) ? "0" + saveFiles[0].seconds : saveFiles[0].seconds;	
+    var minutesString = (saveFiles[0].minutes < 10) ? "0" + saveFiles[0].minutes : saveFiles[0].minutes;
+	
+    options.push("1. " + saveFiles[0].name + " - Location: " + saveFiles[0].location + " " +
+		 saveFiles[0].hours + ":" + minutesString + ":" + secondsString);
+	    
+    /*for(var i = 0; i < 3; i++){
+	    if(saveFiles[i].newGame == "no"){
+		options.push("New game");	    
+	    }else{
+	    	options.push("1. " + saveFiles[i].name + " - Location: " + saveFiles[i].location + " " + saveFiles[i].time + ":00");
+	    }
+    }*/
+	
+    options.push("Exit");
     currentOption = 0;
     
     background.src= "images/backgrounds/SaveMenuBackground.png";
@@ -656,7 +662,7 @@ function generalCollision() {
 		if(isEmpty > 1 && bounds[i].solid){
 			isBlocked = true;
 			return hit;
-		}else if(isEmpty > 1){
+		}else if(isEmpty > 1 || isEmpty < 0){
 			hit[0] = bounds[i].side+2;
 			sideOfScreen = hit[0]-2;
 			hit[1] = 0;			

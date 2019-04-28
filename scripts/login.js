@@ -11,7 +11,7 @@ function checkLogin(){
             
             db.collection('SaveFile').doc(user.uid).get().then(doc=> {
                 //alert("Here: " + doc.data().name);
-                saveFile1 = new SaveFile(doc.data());
+                saveFiles.push(new SaveFile(doc.data()));
             }).catch(function(error) {
                 alert(error.message);
             });
@@ -50,9 +50,11 @@ function createUser(){
             waiting.innerHTML = "";
         }).then( cred => {
             db.collection('SaveFile').doc(cred.user.uid).set({
-                location: "start",
+                location: "Level 1",
                 name: displayName,
-                time: 0
+                hours: 0,
+                minutes: 0,
+                seconds: "00"
             });
         });
     }

@@ -1,3 +1,5 @@
+mapEntries = ["Level 1", "Level 2", "Level 3"];
+
 function showMainMenu(){
     ctx.globalAlpha = 0.3;
     ctx.fillStyle = "black";
@@ -8,8 +10,9 @@ function showMainMenu(){
 
     ctx.fillStyle = "white";
     ctx.font = "100px Sniglet";
-    ctx.fillText("Main Menu", 820, 300);
-
+    ctx.fillText("Main Menu", 820, 260);
+    
+    ctx.font = "80px Sniglet";
     for(var i = 0; i < options.length; i++){
         if(i == currentOption){
             ctx.fillStyle = "yellow";
@@ -17,7 +20,7 @@ function showMainMenu(){
             ctx.fillStyle = "white";
         }
 
-        ctx.fillText(options[i], width / 2  - 150, height / 2 + 150 * i);        
+        ctx.fillText(options[i], width / 2  - 150, (height / 2) - 90 + 125 * i);        
     }
 }
 
@@ -34,6 +37,11 @@ function mainMenuHandler(){
                       Enemies[i].whichAction = "alive";
                 }
             }else if(currentOption == 1){
+                showMapEntries();
+            }else if(currentOption == 2){
+                saveGame();
+                alert("Game succesfully saved.");
+            }else if(currentOption == (options.length-1)){
                 mainMenuOn = false;
                 document.onkeydown = null;
                 cancelAnimationFrame(drawing);
@@ -60,5 +68,11 @@ function mainMenuHandler(){
             break;
         default:
             break;
+    }
+}
+
+function showMapEntries(){
+    for(var i = 0; i < mapEntries.length; i++){
+            console.log("Map entry: " + mapEntries[i]);
     }
 }

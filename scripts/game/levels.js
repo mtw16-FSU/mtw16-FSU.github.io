@@ -11,10 +11,10 @@ function loadLevel1(side){
 		sceneHandler.scene.map.getMap("images/spritesheets/level1.png");
 	
 		if(side == 3){			
-			Player.X = 1200;
+			Player.X = 1240;
 			Player.Y = 150;
 
-			dx = -145;
+			dx = -140;
 			dy = 0;		
 		}else{
 			Player.X = 1024;
@@ -101,7 +101,7 @@ function loadLevel2(side){
 	Villagers.push(new initVillager({
 			X: 800,
 			Y: 800,
-			sentence: "It is you! The legendary hero " + saveFile1.name + "!"
+			sentence: "It is you! The legendary hero " + saveFiles[0].name + "!"
 			}));
 			
 
@@ -150,6 +150,5 @@ function loadCastle(side){
 
 	    bounds.push(Villagers[0]);
 	    bounds.push(Villagers[1]);
-	    bounds.push(Villagers[2]);
 
 }

@@ -73,7 +73,8 @@ function checkMenuInput(event){
         case 13: //enter key, loads appropriate map/menu option
             if(currentOption == 0){
                 cancelAnimationFrame(drawing);
-                sceneHandler.scene.getScene("Level 1");
+                startTime = new Date();
+                sceneHandler.scene.getScene(saveFiles[0].location);
             }else if(currentOption == 1){
                 cancelAnimationFrame(drawing);
                 sceneHandler.scene.getScene("Options");
