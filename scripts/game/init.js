@@ -51,5 +51,6 @@ var left = false, up = false, right = false, down = false;
 var pLeft = false, pRight = false, pDown = false, pUp = false;
 var isBlocked = false;
 var sideOfScreen = -1;
+var drawShop = false;
 
 mapEntries = ["Level 1"];
