@@ -24,7 +24,7 @@ function initPlayer(options) {
 	that.standDown = that.Y + 125;
 	that.totalHealth = 100;
 	that.health = 100;
-	that.weapon = "spear";
+	that.weapon = "shortSword";
 	that.isDamaged = false;
 	that.invincible = false;
 	that.death = false;
