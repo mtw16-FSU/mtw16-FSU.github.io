@@ -51,7 +51,7 @@ function drawIMenu() {
 	    
 	if ( i+3 == option.length && Player.drawInv == true ) {
 	  j++;
-	  ctx.fillText("Gold:",width*13,height*((.90-.075*options.length+0.06)+0.06*(i*2+j)))l;
+	  ctx.fillText("Gold:",width*13,height*((.90-.075*options.length+0.06)+0.06*(i*2+j)));
 	  ctx.fillText(Player.gold,width*41,height*((.90-.075*options.length+0.06)+0.06*(i*2+j)));
 	  j++;
 	}
