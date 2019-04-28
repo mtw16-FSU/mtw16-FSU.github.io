@@ -16,7 +16,7 @@ function initIMenu(i) {
 function drawIMenu() {
   if ( Player.drawInv == true ) {
     ctx.fillStyle = "#FFFFFF";
-    ctx.fillRect(width*.10,height*(.90-.075*(Math.ceil(options.length/2)+4),width*.80,height*(.075*(Math.ceil(options.length/2)+4);
+    ctx.fillRect(width*.10,height*(.90-.075*(Math.ceil(options.length/2)+4)),width*.80,height*(.075*(Math.ceil(options.length/2)+4)));
     ctx.font = "45px Sniglet";
   
     var j = 0;
