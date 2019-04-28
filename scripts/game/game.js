@@ -11,8 +11,10 @@ function init(){
 
     background = new Image();
     menuImage = new Image();
+    interactionMenuImage = new Image();
     background.src= "images/backgrounds/MenuBackground.png";
-    menuImage.src = "images/menus/main_menu.png";
+    menuImage.src = "images/menus/main_menu.png";    
+    interactionMenuImage.src = "images/menus/villager_menu_box.png";
 }
 
 //starts game at start menu
