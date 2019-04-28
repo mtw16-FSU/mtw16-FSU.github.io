@@ -128,8 +128,8 @@ function Scene(name, map){
             case "Level 1":
 		loadLevel1(sideOfScreen);		
                 break;
-	    case "Level 2":
-		addMapEntry("Level 2");
+	    case "Village":
+		addMapEntry("Village");
 		loadLevel2(sideOfScreen);		
 		break;
 	case "Castle":
@@ -196,7 +196,7 @@ function Map(name){
     this.draw = function(){
         switch(this.name){
             case "Level 1":
-	    case "Level 2":
+	    case "Village":
 	    case "Castle":
                 drawLevel(this, this.backgroundTiles,this.foregroundTiles, this.rowSize, this.colSize);
 		
