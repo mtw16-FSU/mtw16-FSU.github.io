@@ -138,11 +138,11 @@ function iMenuHandler(event) {
 	}
 	else if ( options[currentOption] == "potion" ) {
 	    if ( drawShop == false ) {
-		if ( Player.health < Player.totalHealth && Player.inventory[(currentOption-1)*2+1] > 0 ) {
+		if ( Player.health < Player.totalHealth && Player.inventory[currentOption+1] > 0 ) {
 			Player.health = Player.health + Player.totalHealth*.25;
 			if ( Player.health > Player.totalHealth )
 				Player.health = Player.totalHealth;
-			Player.inventory[(currentoption-1)*2+1]--;
+			Player.inventory[currentoption+1]--;
 		}
 	    }
 	    else if ( Player.gold-options[currentOption+1] >= 0 ) {
