@@ -1,4 +1,5 @@
-mapEntries = ["Level 1", "Level 2", "Level 3"];
+var subMenu = 0;
+var currentMapOption = 0, mapColumnNumber = 0;
 
 function showMainMenu(){
     ctx.globalAlpha = 0.3;
@@ -7,7 +8,20 @@ function showMainMenu(){
     ctx.globalAlpha = 1.0;
 
     ctx.drawImage(menuImage,224,100,1600,850);
+    
+    switch(subMenu){
+        case 0:
+            showTopLevelMenu();
+            break;
+        case 1:
+            showMapMenu();
+            break;
+        default:
+            break;
+    }
+}
 
+function showTopLevelMenu(){
     ctx.fillStyle = "white";
     ctx.font = "100px Sniglet";
     ctx.fillText("Main Menu", 820, 260);
@@ -24,8 +38,33 @@ function showMainMenu(){
     }
 }
 
+function showMapMenu(){
+    ctx.fillStyle = "white";
+    ctx.font = "90px Sniglet";
+    ctx.textAlign = "center"; 
+    ctx.fillText("Choose Destination To Travel To", width/2, 260);
+    ctx.textAlign = "start"; 
+    
+    ctx.font = "48px Sniglet";
+    for(var i = 0; i < mapEntries.length; i++){
+        if(i == currentMapOption){
+            ctx.fillStyle = "yellow";
+        }else{
+            ctx.fillStyle = "white";
+        }
+
+        ctx.fillText(mapEntries[i], 350 + (mapColumnNumber*100), 350 + (i*70));        
+    }
+    
+    ctx.fillStyle = "white";
+    ctx.textAlign = "center"; 
+    ctx.fillText("Press Esc to Go Back", width/2, height/2 + 350);   
+    ctx.textAlign = "start"; 
+}
+
 function mainMenuHandler(){
     var keyCode = event.which || event.keyCode;
+    
     switch(keyCode){
         case 13:
             if(currentOption == 0){
@@ -37,7 +76,11 @@ function mainMenuHandler(){
                       Enemies[i].whichAction = "alive";
                 }
             }else if(currentOption == 1){
-                showMapEntries();
+                subMenu = 1;
+                document.onkeydown = null;
+                console.log("here 1");
+                document.onkeydown = mapMenuHandler;
+                console.log("here 2");
             }else if(currentOption == 2){
                 saveGame();
                 alert("Game succesfully saved.");
@@ -71,8 +114,36 @@ function mainMenuHandler(){
     }
 }
 
-function showMapEntries(){
-    for(var i = 0; i < mapEntries.length; i++){
-            console.log("Map entry: " + mapEntries[i]);
+
+function mapMenuHandler(){
+    var keyCode = event.which || event.keyCode;
+    switch(keyCode){
+        case 13:
+            if(sceneHandler.scene.name != mapEntries[currentMapOption]){
+                subMenu = 0;
+                document.onkeydown = null;
+                sceneHandler.scene.getScene(mapEntries[currentMapOption]);
+            }
+            break;      
+        case 27:            
+            subMenu = 0;
+            document.onkeydown = null;
+            document.onkeydown = mainMenuHandler;
+            break;
+        case 38:
+            if(currentMapOption > 0){
+                currentMapOption--;
+            }
+            break;
+        case 40:
+            if(currentMapOption < mapEntries.length-1){
+                currentMapOption++;
+            }
+            break;
+        case 70:
+            toggleFullScreen();
+            break;
+        default:
+            break;
     }
 }
