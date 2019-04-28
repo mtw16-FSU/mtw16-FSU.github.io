@@ -30,7 +30,7 @@ function initPlayer(options) {
 	that.death = false;
 	that.type = "Player";
 	that.attackSpeed = 1000/20;
-	
+	that.inventory = ["shortSword",1,"spear",0,"potion",5];
 	// x1,x2,y1,y2
 	that.iBox = [that.X+105,that.X+135,that.Y+57,that.Y+88];
 	
@@ -89,6 +89,22 @@ function initPlayer(options) {
 			that.aFrame = 0;
 	 }
 	};
+	
+	that.initInventory = function() {
+		document.onkeydown = null;
+		document.onkeyup = null;
+//		document.onkeydown = invHandler;
+		for ( j = 0; j < Enemies.length; j++ ) {
+			if ( Enemies[j].death == false )
+	  		  Enemies[j].whichAction = "listen";
+		}
+		Player.whichAction = "listen";
+		options = [];
+		for ( i = 0; i < Player.inventory.length; i+=2 ) {
+			options.push(Player.inventory[i]);	
+		}
+		currentOption = 0;	
+	}
 	
 	that.attack = function() {
 		that.whichAction = "attack";
