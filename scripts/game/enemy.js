@@ -150,10 +150,9 @@ function basicEnemyAI(Enemy) {
 		Enemy.lengthY = 104;
 		Enemy.X += Enemy.xOff;
 		Enemy.Y += Enemy.yOff;
-		
-		Enemy.iBox[0] = Enemy.X + (dx/8)*64 + Enemy.lengthX/3;
-		Enemy.iBox[1] = Enemy.X + (dx/8)*64 + Enemy.lengthX/3*2;
-		Enemy.iBox[2] = Enemy.Y + (dy/8)*64 - 10;
+		Enemy.iBox[0] = Enemy.X + (dx/8)*64;
+		Enemy.iBox[1] = Enemy.X + (dx/8)*64 + Enemy.lengthX;
+		Enemy.iBox[2] = Enemy.Y + (dy/8)*64 - 20;
 		Enemy.iBox[3] = Enemy.Y + (dy/8)*64;
 	  }
 	else if ( Enemy.direction == 1 ) {
@@ -165,10 +164,10 @@ function basicEnemyAI(Enemy) {
 		Enemy.lengthY = 54;
 		Enemy.X += Enemy.xOff;
 		Enemy.Y += Enemy.yOff;
-		Enemy.iBox[0] = Enemy.X + (dx/8)*64 - 10;
+		Enemy.iBox[0] = Enemy.X + (dx/8)*64 - 20;
 		Enemy.iBox[1] = Enemy.X + (dx/8)*64;
-		Enemy.iBox[2] = Enemy.Y + (dy/8)*64 + Enemy.lengthY/3;
-		Enemy.iBox[3] = Enemy.Y + (dy/8)*64 + Enemy.lengthY/3*2;
+		Enemy.iBox[2] = Enemy.Y + (dy/8)*64;
+		Enemy.iBox[3] = Enemy.Y + (dy/8)*64 + Enemy.lengthY;
 	  }
 	else if ( Enemy.direction == 2 ) {
 		Enemy.yOff = 8;
@@ -179,10 +178,10 @@ function basicEnemyAI(Enemy) {
 		Enemy.lengthY = 104;
 		Enemy.X += Enemy.xOff;
 		Enemy.Y += Enemy.yOff;
-		Enemy.iBox[0] = Enemy.X + (dx/8)*64 + Enemy.lengthY/3;
-		Enemy.iBox[1] = Enemy.X + (dx/8)*64 + Enemy.lengthY*2/3;
+		Enemy.iBox[0] = Enemy.X + (dx/8)*64;
+		Enemy.iBox[1] = Enemy.X + (dx/8)*64 + Enemy.lengthY;
 		Enemy.iBox[2] = Enemy.Y + (dy/8)*64 + Enemy.lengthY;
-		Enemy.iBox[3] = Enemy.Y + (dy/8)*64 + Enemy.lengthY + 10;	
+		Enemy.iBox[3] = Enemy.Y + (dy/8)*64 + Enemy.lengthY + 20;	
 	  }
 	else {
 		Enemy.yOff = 42;
@@ -194,9 +193,9 @@ function basicEnemyAI(Enemy) {
 		Enemy.X += Enemy.xOff;
 		Enemy.Y += Enemy.yOff;
 		Enemy.iBox[0] = Enemy.X + (dx/8)*64 + Enemy.lengthX;
-		Enemy.iBox[1] = Enemy.X + (dx/8)*64 + Enemy.lengthX + 10;
-		Enemy.iBox[2] = Enemy.Y + (dy/8)*64 + Enemy.lengthY/3;
-		Enemy.iBox[3] = Enemy.Y + (dy/8)*64 + Enemy.lengthY*2/3;	
+		Enemy.iBox[1] = Enemy.X + (dx/8)*64 + Enemy.lengthX + 20;
+		Enemy.iBox[2] = Enemy.Y + (dy/8)*64;
+		Enemy.iBox[3] = Enemy.Y + (dy/8)*64 + Enemy.lengthY;	
           }
         
     }
