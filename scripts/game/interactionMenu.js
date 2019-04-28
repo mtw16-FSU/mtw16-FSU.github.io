@@ -23,12 +23,12 @@ function drawIMenu() {
     for(i = 0; i < options.length; i+=2 ){
 	ctx.fillStyle = "black";
 	if ( i == 0 ) {
-  	   ctx.fillText("Weapons:",width*.13,height*((.90-(.075*Math.ceil(options.length/2)+4)+0.06)+0.06*(i/2 + j)));	    
+  	   ctx.fillText("Weapons:",width*.13,height*((.90-.075*options.length-0.06)+0.06*(i/2 + j)));	    
     	   j++;
     	}
 	else if ( options[i] == "potion" ) {
 	   j++;
-	   ctx.fillText("Consumables:",width*.13,height*((.90-(.075*Math.ceil(options.length/2)+4)+0.06)+0.06*(i/2 + j)));	
+	   ctx.fillText("Consumables:",width*.13,height*((.90-.075*options.length-0.06)+0.06*(i/2 + j)));	
 	   j++;
 	}
 	else if ( i+1 == options.length )
@@ -39,10 +39,10 @@ function drawIMenu() {
        else 
            ctx.fillStyle = "black";
       
-        ctx.fillText(options[i],width*.13,height*((.90-(.075*Math.ceil(options.length)+4)+0.06)+0.06*(i/2 + j)));
+        ctx.fillText(options[i],width*.13,height*((.90-.075*options.length-0.06)+0.06*(i/2 + j)));
 	if ( drawShop == true && i+1 != options.length ) {
 	  ctx.fillStyle = "black";
-	  ctx.fillText(options[i+1],width*.41,height*((.90-(.075*Math.ceil(options.length)+4)+0.06)+0.06*(i/2 + j)));
+	  ctx.fillText(options[i+1],width*.41,height*((.90-.075*options.length-0.06)+0.06*(i/2 + j)));
 	}
     }
   }
