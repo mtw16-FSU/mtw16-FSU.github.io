@@ -142,7 +142,8 @@ function iMenuHandler(event) {
 			Player.health = Player.health + Player.totalHealth*.25;
 			if ( Player.health > Player.totalHealth )
 				Player.health = Player.totalHealth;
-			Player.inventory[currentoption+1]--;
+			Player.inventory[currentIption+1]--;
+			options[currentOption+1]--;
 		}
 	    }
 	    else if ( Player.gold-options[currentOption+1] >= 0 ) {
