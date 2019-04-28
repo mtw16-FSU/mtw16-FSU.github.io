@@ -353,7 +353,7 @@ function levelHandler(){
  			  Enemies[i].whichAction = "listen";
 		}
                 currentOption = 0;
-                options = ["Resume", "Map", "Save Game", "Exit"];
+                options = ["Resume", "Items", "Map", "Save Game", "Exit"];
             break;
         case 32: // space, begins attacking if not already attacking
 	if ( Player.whichAction != "attack" )
