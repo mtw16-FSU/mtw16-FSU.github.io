@@ -30,6 +30,7 @@ function initPlayer(options) {
 	that.death = false;
 	that.type = "Player";
 	that.attackSpeed = 1000/20;
+	that.inventory["shortSword",1,"spear",0,"potion",5];
 	
 	// x1,x2,y1,y2
 	that.iBox = [that.X+105,that.X+135,that.Y+57,that.Y+88];
