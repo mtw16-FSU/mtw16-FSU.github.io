@@ -16,6 +16,13 @@ function showMainMenu(){
         case 1:
             showMapMenu();
             break;
+        case 2:
+            ctx.font = "64px Sniglet";
+            ctx.fillStyle = "white";
+            ctx.textAlign = "center"; 
+            ctx.fillText("File saved successfully", width/2, height/2);   
+            ctx.textAlign = "start";
+            break;
         default:
             break;
     }
@@ -26,7 +33,7 @@ function showTopLevelMenu(){
     ctx.font = "100px Sniglet";
     ctx.fillText("Main Menu", 820, 260);
     
-    ctx.font = "80px Sniglet";
+    ctx.font = "60px Sniglet";
     for(var i = 0; i < options.length; i++){
         if(i == currentOption){
             ctx.fillStyle = "yellow";
@@ -34,7 +41,7 @@ function showTopLevelMenu(){
             ctx.fillStyle = "white";
         }
 
-        ctx.fillText(options[i], width / 2  - 150, (height / 2) - 90 + 125 * i);        
+        ctx.fillText(options[i], width / 2  - 150, (height / 2) - 90 + 100 * i);        
     }
 }
 
@@ -75,13 +82,21 @@ function mainMenuHandler(){
                     if ( Enemies[i].death == false )
                       Enemies[i].whichAction = "alive";
                 }
-            }else if(currentOption == 1){
+            }else if(currentOption == 2){
                 subMenu = 1;
                 document.onkeydown = null;
                 document.onkeydown = mapMenuHandler;
-            }else if(currentOption == 2){
+            }else if(currentOption == 3){
                 saveGame();
-                alert("Game succesfully saved.");
+                subMenu = 2;
+                document.onkeydown = null;
+                
+                setTimeout(function(){
+                    subMenu = 0;
+                    document.onkeydown = mainMenuHandler;
+                }, 1500);
+                
+                //alert("Game succesfully saved.");
             }else if(currentOption == (options.length-1)){
                 mainMenuOn = false;
                 document.onkeydown = null;
