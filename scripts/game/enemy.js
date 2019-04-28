@@ -277,6 +277,10 @@ function basicEnemyAI(Enemy) {
 	else if ( Enemy.aFrame == 5 ) {
 		if ( collisionSquare(Enemy.X,Enemy.X+Enemy.lengthX,Enemy.Y,Enemy.Y+Enemy.lengthY,Player.standLeft,Player.standRight,Player.standUp,Player.standDown) == true )
 			Player.isDamaged == true;
+		if ( Enemy.direction == 1 )
+			Enemy.direction = 3;
+		else if ( Enemy.direction == 3 )
+			Enemy.direction = 1;
 	}
 
    }
