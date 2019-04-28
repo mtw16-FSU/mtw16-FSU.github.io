@@ -78,6 +78,7 @@ function mainMenuHandler(){
                 mainMenuOn = false;
                 document.onkeydown = null;
                 document.onkeydown = levelHandler;
+		document.onkeyup = null;
 		document.onkeyup = levelHandler2;
                 for ( i = 0; i < Enemies.length; i++ ) {
                     if ( Enemies[i].death == false )
