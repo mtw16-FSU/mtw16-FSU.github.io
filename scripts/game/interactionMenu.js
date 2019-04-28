@@ -92,6 +92,7 @@ function iMenuHandler(event) {
 	      mainMenuOn = true;
 	      document.onkeydown = null;
 	      document.onkeydown = mainMenuHandler;
+	      options = ["Resume","Items","Map","Save Game","Exit"];
 	    }
 	    else {
    	      for ( i = 0; i < Villagers.length; i++ )
