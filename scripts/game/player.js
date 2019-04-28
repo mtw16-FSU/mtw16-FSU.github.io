@@ -138,7 +138,7 @@ function initPlayer(options) {
 		//if ( that.standRight >= Enemy.X+((dx/8)*64) && that.standLeft <= Enemy.X+((dx/8)*64)+Enemy.lengthX && Enemy.death == false ) {
 			// Check Y collision
 		//	if ( that.standDown >= Enemy.Y+((dy/8)*64) && that.standUp <= Enemy.Y + ((dy/8)*64) + Enemy.lengthY) {
-		if ( collisionSquare(Player.standLeft,Player.standRight,Player.standUp,Player.standDown,Enemy.X+(dx/8)*64,Enemy.X+(dx/8)*64+Enemy.lengthX,Enemy.Y+(dy/8)*64,Enemy.Y+(dy/8)*64+Enemy.lengthY) == true )
+		if ( Enemy.death == false && collisionSquare(Player.standLeft,Player.standRight,Player.standUp,Player.standDown,Enemy.X+(dx/8)*64,Enemy.X+(dx/8)*64+Enemy.lengthX,Enemy.Y+(dy/8)*64,Enemy.Y+(dy/8)*64+Enemy.lengthY) == true )
 			Player.isDamaged = true;
 		
 		if ( Player.isDamaged == true && Player.invincible == false) {
@@ -167,15 +167,16 @@ function initPlayer(options) {
 		if (Player.weapon == "shortSword"){
 			if ( swordCollision(that,Enemy) == true && Enemy.death == false ) {
 				Enemy.health -= 20;
-				Enemy.checkDeath();
-				//alert(Enemy.health);
+				if ( Enemy.checkDeath() == true )
+					Player.gold+=100;    
 			}
 		}
 		else if (Player.weapon == "spear"){
 			if ( spearCollision(that,Enemy) == true && Enemy.death == false ) {
 				Enemy.health -= 20;
-				Enemy.checkDeath();
-				//alert(Enemy.health);
+				if ( Enemy.checkDeath() == true )
+					Player.gold+=100;
+				
 			}
 		}
 
