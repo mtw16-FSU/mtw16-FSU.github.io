@@ -66,7 +66,7 @@ function initEnemy(options) {
 			drawHealth(that);
 		}
 		else if ( that.whichAction != "dead" && that.enemyClass == "Wolf") {
-			ctx.drawImage(enemyImage,64*Math.floor(that.aFrame),64*(that.direction+that.action),64,64,that.X+(dx/8)*64-that.xOff,that.Y+(dy/8)*64-that.yOff,128,128);
+			ctx.drawImage(wolfImage,64*Math.floor(that.aFrame),64*(that.direction+that.action),64,64,that.X+(dx/8)*64-that.xOff,that.Y+(dy/8)*64-that.yOff,128,128);
 			drawHealth(that);
 		}
 	};
@@ -243,26 +243,26 @@ function basicEnemyAI(Enemy) {
    else if ( Enemy.whichAction == "attack" && Enemy.enemyClass == "Wolf" ) {
 	if ( Enemy.aFrame == 3 ) {
 		if ( Enemy.direction == 0 )
-			Enemy.Y-=6;
+			Enemy.Y-=20;
 		else if ( Enemy.direction == 1 )
-			Enemy.X-=6;
+			Enemy.X-=20;
 		else if ( Enemy.direction == 2 )
-			Enemy.Y+=6;
+			Enemy.Y+=20;
 		else 
-			Enemy.Y+=6;
+			Enemy.Y+=20;
 		
 		if ( collisionSquare(Enemy.X,Enemy.X+Enemy.lengthX,Enemy.Y,Enemy.Y+Enemy.lengthY,Player.standLeft,Player.standRight,Player.standUp,Player.standDown) == true )
 			Player.isDamaged == true;
 	}
    	else if ( Enemy.aFrame == 4 ) {
 		if ( Enemy.direction == 0 )
-			Enemy.Y-=1;
+			Enemy.Y-=10;
 		else if ( Enemy.direction == 1 )
-			Enemy.X-=1;
+			Enemy.X-=10;
 		else if ( Enemy.direction == 2 )
-			Enemy.Y+=1;
+			Enemy.Y+=10;
 		else 
-			Enemy.Y+=1;
+			Enemy.Y+=10;
 		
 		if ( collisionSquare(Enemy.X,Enemy.X+Enemy.lengthX,Enemy.Y,Enemy.Y+Enemy.lengthY,Player.standLeft,Player.standRight,Player.standUp,Player.standDown) == true )
 			Player.isDamaged == true;
