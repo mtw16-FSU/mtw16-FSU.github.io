@@ -101,10 +101,6 @@ function initPlayer(options) {
 		}
 		Player.whichAction = "listen";
 		options = [];
-		for ( i = 0; i < Player.inventory.length; i+=2 ) {
-			options.push(Player.inventory[i]);	
-		}
-		options.push("Exit");
 		currentOption = 0;
 		Player.drawInv = true;
 	}
