@@ -120,6 +120,12 @@ function mainMenuHandler(){
             mainMenuOn = false;
             document.onkeydown = null;
             document.onkeydown = levelHandler;
+	    document.onkeyup = null;
+	    document.onkeyup = levelHandler2;
+	    for ( i = 0; i < Enemies.length; i++ ) {
+              if ( Enemies[i].death == false )
+                Enemies[i].whichAction = "alive";
+            }
             break;
         case 38:
             if(currentOption > 0){
