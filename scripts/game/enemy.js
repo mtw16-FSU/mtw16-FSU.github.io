@@ -111,7 +111,7 @@ function basicEnemyAI(Enemy) {
 		     	else if ( (Enemy.X +(dx/8)*64 - Player.standRight) > (Enemy.Y + (dy/8)*64 + Enemy.lengthY - Player.standUp ) )
 				Enemy.direction = 1;
 		}
-		else if ( Player.standLeft > Enemy.X + (dx/8)*64 + Enemy.lengthX) {
+		if ( Player.standLeft > Enemy.X + (dx/8)*64 + Enemy.lengthX) {
 			Enemy.X+=Enemy.moveSpeed;
 			if ( (Enemy.X +(dx/8)*64 + Enemy.lengthX - Player.standLeft) > (Enemy.Y + (dy/8)*64 - Player.standUp ) )
 				Enemy.direction = 3;
