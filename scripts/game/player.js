@@ -94,7 +94,7 @@ function initPlayer(options) {
 	that.initInventory = function() {
 		document.onkeydown = null;
 		document.onkeyup = null;
-//		document.onkeydown = invHandler;
+		document.onkeydown = iMenuHandler;
 		for ( j = 0; j < Enemies.length; j++ ) {
 			if ( Enemies[j].death == false )
 	  		  Enemies[j].whichAction = "listen";
