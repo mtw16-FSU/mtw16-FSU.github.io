@@ -1,7 +1,7 @@
 var enemyImage = new Image();
 var wolfImage = new Image();
 enemyImage.src = "images/spritesheets/skeleton_sprites.png";
-wolfImage.src = "images/spritesheets/skeleton_sprites.png";
+wolfImage.src = "images/spritesheets/wolf.png";
 
 function initEnemy(options) {
 	var that = {};
@@ -249,7 +249,7 @@ function basicEnemyAI(Enemy) {
 		else if ( Enemy.direction == 2 )
 			Enemy.Y+=20;
 		else 
-			Enemy.Y+=20;
+			Enemy.X+=20;
 		
 		if ( collisionSquare(Enemy.X,Enemy.X+Enemy.lengthX,Enemy.Y,Enemy.Y+Enemy.lengthY,Player.standLeft,Player.standRight,Player.standUp,Player.standDown) == true )
 			Player.isDamaged == true;
@@ -262,7 +262,7 @@ function basicEnemyAI(Enemy) {
 		else if ( Enemy.direction == 2 )
 			Enemy.Y+=10;
 		else 
-			Enemy.Y+=10;
+			Enemy.X+=10;
 		
 		if ( collisionSquare(Enemy.X,Enemy.X+Enemy.lengthX,Enemy.Y,Enemy.Y+Enemy.lengthY,Player.standLeft,Player.standRight,Player.standUp,Player.standDown) == true )
 			Player.isDamaged == true;
