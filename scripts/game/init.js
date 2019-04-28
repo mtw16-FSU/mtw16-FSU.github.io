@@ -53,4 +53,6 @@ var isBlocked = false;
 var sideOfScreen = -1;
 var drawShop = false;
 
+var interactionMenuImage;
+
 mapEntries = ["Level 1"];
