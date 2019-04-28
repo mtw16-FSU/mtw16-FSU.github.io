@@ -43,17 +43,37 @@ function loadLevel1(side){
 		Enemies.push(new initEnemy({ 
 					X: 500,
 					Y: 300,
-					totalHealth: 300,
+					totalHealth: 500,
 					moveSpeed: 2
 				})); 	    
 			
 		Enemies.push(new initEnemy({
 					X: 500,
 					Y: 600,
-					totalHealth: 100,
+					totalHealth: 200,
 					moveSpeed: 10
 					}));
-
+		
+		Enemies.push(new initEnemy({
+					X: 750,
+					Y: 2000,
+					totalHealth: 300,
+					moveSpeed: 4
+					}));
+	
+		Enemies.push(new initEnemy({
+					X: 500,
+					Y: 600,
+					totalHealth: 150,
+					moveSpeed: 7
+					}));
+	
+		Enemies.push(new initEnemy({
+					X: 500,
+					Y: 600,
+					totalHealth: 250,
+					moveSpeed: 5
+					}));
     bounds.push(Villagers[0]);
     bounds.push(Villagers[1]);
 
