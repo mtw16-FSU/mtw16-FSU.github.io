@@ -51,8 +51,11 @@ function initEnemy(options) {
 	
 	//if enemy's health is 0, just dead
 	that.checkDeath = function() {
-		if ( that.health <= 0  )
+		if ( that.health <= 0  ) {
 			that.death = true;
+			return true;
+		}
+		return false;
 	};
 	
 	that.attack = function() { 
