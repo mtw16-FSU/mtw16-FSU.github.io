@@ -250,11 +250,11 @@ function basicEnemyAI(Enemy) {
 		if ( Enemy.direction == 0 )
 			Enemy.Y-=20;
 		else if ( Enemy.direction == 1 )
-			Enemy.X-=20;
+			Enemy.X-=25;
 		else if ( Enemy.direction == 2 )
 			Enemy.Y+=20;
 		else 
-			Enemy.X+=20;
+			Enemy.X+=25;
 		
 		if ( collisionSquare(Enemy.X,Enemy.X+Enemy.lengthX,Enemy.Y,Enemy.Y+Enemy.lengthY,Player.standLeft,Player.standRight,Player.standUp,Player.standDown) == true )
 			Player.isDamaged == true;
