@@ -86,7 +86,7 @@ function mainMenuHandler(){
             else if ( currentOption == 1 ) {
                 mainMenuOn = false;
                 options = [];
-                for ( i = 0; i < Player.inventory.length; i+=2 ) {
+                for ( i = 0; i < Player.inventory.length; i++) {
 			      options.push(Player.inventory[i]);	
 		        }
 		        options.push("Exit");
