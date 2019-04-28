@@ -1,47 +1,3 @@
-//loads the player in at the middle of the screen 
-Player = new initPlayer({
-       X: 1024,
-       Y: 512,
-       aFrame: 0
-    });
-
-var Villagers = new Array();
-var Enemies = new Array();
-
-// Helps Textbox Printing
-printText = 0;
-
-function Tile(X, Y, collision){
-  this.X = X,
-  this.Y = Y,
-  this.startX,
-  this.startY,
-  this.endX,
-  this.endY,
-  this.empty = false,
-  this.solid = false,
-  this.side = -1,
-  this.collision = collision
-}
-
-var bounds = new Array();
-var endTiles = new Array();
-
-//detects if all images have been loaded in before starting the level
-var isImage1Loaded = false;
-var isImage2Loaded = false;
-var isSpreadsheetLoaded = false;
-
-var image1;
-var image2;
-
-var mainMenuOn = false;
-var dx = 0, dy = 0;
-var left = false, up = false, right = false, down = false;
-var pLeft = false, pRight = false, pDown = false, pUp = false;
-var isBlocked = false;
-var sideOfScreen = -1;
-
 //handles switching between different scenes and drawing from the scene that is loaded in
 function SceneHandler(scene){
     this.scene = scene,
@@ -173,9 +129,11 @@ function Scene(name, map){
 		loadLevel1(sideOfScreen);		
                 break;
 	    case "Level 2":
+		addMapEntry("Level 2");
 		loadLevel2(sideOfScreen);		
 		break;
-	case "Castle":			
+	case "Castle":
+		addMapEntry("Castle");
 		loadCastle(sideOfScreen);		
 		break;
             case "Options":
@@ -379,8 +337,6 @@ function drawLevel(map, backgroundTiles, foregroundTiles, rowSize, colSize){
     //displays the pause menu if it is toggled
     if(mainMenuOn){
         showMainMenu();
-        document.onkeydown = null;
-        document.onkeydown = mainMenuHandler;
     }
 }
 
@@ -389,7 +345,9 @@ function levelHandler(){
     var keyCode = event.which || event.keyCode;
     switch(keyCode){        
         case 27: //escape key, toggles the pause menu
-                mainMenuOn = true;
+		mainMenuOn = true;
+		document.onkeydown = null;
+		document.onkeydown = mainMenuHandler;
 		for ( i = 0; i < Enemies.length; i++ ){
 			if ( Enemies[i].death == false)
  			  Enemies[i].whichAction = "listen";
@@ -675,4 +633,21 @@ function generalCollision() {
 	}
 	
 	return hit;
+}
+
+function addMapEntry(entry){
+	var found = false;
+	for(var i = 0; i < mapEntries.length; i++){
+		if(entry === mapEntries[i]){
+			found = true;
+		}
+	}
+	
+	if(!found){
+		mapEntries.push(entry);
+		
+		db.collection('SaveFile').doc(firebase.auth().currentUser.uid).update({
+                	entries: mapEntries
+            	});
+	}
 }
