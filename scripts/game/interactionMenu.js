@@ -142,7 +142,7 @@ function iMenuHandler(event) {
 			Player.health = Player.health + Player.totalHealth*.25;
 			if ( Player.health > Player.totalHealth )
 				Player.health = Player.totalHealth;
-			Player.inventory[currentIption+1]--;
+			Player.inventory[currentOption+1]--;
 			options[currentOption+1]--;
 			alert("Potion Used");
 		}
