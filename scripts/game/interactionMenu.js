@@ -41,7 +41,6 @@ function drawIMenu() {
        else 
            ctx.fillStyle = "black";
       
-	alert(currentOption);
         ctx.fillText(options[i],width*.11,height*((.90-.075*options.length+0.06)+0.06*(i/2 + j)));
 	if ( drawShop == true && i+1 != options.length ) {
 	  ctx.fillStyle = "black";
@@ -75,6 +74,7 @@ function iMenuHandler(event) {
         else if ( options[currentOption] == "Shop" ) { // shop 
           options = ["spear",100,"shortSword",100,"potion",100,"Exit"];
           drawShop = true;
+	  currentOption = 0;
 	}
         else if  ( options[currentOption] == "Exit" ) { // exit 
           if ( drawShop == true ) {
