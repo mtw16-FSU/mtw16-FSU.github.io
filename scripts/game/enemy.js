@@ -58,8 +58,10 @@ function initEnemy(options) {
 			  that.aFrame = 0;
 			  that.direction = 0;
 			}
-			else
+			else if ( that.enemyClass == "Skeleton" )
 			  enemyDeath(that);
+			else
+			  that.whichAction = "dead";
 		}
 		if ( that.whichAction != "dead" && that.enemyClass == "Skeleton") {
 			ctx.drawImage(enemyImage,64*Math.floor(that.aFrame),64*(that.direction+that.action),64,64,that.X+(dx/8)*64-that.xOff,that.Y+(dy/8)*64-that.yOff,128,128);
