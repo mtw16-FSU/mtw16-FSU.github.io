@@ -51,35 +51,40 @@ function loadLevel1(side){
 					X: 500,
 					Y: 300,
 					totalHealth: 500,
-					moveSpeed: 2
+					moveSpeed: 2,
+					enemyClass: "Skeleton"
 				})); 	    
 			
 		Enemies.push(new initEnemy({
 					X: 500,
 					Y: 600,
-					totalHealth: 200,
-					moveSpeed: 10
+					totalHealth: 500,
+					moveSpeed: 10,
+					enemyClass: "Wolf"
 					}));
 		
 		Enemies.push(new initEnemy({
 					X: 750,
 					Y: 2000,
 					totalHealth: 300,
-					moveSpeed: 4
+					moveSpeed: 4,
+					enemyClass: "Skeleton"
 					}));
 	
 		Enemies.push(new initEnemy({
 					X: 1500,
 					Y: 600,
 					totalHealth: 150,
-					moveSpeed: 7
+					moveSpeed: 7,
+					enemyClass: "Skeleton"
 					}));
 	
 		Enemies.push(new initEnemy({
 					X: 1000,
 					Y: 450,
 					totalHealth: 250,
-					moveSpeed: 5
+					moveSpeed: 5,
+					enemyClass: "Skeleton"
 					}));
     bounds.push(Villagers[0]);
     bounds.push(Villagers[1]);
@@ -215,21 +220,24 @@ function loadBeach(side){
 			X: 750,
 			Y: 2000,
 			totalHealth: 300,
-			moveSpeed: 2
+			moveSpeed: 2,
+			enemyClass: "Skeleton"
 			}));
 	
 	Enemies.push(new initEnemy({
 			X: 1500,
 			Y: 600,
 			totalHealth: 150,
-			moveSpeed: 5
+			moveSpeed: 5,
+			enemyClass: "Skeleton"
 			}));
 	
 	Enemies.push(new initEnemy({
 			X: 1000,
 			Y: 450,
 			totalHealth: 250,
-			moveSpeed: 3
+			moveSpeed: 3,
+			enemyClass: "Skeleton"
 			}));
 		
 	Villagers.push(new initVillager({
