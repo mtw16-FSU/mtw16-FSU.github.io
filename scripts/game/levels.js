@@ -41,13 +41,15 @@ function loadLevel1(side){
 		Enemies.push(new initEnemy({ 
 					X: 500,
 					Y: 300,
-					totalHealth: 300
+					totalHealth: 300,
+					moveSpeed: 2
 				})); 	    
 			
 		Enemies.push(new initEnemy({
 					X: 500,
 					Y: 600,
-					totalHealth: 100
+					totalHealth: 100,
+					moveSpeed: 10
 					}));
 
     bounds.push(Villagers[0]);
@@ -142,7 +144,7 @@ function loadCastle(side){
 			sentence: "Wait, who are you?"
 			}));
 	
-	Villagers.push(new initVillager({
+	Villagers.push(new initVillager({ // King
 			X: 1000,
 			Y: 250,
 			sentence: "I am the king. Long have I awaited you."
