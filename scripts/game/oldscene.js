@@ -4,9 +4,10 @@ Player = new initPlayer({
        Y: 512,
        aFrame: 0
     });
-
-var Villagers = new Array();
-var Enemies = new Array();
+Villager = new initVillager({});
+a
+Enemy = new initEnemy({}); 
+basicEnemyAI();
 
 // Helps Textbox Printing
 printText = 0;
@@ -18,15 +19,13 @@ function Tile(X, Y, collision){
   this.startY,
   this.endX,
   this.endY,
-  this.empty = false,
-  this.solid = false,
-  this.side = -1,
   this.collision = collision
 }
 
+// Creates array of boundary conditions
 var bounds = new Array();
-var endTiles = new Array();
-
+//bounds.push({x1: Villager.startX+(dx/8)*64 ,x2: Villager.endX ,y1: Villager.startY+(dy/8)*64 ,y2: Villager.endY });
+bounds.push(Villager);
 //detects if all images have been loaded in before starting the level
 var isImage1Loaded = false;
 var isImage2Loaded = false;
@@ -44,12 +43,6 @@ function SaveFile(data){
 
 var saveFile1;
 
-var mainMenuOn = false;
-var dx = 0, dy = 0;
-var left = false, up = false, right = false, down = false;
-var pLeft = false, pRight = false, pDown = false, pUp = false;
-var isBlocked = false;
-var sideOfScreen = -1;
 
 //handles switching between different scenes and drawing from the scene that is loaded in
 function SceneHandler(scene){
@@ -101,9 +94,7 @@ function SceneHandler(scene){
 
            scene.map.backgroundTiles = tiles1;
            scene.map.rowSize = image1.height;
-           scene.map.colSize = image1.width;
-		
-	   canvas.getContext('2d').clearRect(0,0,image1.width,image1.height);
+           scene.map.colSize = image1.width;		
 		
 	   canvas.getContext('2d').drawImage(image2,0,0,image1.width,image1.height);
            pixelData = canvas.getContext('2d').getImageData(0,0,image2.width,image2.height).data;
@@ -111,32 +102,15 @@ function SceneHandler(scene){
                var row = i * image2.width * 4;
                var foreTiles = [];
                for(var j = 0; j < image2.width*4; j += 4){
-		       
-		   var tile = new Tile(pixelData[row+j+1],pixelData[row+j+2], true);
+                   //foreTiles.push([pixelData[row+j+1],y=pixelData[row+j+2]]);
+		   var tile = new Tile(pixelData[row+j+1],pixelData[row+j+2], true)
 		   tile.startX = (j/4)*64;
 		   tile.startY = i*64;
 		   tile.endX = ((j/4)+1)*64;
 		   tile.endY = (i+1)*64;
 		   foreTiles.push(tile);
-		    
-		   if(pixelData[row+j+1] == 0 && pixelData[row+j+2] == 0){
-		   	tile.empty = true;   
-		   }
 		       
-		   if((pixelData[row+j+1] == 0 && pixelData[row+j+2] == 176) ||
-		     	(pixelData[row+j+1] == 16 && pixelData[row+j+2] == 176) ||
-		     	(pixelData[row+j+1] == 255 && pixelData[row+j+2] == 255) ){
-			  	if(i < 5){
-					tile.side = 1;
-				}else if (j < 5){					
-					tile.side = 2;
-				}else if(i > (image2.height - 5)){
-					tile.side = 3;
-				}else if(j > (image2.width - 5)){
-					tile.side = 4;
-				}
-			bounds.push(tile);	
-		   }
+		   bounds.push(tile);
                }
                tiles2.push(foreTiles);
            }
@@ -145,8 +119,9 @@ function SceneHandler(scene){
 	  
 	   cancelAnimationFrame(drawing);
 			
+	   console.log("Here");
            drawing = requestAnimationFrame(sceneHandler.drawScene);
-	}else{    
+	}else{ 
         	drawing = requestAnimationFrame(sceneHandler.loadScene);
 	}
     }
@@ -156,7 +131,6 @@ function SceneHandler(scene){
 function Scene(name, map){
     this.map = map,
     this.name = name,
-    this.nextMaps = [-1,-1,-1,-1],
     this.getScene = function(name){
         this.name = name;
         this.map.name = name;
@@ -168,25 +142,24 @@ function Scene(name, map){
         image1 = new Image();
         image2 = new Image();
 	    
-	bounds = [];
-	Enemies = [];
-	Villagers = [];
-	    
-        dx = 0;
-        dy = 0;
-	    
     	drawLoadingScreen();
         
         switch(this.name){
             case "Level 1":
-		loadLevel1(sideOfScreen);		
+      		//sets keyboard input handlers for player movement and map logic
+		document.onkeydown = levelHandler;
+                document.onkeyup = levelHandler2;
+		
+		//loads in map files
+                image1.src = "maps/Level1Background.png";
+                image2.src = "maps/Level1Foreground.png";
+                
+		//loads in the spritesheet that will be used
+		map.getMap("images/spritesheets/level1.png");
+		
+		//loads in enemy
+		Enemy = new initEnemy({});
                 break;
-	    case "Level 2":			
-		loadLevel2(sideOfScreen);		
-		break;
-	case "Castle":			
-		loadCastle(sideOfScreen);		
-		break;
             case "Options":
                 initOptions();
                 document.onkeydown = optionsHandler;
@@ -203,8 +176,6 @@ function Scene(name, map){
                 break;
         }
 
-	sideOfScreen = -1;
-	    
         if(isLevel){
             
 	    image1.onload = function(){		    
@@ -218,6 +189,8 @@ function Scene(name, map){
             
             //sets default values for the level
             mainMenuOn = false;
+            dx = 0;
+            dy = 0;
             left = false;
             up = false;
             right = false;
@@ -247,41 +220,18 @@ function Map(name){
     this.draw = function(){
         switch(this.name){
             case "Level 1":
-	    case "Level 2":
-	    case "Castle":
                 drawLevel(this, this.backgroundTiles,this.foregroundTiles, this.rowSize, this.colSize);
 		
 		//only draws player and updates player logic if the pause menu is not toggled
 		if(!mainMenuOn){
 			Player.moveCheck(pUp,pDown,pLeft,pRight,width,height);
 			Player.draw();
-			for ( i = 0; i < Enemies.length; i++ )
-				Player.collisionCheck(Enemies[i]);
-			for ( i = 0; i < Enemies.length; i++ )
-				Enemies[i].draw();
-			for ( i = 0; i < Villagers.length; i++ ) {
-				Villagers[i].draw();
-				if ( Villagers[i].drawText == true && printText >= 0)
-					drawTextBox(Villagers[i].sentence,printText);
-				else if ( Villagers[i].drawText == true )
-					drawIMenu();
-			}		
-		
-			var hit = generalCollision();
-			if((hit[0] - 2) == 1 && sceneHandler.scene.nextMaps[0] != -1){
-				cancelAnimationFrame(drawing);
-                		sceneHandler.scene.getScene(sceneHandler.scene.nextMaps[0]);
-			}else if((hit[0] - 2) == 2 && sceneHandler.scene.nextMaps[1] != -1){
-				cancelAnimationFrame(drawing);
-                		sceneHandler.scene.getScene(sceneHandler.scene.nextMaps[1]);
-			}else if((hit[0] - 2) == 3 && sceneHandler.scene.nextMaps[2] != -1){
-				cancelAnimationFrame(drawing);
-                		sceneHandler.scene.getScene(sceneHandler.scene.nextMaps[2]);
-			}else if((hit[0] - 2) == 4 && sceneHandler.scene.nextMaps[3] != -1){
-				cancelAnimationFrame(drawing);
-                		sceneHandler.scene.getScene(sceneHandler.scene.nextMaps[3]);
-			}
-		}	
+			Player.collisionCheck(Enemy);
+			Villager.draw();
+			if ( Villager.drawText == true )
+				drawTextBox(Villager.sentence,printText);
+			Enemy.draw();
+		}
                 break;
             case "Options":
                 drawOptionsScreen();
@@ -304,6 +254,10 @@ function Map(name){
     }
 }
 
+var mainMenuOn = false;
+var dx = 0, dy = 0;
+var left = false, up = false, right = false, down = false;
+var pLeft = false, pRight = false, pDown = false, pUp = false
 function drawLevel(map, backgroundTiles, foregroundTiles, rowSize, colSize){
     ctx.clearRect(0,0,width,height);
     drawLoadingScreen();
@@ -336,12 +290,14 @@ function drawLevel(map, backgroundTiles, foregroundTiles, rowSize, colSize){
     	down = false;
     }
 	
-    if ( Player.whichAction == "attack" || Player.whichAction == "listen" ) {
+    if ( Player.whichAction == "attack" ) {
 	left = false;
 	right = false;
 	up = false;
 	down = false;
     }
+	
+    //generalCollision();
 	
     //moves map to the left if left arrow key is pressed
     if(left){
@@ -363,25 +319,29 @@ function drawLevel(map, backgroundTiles, foregroundTiles, rowSize, colSize){
 	dy--;
     }
 	
+//console.log("dx: " + dx + " dy: " + dy);
+	
     var xPos = 0, yPos = 0; 
     for(var i = 0; i < rowSize; i++){
         for(var j = 0; j < colSize; j++){
 		
 	    //gets the image to be cropped from the spritesheet to be displayed for the current tile
-	    xPos = Math.ceil(backgroundTiles[i][j].X / 16);
-            yPos = Math.ceil(backgroundTiles[i][j].Y / 16);
+            //xPos = backgroundTiles[i][j][0] / 16;
+            //yPos = backgroundTiles[i][j][1] / 16;
+		
+	    xPos = backgroundTiles[i][j].X / 16;
+            yPos = backgroundTiles[i][j].Y / 16;
             
             ctx.drawImage(map.image,xPos*64,yPos*64,64,64,(j+(dx/8))*64,(i+(dy/8))*64,64,64);
 		
-	    xPos = Math.ceil(foregroundTiles[i][j].X / 16);
-            yPos = Math.ceil(foregroundTiles[i][j].Y / 16);
+            //xPos = foregroundTiles[i][j][0] / 16;
+            //yPos = foregroundTiles[i][j][1] / 16;
+		
+	    xPos = foregroundTiles[i][j].X / 16;
+            yPos = foregroundTiles[i][j].Y / 16;
             
-	    if(!foregroundTiles[i][j].empty){
-            	ctx.drawImage(map.image,xPos*64,yPos*64,64,64,(j+(dx/8))*64,(i+(dy/8))*64,64,64);
-	    }
-	    
-	    foregroundTiles[i][j].endX = foregroundTiles[i][j].startX + (dx/8)*64 + 64;
-    	    foregroundTiles[i][j].endY = foregroundTiles[i][j].startY + (dy/8)*64 + 64;
+            ctx.drawImage(map.image,xPos*64,yPos*64,64,64,(j+(dx/8))*64,(i+(dy/8))*64,64,64);		
+            ctx.strokeRect( foregroundTiles[i][j].startX, foregroundTiles[i][j].startY, foregroundTiles[i][j].endX , foregroundTiles[i][j].endY );
         }
     }
     
@@ -399,10 +359,6 @@ function levelHandler(){
     switch(keyCode){        
         case 27: //escape key, toggles the pause menu
                 mainMenuOn = true;
-		for ( i = 0; i < Enemies.length; i++ ){
-			if ( Enemies[i].death == false)
- 			  Enemies[i].whichAction = "listen";
-		}
                 currentOption = 0;
                 options = ["Resume", "Exit"];
             break;
@@ -420,12 +376,8 @@ function levelHandler(){
             toggleFullScreen();
             break;
 	case 86: //v
-	for ( i = 0; i < Villagers.length; i++ ) {
-	    if ( collisionSquare(Player.iBox[0],Player.iBox[1],Player.iBox[2],Player.iBox[3],Villagers[i].startX+(dx/8)*64,Villagers[i].endX,Villagers[i].startY+(dy/8)*64,Villagers[i].endY) == true ) {
-		 initIMenu(i);
-	    	break;
-	    }
-	}
+	    if ( collisionInteraction(Player.iBox[0],Player.iBox[1],Player.iBox[2],Player.iBox[3],Villager.startX+(dx/8)*64,Villager.endX,Villager.startY+(dy/8)*64,Villager.endY) != -1 )
+		 initTextBox();
 	    break;
         default:
             break;
@@ -457,14 +409,17 @@ function levelHandler2(){
 	}
 }
 
-function moveMap(direction){	
+function moveMap(direction){
     	var collision = generalCollision();
 	
 	var upperLeft = collision[1] + collision[2];
 	var upperRight = collision[0] + collision[2];
 	var lowerLeft = collision[1] + collision[3];
 	var lowerRight = collision[0] + collision[3];
-	
+	//collision[0] => upper right corner
+	//collision[1] => bottom right corner +
+	//collision[2] => bottom right corner
+	//collision[3] => bottom leftt corner
 	if(direction == 37 && lowerRight != 2 && upperRight != 2){
 		pLeft = true;
 		left = true;
@@ -477,25 +432,39 @@ function moveMap(direction){
 	}else if(direction == 40 && upperRight != 2 && upperLeft != 2){
 		pDown = true;
 		down = true;
-	}else if(isBlocked){
-		pLeft = false;
-		pRight = false;
-		pUp = false;
-		pDown = false;
-		left = false;
-		right = false;
-		up = false;
-		down = false;
-		
-		isBlocked = false;
 	}
+	/*switch(direction){
+		case 37: //left, moves player left
+		    pLeft = true;
+		    left = true;
+		    break;
+		case 38: //up, moves player up
+		    pUp = true;
+		    up = true;
+		    break;
+		case 39 && collision != 2: //right, moves player right
+		    pRight = true;
+		    right = true;
+		    break;
+		case 40 && collision != 1: //down, moves player down
+		    pDown = true;
+		    down = true;
+		    break;
+		case 70: //f, toggles full screen
+		    toggleFullScreen();
+		    break;
+		default:
+		    break;
+	}*/
 }
 
 //------------------------------Text Box-------------------------------------------
-function initTextBox(i) {
+function initTextBox() {
 	printText = 0;
+	Villager.drawText = true;
 	document.onkeydown = null;
-	document.onkeydown = textHandler;
+	document.onkeyup = null;
+	document.onkeydown = textHandler;		
 }
 
 function drawTextBox(sentence,position) {
@@ -511,19 +480,13 @@ function drawTextBox(sentence,position) {
 }
 
 function textHandler(event) {
-	var j = 0;
-	for ( i = 0; i < Villagers.length; i++ ) {
-		if ( textInteraction(Villagers[i]) == true ){
-		    j = i;
-		    break;
-		}
-	}
 	var keyCode = event.which || event.keyCode;
-	if ( keyCode == 13 ) {
-	 if ( Villagers[j].sentence.length <= printText*60 + 120 ){
+	if ( keyCode == 32 ) {
+	 if ( Villager.sentence.length <= printText*60 + 120 ){
+	   Villager.drawText = false;
 	   document.onkeydown = null;
-	   document.onkeydown = iMenuHandler;
-	   printText = -1;
+	   document.onkeydown = levelHandler;
+	   document.onkeyup = levelHandler2;
 	 }
 	 else 
 	 printText+=2;
@@ -649,21 +612,33 @@ function drawLoadingScreen(){
 function generalCollision() {
 	var hit = [0, 0, 0, 0];
 	for (var i = 0; i < bounds.length; i++ ) {
+		//console.log(bounds[i].startX + " start y: " + bounds[i].startY + " end X:" +  bounds[i].endX);
 		hit = collisionInteraction(Player.standLeft,Player.standRight,Player.standUp,Player.standDown,
 				bounds[i].startX+(dx/8)*64,bounds[i].endX,bounds[i].startY+(dy/8)*64,bounds[i].endY);
 		var isEmpty = hit[0] + hit[1] + hit[2] + hit[3];
-		
-		if(isEmpty > 1 && bounds[i].solid){
-			isBlocked = true;
-			return hit;
-		}else if(isEmpty > 1){
-			hit[0] = bounds[i].side+2;
-			sideOfScreen = hit[0]-2;
-			hit[1] = 0;			
-			hit[2] = 0;			
-			hit[3] = 0;
-			//console.log("Inside but not hit: " + isEmpty);
-			
+		if ( isEmpty != 0) {
+			/*if(hit == 1){
+				console.log("Left side");
+				Player.Y -= 2;
+			}else if(hit == 2){
+				console.log("Up side");
+				Player.X -= 2;
+			}else if(hit == 3){
+				console.log("Right side");
+				//Player.X += 2;
+			}else if(hit == 4){
+				console.log("Down side");
+				//Player.Y += 2;
+			}*/
+			pLeft = false;
+			pRight = false;
+			pUp = false;
+			pDown = false;
+			left = false;
+			right = false;
+			up = false;
+			down = false;
+			//console.log("0: " + hit[0] + " 1: " + hit[1] + " 2: " + hit[2] + " 3: " + hit[3])
 			return hit;
 		}
 	}

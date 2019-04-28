@@ -1,4 +1,30 @@
-function loadLevel1(){ 	
+function loadLevel1(side){ 	
+      		//sets keyboard input handlers for player movement and map logic
+		document.onkeydown = levelHandler;
+                document.onkeyup = levelHandler2;
+		
+		//loads in map files
+                image1.src = "maps/Level1Background.png";
+                image2.src = "maps/Level1Foreground.png";
+                
+		//loads in the spritesheet that will be used
+		sceneHandler.scene.map.getMap("images/spritesheets/level1.png");
+	
+		if(side == 3){			
+			Player.X = 1200;
+			Player.Y = 150;
+
+			dx = -145;
+			dy = 0;		
+		}else{
+			Player.X = 1024;
+			Player.Y = 512
+
+			dx = 0;
+			dy = 0;		
+		}
+
+		sceneHandler.scene.nextMaps[0] = "Level 2";
 			
 		Villagers.push(new initVillager({
 				X: 2000,
@@ -26,5 +52,103 @@ function loadLevel1(){
 
     bounds.push(Villagers[0]);
     bounds.push(Villagers[1]);
+
+}
+
+
+function loadLevel2(side){
+	
+	//sets keyboard input handlers for player movement and map logic
+	document.onkeydown = levelHandler;
+        document.onkeyup = levelHandler2;
+		
+	//loads in map files
+        image1.src = "maps/Level2Background.png";
+        image2.src = "maps/Level2Foreground.png";
+                
+	//loads in the spritesheet that will be used
+	sceneHandler.scene.map.getMap("images/spritesheets/level2.png");
+	
+	if(side == 3){
+		Player.X = 1024;
+		Player.Y = 50;
+
+		dx = -60;
+		dy = 0;
+	}else if(side == 1){
+		Player.X = 1024;
+		Player.Y = 800;
+
+		dx = -60;
+		dy = -270;
+	}else{	
+		Player.X = 1024;
+		Player.Y = 512;
+
+		dx = 0;
+		dy = -50;
+	}
+			
+	sceneHandler.scene.nextMaps[0] = "Castle";	
+	sceneHandler.scene.nextMaps[2] = "Level 1";
+	
+	Villagers.push(new initVillager({
+			X: 1100,
+			Y: 1700,
+			sentence: "You are here at last! Thank the gods!"
+			}));
+
+	Villagers.push(new initVillager({
+			X: 800,
+			Y: 800,
+			sentence: "It is you! The legendary hero " + saveFile1.name + "!"
+			}));
+			
+
+    bounds.push(Villagers[0]);
+    bounds.push(Villagers[1]);
+
+}
+
+function loadCastle(side){
+	
+	document.onkeydown = levelHandler;
+        document.onkeyup = levelHandler2;
+		
+	//loads in map files
+        image1.src = "maps/CastleBackground.png";
+        image2.src = "maps/CastleForeground.png";
+                
+	//loads in the spritesheet that will be used
+	sceneHandler.scene.map.getMap("images/spritesheets/Castle_sheet.png");
+			
+	Player.X = 1024;
+	Player.Y = 800;
+			
+	dx = 0;
+	dy = -125;
+	
+	sceneHandler.scene.nextMaps[2] = "Level 2";
+	
+	Villagers.push(new initVillager({
+			X: 1100,
+			Y: 1500,
+			sentence: "Long have we awaited your return!"
+			}));
+
+	Villagers.push(new initVillager({
+			X: 800,
+			Y: 800,
+			sentence: "Wait, who are you?"
+			}));
+	
+	Villagers.push(new initVillager({
+			X: 1000,
+			Y: 250,
+			sentence: "I am the king. Long have I awaited you."
+			}));
+
+	    bounds.push(Villagers[0]);
+	    bounds.push(Villagers[1]);
 
 }
