@@ -450,12 +450,13 @@ function initTextBox(i) {
 function drawTextBox(sentence,position) {
 	if ( sentence.length != 0 ) {
 	   ctx.fillStyle = "#FFFFFF";
-	   ctx.fillRect(width*.10,height*.70,width*.80,height*.20);
+	   ctx.drawImage(interactionMenuImage, width*.09, height*.70, width*.84, height*.20);	   
+	   //ctx.fillRect(width*.10,height*.70,width*.80,height*.20);
 	   ctx.font = "60px Sniglet";
 	   ctx.fillStyle = "#000000";
-	   ctx.fillText(sentence.substring(position*60,position*60+60),width*.11,height*.78);
+	   ctx.fillText(sentence.substring(position*60,position*60+60),width*.12,height*.78);
 	if ( sentence.length > position*60+60 )
-	   ctx.fillText(sentence.substring(position*60+60,position*60+120),width*.11,height*(.86));
+	   ctx.fillText(sentence.substring(position*60+60,position*60+120),width*.12,height*(.86));
 	}
 }
 
