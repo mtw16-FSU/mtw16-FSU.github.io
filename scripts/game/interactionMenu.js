@@ -19,7 +19,7 @@ function drawIMenu() {
     ctx.drawImage(interactionMenuImage, width*.10, height*(.90-.075*(Math.ceil(options.length/2)+4)), width*.80, height*(.075*(Math.ceil(options.length/2)+4)));
     //ctx.fillRect(width*.10,height*(.90-.075*(Math.ceil(options.length/2)+4)),width*.50,height*(.075*(Math.ceil(options.length/2)+4)));
     ctx.font = "45px Sniglet";
-  
+    alert(options.length);
     var j = 0;
     for(i = 0; i < options.length; i+=2 ){
 	ctx.fillStyle = "black";
