@@ -44,8 +44,6 @@ function initEnemy(options) {
 		}
 		if ( that.whichAction != "dead" ) {
 			ctx.drawImage(enemyImage,64*Math.floor(that.aFrame),64*(that.direction+that.action),64,64,that.X+(dx/8)*64-that.xOff,that.Y+(dy/8)*64-that.yOff,128,128);
-			ctx.fillStyle = "#F0F0F0";
-			ctx.fillRect(that.iBox[0],that.iBox[2],(that.iBox[1]-that.iBox[0]),(that.iBox[3]-that.iBox[2]));
 			drawHealth(that);
 		}
 	};
