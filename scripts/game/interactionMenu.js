@@ -28,12 +28,12 @@ function drawIMenu() {
   	   ctx.fillText("Weapons:",width*.11,height*((.90-.075*options.length+0.06)+0.06*(i/2 + j)));	    
     	   j++;
     	}
-	if ( options[i] == "potion" ) {
+	else if ( options[i] == "potion" ) {
 	   j++;
 	   ctx.fillText("Consumables:",width*.11,height*((.90-.075*options.length+0.06)+0.06*(i/2 + j)));	
 	   j++;
 	}
-	if ( i+1 == options.length )
+	else if ( i+1 == options.length )
 	   j++;
 
        if ( currentOption == i )
@@ -44,6 +44,7 @@ function drawIMenu() {
 	
         ctx.fillText(options[i],width*.11,height*((.90-.075*options.length+0.06)+0.06*(i/2 + j)));
 	if ( drawShop == true && i+1 != options.length ) {
+	  ctx.fillStyle = "black";
 	  ctx.fillText(options[i+1],width*.41,height*((.90-.075*options.length+0.06)+0.06*(i/2 + j)));
 	}
     }
