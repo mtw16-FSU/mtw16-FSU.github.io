@@ -29,13 +29,15 @@ function loadLevel1(side){
 		Villagers.push(new initVillager({
 				X: 2000,
 				Y: 1000,
-				sentence: "My Lord! The prophecies heralded your return. Your path to take back your throne begins now, sire. Your rivals stand in your way, once you defeat them, you may leave this province in the top right and head towards the castle!"
+				sentence: "My Lord! The prophecies heralded your return. Your path to take back your throne begins now, sire. Your rivals stand in your way, once you defeat them, you may leave this province in the top right and head towards the castle!",
+				type: "shop"
 				}));
 
 		Villagers.push(new initVillager({
 				X: 500,
 				Y: 800,
-				sentence: "Second villager"
+				sentence: "Please, head north towards the castle. My brother on your right may be able to sell you some valuable items.",
+				type: "interact"
 				}));
 			
 		Enemies.push(new initEnemy({ 
@@ -97,13 +99,15 @@ function loadLevel2(side){
 	Villagers.push(new initVillager({
 			X: 1100,
 			Y: 1700,
-			sentence: "You are here at last! Thank the gods!"
+			sentence: "You are here at last! Thank the gods!",
+			type: "shop"
 			}));
 
 	Villagers.push(new initVillager({
 			X: 800,
 			Y: 800,
-			sentence: "It is you! The legendary hero " + saveFiles[0].name + "!"
+			sentence: "It is you! The legendary hero " + saveFiles[0].name + "!",
+		   	type: "shop"
 			}));
 			
 
@@ -135,19 +139,22 @@ function loadCastle(side){
 	Villagers.push(new initVillager({
 			X: 1100,
 			Y: 1500,
-			sentence: "Long have we awaited your return!"
+			sentence: "Long have we awaited your return!",
+			type: "interact"
 			}));
 
 	Villagers.push(new initVillager({
 			X: 800,
 			Y: 800,
-			sentence: "Wait, who are you?"
+			sentence: "Wait, who are you?",
+			type: "interact"
 			}));
 	
 	Villagers.push(new initVillager({ // King
 			X: 1000,
 			Y: 250,
-			sentence: "I am the king. Long have I awaited you."
+			sentence: "I am the king. Long have I awaited you.",
+			type: "interact"
 			}));
 
 	    bounds.push(Villagers[0]);
