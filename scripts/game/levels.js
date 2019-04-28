@@ -62,15 +62,15 @@ function loadLevel1(side){
 					}));
 	
 		Enemies.push(new initEnemy({
-					X: 500,
+					X: 1500,
 					Y: 600,
 					totalHealth: 150,
 					moveSpeed: 7
 					}));
 	
 		Enemies.push(new initEnemy({
-					X: 500,
-					Y: 600,
+					X: 1000,
+					Y: 450,
 					totalHealth: 250,
 					moveSpeed: 5
 					}));
