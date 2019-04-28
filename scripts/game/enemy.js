@@ -1,31 +1,49 @@
 var enemyImage = new Image();
+var wolfImage = new Image();
 enemyImage.src = "images/spritesheets/skeleton_sprites.png";
+wolfImage.src = "images/spritesheets/skeleton_sprites.png";
 
 function initEnemy(options) {
 	var that = {};
 	//initialize Enemy variables
 	that.enemyAnimation;
-	that.startWalk = 0;
-	that.startDeath = 12;
-	that.startAttack = 4; 
-	that.moveAFrame = 9;
-	that.deathAFrame = 6;
-	that.attackAFrame = 6;
 	that.aFrame = 0;
 	that.direction = 0; // up,left,down,right
 	that.action = 0;
 	that.whichAction = "alive";
-	that.xOff = 40; //34
-	that.yOff = 20; // 30
-	that.X = options.X+that.xOff;  // O
-	that.Y = options.Y+that.xOff;  // O 
+	that.X = options.X;  // O
+	that.Y = options.Y;  // O 
 	that.totalHealth = options.totalHealth;  // O
 	that.health = options.totalHealth;       // O
-	that.lengthX = 60;
-	that.lengthY = 92;
 	that.time = Date.now();
 	that.death = false;
 	that.type = "Enemy";
+	that.enemyClass = options.enemyClass;
+	if ( that.enemyClass == "Skeleton" ) {
+		that.startWalk = 0;
+		that.startDeath = 12;
+		that.startAttack = 4; 
+		that.moveAFrame = 9;
+		that.deathAFrame = 6;
+		that.attackAFrame = 6;	
+		that.lengthX = 60;
+		that.lengthY = 92;
+		that.xOff = 40; //34
+		that.yOff = 20; // 30
+	}
+	else if (that.enemyClass == "Wolf" ) {
+		that.startWalk = 0;
+		that.startAttack = 4; 
+		that.moveAFrame = 8;
+		that.attackAFrame = 5;	
+		that.lengthX = 44;
+		that.lengthY = 104;
+		that.xOff = 42; //34
+		that.yOff = 16; // 30
+	}
+	
+	that.X = that.X + that.xOff;
+	that.Y = that.Y + that.yOff;
 	that.iBox = [that.X+(dx/8)*64,that.X+(dx/8)*64,that.Y+(dy/8)*64,that.Y+(dy/8)*64]; //x1,x2,y1,y2
 	that.attackSpeed = 1000/10;
 	that.moveSpeed = options.moveSpeed;
@@ -34,16 +52,20 @@ function initEnemy(options) {
 	that.draw = function() {
 		if ( that.whichAction == "alive" || that.whichAction == "attack" ) {
 			if ( that.health > 0 )
-			basicEnemyAI(that);
-			else if ( that.health <= 0 && that.action != 12 ) {
-			that.action = 12;
-			that.aFrame = 0;
-			that.direction = 0;
+			  basicEnemyAI(that);
+			else if ( that.health <= 0 && that.action != 12 && that.enemyClass == "Skeleton" ) {
+		  	  that.action = 12;
+			  that.aFrame = 0;
+			  that.direction = 0;
 			}
 			else
-			enemyDeath(that);
+			  enemyDeath(that);
 		}
-		if ( that.whichAction != "dead" ) {
+		if ( that.whichAction != "dead" && that.enemyClass == "Skeleton") {
+			ctx.drawImage(enemyImage,64*Math.floor(that.aFrame),64*(that.direction+that.action),64,64,that.X+(dx/8)*64-that.xOff,that.Y+(dy/8)*64-that.yOff,128,128);
+			drawHealth(that);
+		}
+		else if ( that.whichAction != "dead" && that.enemyClass == "Wolf") {
 			ctx.drawImage(enemyImage,64*Math.floor(that.aFrame),64*(that.direction+that.action),64,64,that.X+(dx/8)*64-that.xOff,that.Y+(dy/8)*64-that.yOff,128,128);
 			drawHealth(that);
 		}
@@ -59,7 +81,6 @@ function initEnemy(options) {
 	};
 	
 	that.attack = function() { 
-		// Still have to calculate boundson skeleton arm for collision
 		that.action = that.startAttack;
 		that.aFrame = -1;
 		that.whichAction = "attack";
@@ -93,6 +114,7 @@ function basicEnemyAI(Enemy) {
 		}
 
 	}
+     if ( Enemy.enemyClass == "Skeleton" ) {
 	if ( Enemy.direction == 0 ) {
 		Enemy.iBox[0] = Enemy.X + (dx/8)*64;
 		Enemy.iBox[1] = Enemy.X + (dx/8)*64;
@@ -117,7 +139,67 @@ function basicEnemyAI(Enemy) {
 		Enemy.iBox[2] = Enemy.Y + (dy/8)*64 + 44;
 		Enemy.iBox[3] = Enemy.Y + (dy/8)*64 + 66;	
           }
-	
+     }
+    else if ( Enemy.enemyClass == "Wolf" ) {
+	if ( Enemy.direction == 0 ) {
+		Enemy.X -= Enemy.xOff;
+		Enemy.Y -= Enemy.yOff;
+		Enemy.yOff = 16;
+		Enemy.xOff = 42;
+		Enemy.lengthX = 44;
+		Enemy.lengthY = 104;
+		Enemy.X += Enemy.xOff;
+		Enemy.Y += Enemy.yOff;
+		
+		Enemy.iBox[0] = Enemy.X + (dx/8)*64 + Enemy.lengthX/3;
+		Enemy.iBox[1] = Enemy.X + (dx/8)*64 + Enemy.lengthX/3*2;
+		Enemy.iBox[2] = Enemy.Y + (dy/8)*64 - 10;
+		Enemy.iBox[3] = Enemy.Y + (dy/8)*64;
+	  }
+	else if ( Enemy.direction == 1 ) {
+		Enemy.yOff = 42;
+		Enemy.xOff = 0;
+		Enemy.X -= Enemy.xOff;
+		Enemy.Y -= Enemy.yOff;
+		Enemy.lengthX = 126;
+		Enemy.lengthY = 54;
+		Enemy.X += Enemy.xOff;
+		Enemy.Y += Enemy.yOff;
+		Enemy.iBox[0] = Enemy.X + (dx/8)*64 - 10;
+		Enemy.iBox[1] = Enemy.X + (dx/8)*64;
+		Enemy.iBox[2] = Enemy.Y + (dy/8)*64 + Enemy.lengthY/3;
+		Enemy.iBox[3] = Enemy.Y + (dy/8)*64 + Enemy.lengthY/3*2;
+	  }
+	else if ( Enemy.direction == 2 ) {
+		Enemy.yOff = 8;
+		Enemy.xOff = 42;
+		Enemy.X -= Enemy.xOff;
+		Enemy.Y -= Enemy.yOff;
+		Enemy.lengthX = 44;
+		Enemy.lengthY = 104;
+		Enemy.X += Enemy.xOff;
+		Enemy.Y += Enemy.yOff;
+		Enemy.iBox[0] = Enemy.X + (dx/8)*64 + Enemy.lengthY/3;
+		Enemy.iBox[1] = Enemy.X + (dx/8)*64 + Enemy.lengthY*2/3;
+		Enemy.iBox[2] = Enemy.Y + (dy/8)*64 + Enemy.lengthY;
+		Enemy.iBox[3] = Enemy.Y + (dy/8)*64 + Enemy.lengthY + 10;	
+	  }
+	else {
+		Enemy.yOff = 42;
+		Enemy.xOff = 0;
+		Enemy.X -= Enemy.xOff;
+		Enemy.Y -= Enemy.yOff;
+		Enemy.lengthX = 126;
+		Enemy.lengthY = 54;
+		Enemy.X += Enemy.xOff;
+		Enemy.Y += Enemy.yOff;
+		Enemy.iBox[0] = Enemy.X + (dx/8)*64 + Enemy.lengthX;
+		Enemy.iBox[1] = Enemy.X + (dx/8)*64 + Enemy.lengthX + 10;
+		Enemy.iBox[2] = Enemy.Y + (dy/8)*64 + Enemy.lengthY/3;
+		Enemy.iBox[3] = Enemy.Y + (dy/8)*64 + Enemy.lengthY*2/3;	
+          }
+        
+    }
 	Enemy.aFrame++;
 		if ( Enemy.aFrame == Enemy.moveAFrame )
 			Enemy.aFrame = 0;
@@ -126,7 +208,7 @@ function basicEnemyAI(Enemy) {
 		Enemy.attack();
 	
    }
-   else if ( Enemy.whichAction == "attack" ) {
+   else if ( Enemy.whichAction == "attack" && Enemy.enemyClass == "Skeleton" ) {
 	if ( Enemy.aFrame == 3 ) {
 		if ( Enemy.direction == 1 ) {
 		   if ( collisionSquare(Enemy.X+(dx/8)*64-22,Enemy.X+(dx/8)*64,Enemy.Y+(dy/8)*64+40,Enemy.Y+(dy/8)*64+68,Player.standLeft,Player.standRight,Player.standUp,Player.standDown) == true )  
@@ -157,7 +239,40 @@ function basicEnemyAI(Enemy) {
 			   Player.isDamaged = true;
 		}	
 	}
- }
+   }
+   else if ( Enemy.whichAction == "attack" && Enemy.enemyClass == "Wolf" ) {
+	if ( Enemy.aFrame == 3 ) {
+		if ( Enemy.direction == 0 )
+			Enemy.Y-=6;
+		else if ( Enemy.direction == 1 )
+			Enemy.X-=6;
+		else if ( Enemy.direction == 2 )
+			Enemy.Y+=6;
+		else 
+			Enemy.Y+=6;
+		
+		if ( collisionSquare(Enemy.X,Enemy.X+Enemy.lengthX,Enemy.Y,Enemy.Y+Enemy.lengthY,Player.standLeft,Player.standRight,Player.standUp,Player.standDown) == true )
+			Player.isDamaged == true;
+	}
+   	else if ( Enemy.aFrame == 4 ) {
+		if ( Enemy.direction == 0 )
+			Enemy.Y-=1;
+		else if ( Enemy.direction == 1 )
+			Enemy.X-=1;
+		else if ( Enemy.direction == 2 )
+			Enemy.Y+=1;
+		else 
+			Enemy.Y+=1;
+		
+		if ( collisionSquare(Enemy.X,Enemy.X+Enemy.lengthX,Enemy.Y,Enemy.Y+Enemy.lengthY,Player.standLeft,Player.standRight,Player.standUp,Player.standDown) == true )
+			Player.isDamaged == true;
+	}
+	else if ( Enemy.aFrame == 5 ) {
+		if ( collisionSquare(Enemy.X,Enemy.X+Enemy.lengthX,Enemy.Y,Enemy.Y+Enemy.lengthY,Player.standLeft,Player.standRight,Player.standUp,Player.standDown) == true )
+			Player.isDamaged == true;
+	}
+
+   }
 }
 
 function enemyDeath(Enemy) {
