@@ -205,7 +205,7 @@ function Map(name){
 			Player.moveCheck(pUp,pDown,pLeft,pRight,width,height);
 			Player.draw();
 			for ( i = 0; i < Enemies.length; i++ )
-				Player.collisionCheck(Enemies[i]);
+				Player.collisionCheck(Enemies[i]);	
 			for ( i = 0; i < Enemies.length; i++ )
 				Enemies[i].draw();
 			for ( i = 0; i < Villagers.length; i++ ) {
@@ -215,6 +215,8 @@ function Map(name){
 				else if ( Villagers[i].drawText == true )
 					drawIMenu();
 			}		
+			if ( Player.drawInv == true )
+				drawIMenu();
 		
 			var hit = generalCollision();
 			if((hit[0] - 2) == 1 && sceneHandler.scene.nextMaps[0] != -1){
