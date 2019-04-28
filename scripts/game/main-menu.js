@@ -85,6 +85,11 @@ function mainMenuHandler(){
             }
             else if ( currentOption == 1 ) {
                 mainMenuOn = false;
+                options = [];
+                for ( i = 0; i < Player.inventory.length; i+=2 ) {
+			      options.push(Player.inventory[i]);	
+		        }
+		        options.push("Exit");
                 Player.initInventory();
             }
             else if(currentOption == 2){
