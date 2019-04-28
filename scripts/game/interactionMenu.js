@@ -41,7 +41,7 @@ function drawIMenu() {
        else 
            ctx.fillStyle = "black";
       
-	
+	alert(currentOption);
         ctx.fillText(options[i],width*.11,height*((.90-.075*options.length+0.06)+0.06*(i/2 + j)));
 	if ( drawShop == true && i+1 != options.length ) {
 	  ctx.fillStyle = "black";
