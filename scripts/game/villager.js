@@ -12,6 +12,7 @@ function initVillager(options) {
   that.drawText = false;
   that.sentence = options.sentence; // O
   that.solid = true;
+  that.type = options.type;
   
   that.draw = function() {
     ctx.drawImage(villagerImage,0,128,64,64,that.startX+(dx/8)*64-40,that.startY+(dy/8)*64-20,128,128);
