@@ -9,7 +9,10 @@ function initIMenu(i) {
 		Enemies[j].whichAction = "listen";
 	}
 	Player.whichAction = "listen";
-  options = ["Interact","Shop","Exit"];
+  if ( Villagers[i].type == "shop" )
+	  options = ["Interact","Shop","Exit"];
+  else
+	  options = ["Interact","Exit"];
   currentOption = 0;
 }
 
