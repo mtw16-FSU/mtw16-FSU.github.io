@@ -10,7 +10,13 @@ function loadLevel1(side){
 		//loads in the spritesheet that will be used
 		sceneHandler.scene.map.getMap("images/spritesheets/level1.png");
 	
-		if(side == 3){			
+		if(side == 1){		
+			Player.X = 140;
+			Player.Y = 800;
+			
+			dx = 0;
+			dy = -270;
+		}else if(side == 3){			
 			Player.X = 1240;
 			Player.Y = 150;
 
@@ -24,7 +30,8 @@ function loadLevel1(side){
 			dy = 0;		
 		}
 
-		sceneHandler.scene.nextMaps[0] = "Village";
+		sceneHandler.scene.nextMaps[0] = "Village";	
+		sceneHandler.scene.nextMaps[2] = "Beach";
 			
 		Villagers.push(new initVillager({
 				X: 2000,
@@ -114,7 +121,7 @@ function loadLevel2(side){
 	}
 			
 	sceneHandler.scene.nextMaps[0] = "Castle";	
-	sceneHandler.scene.nextMaps[2] = "Level 1";
+	sceneHandler.scene.nextMaps[2] = "Level 1";	
 	
 	Villagers.push(new initVillager({
 			X: 1100,
@@ -179,5 +186,59 @@ function loadCastle(side){
 
 	    bounds.push(Villagers[0]);
 	    bounds.push(Villagers[1]);
+	    bounds.push(Villagers[2]);
+
+}
+
+function loadBeach(side){
+	
+	document.onkeydown = levelHandler;
+        document.onkeyup = levelHandler2;
+		
+	//loads in map files
+        image1.src = "maps/beachBackground.png";
+        image2.src = "maps/beachForeground.png";
+                
+	//loads in the spritesheet that will be used
+	sceneHandler.scene.map.getMap("images/spritesheets/beach_sheet.png");
+	
+			
+	Player.X = 300;
+	Player.Y = 120;
+			
+	dx = 0;
+	dy = 0;
+	
+	sceneHandler.scene.nextMaps[0] = "Level 1";
+	
+	Enemies.push(new initEnemy({
+			X: 750,
+			Y: 2000,
+			totalHealth: 300,
+			moveSpeed: 2
+			}));
+	
+	Enemies.push(new initEnemy({
+			X: 1500,
+			Y: 600,
+			totalHealth: 150,
+			moveSpeed: 5
+			}));
+	
+	Enemies.push(new initEnemy({
+			X: 1000,
+			Y: 450,
+			totalHealth: 250,
+			moveSpeed: 3
+			}));
+		
+	Villagers.push(new initVillager({
+			X: 2100,
+			Y: 1100,
+			sentence: "Sorry, all of my boats are rented out. I can't give you one right now, come back later.",
+			type: "interact"
+			}));
+
+	 bounds.push(Villagers[0]);
 
 }
