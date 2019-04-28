@@ -82,6 +82,10 @@ function mainMenuHandler(){
                     if ( Enemies[i].death == false )
                       Enemies[i].whichAction = "alive";
                 }
+            else if ( currentOption == 1 ) {
+                mainMenuOn = false;
+                Player.initInventory();
+            }
             }else if(currentOption == 2){
                 subMenu = 1;
                 document.onkeydown = null;
