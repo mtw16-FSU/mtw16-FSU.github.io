@@ -16,8 +16,12 @@ function initIMenu(i) {
 function drawIMenu() {
   if ( Player.drawInv == true || drawShop == true ) {
     ctx.fillStyle = "#FFFFFF";
-    ctx.drawImage(interactionMenuImage, width*.10, height*(.90-.075*(Math.ceil(options.length/2)+4)), width*.80, height*(.075*(Math.ceil(options.length/2)+4)));
-    //ctx.fillRect(width*.10,height*(.90-.075*(Math.ceil(options.length/2)+4)),width*.50,height*(.075*(Math.ceil(options.length/2)+4)));
+	if ( drawShop == true )
+  	  ctx.drawImage(interactionMenuImage, width*.10, height*(.90-.075*(Math.ceil(options.length/2)+4)), width*.80, height*(.075*(Math.ceil(options.length/2)+4)));
+    	else 
+	  ctx.drawImage(interactionMenuImage, width*.10, height*(.90-.075*(Math.ceil(options.length/2)+7)), width*.80, height*(.075*(Math.ceil(options.length/2)+7)));
+    	
+	  //ctx.fillRect(width*.10,height*(.90-.075*(Math.ceil(options.length/2)+4)),width*.50,height*(.075*(Math.ceil(options.length/2)+4)));
     ctx.font = "45px Sniglet";
     var j = 0;
     for(i = 0; i < options.length; i+=2 ){
@@ -43,6 +47,13 @@ function drawIMenu() {
 	if ( (drawShop == true || Player.drawInv == true) && i+1 != options.length ) {
 	  ctx.fillStyle = "black";
 	  ctx.fillText(options[i+1],width*.41,height*((.90-.075*options.length+0.06)+0.06*(i/2 + j)));
+	}
+	    
+	if ( i+3 == option.length && Player.drawInv == true ) {
+	  j++;
+	  ctx.fillText("Gold:",width*13,height*((.90-.075*options.length+0.06)+0.06*(i*2+j)))l;
+	  ctx.fillText(Player.gold,width*41,height*((.90-.075*options.length+0.06)+0.06*(i*2+j)));
+	  j++;
 	}
     }
   }
