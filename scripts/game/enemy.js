@@ -98,26 +98,26 @@ function basicEnemyAI(Enemy) {
 		if(Enemy.time + 1600 < Date.now()){
 			Enemy.time = Date.now();
 		}
-		if ( Player.standUp > Enemy.Y + (dy/8)*64 + Enemy.lengthY) {
+		if ( Player.standUp > Enemy.Y + (dy/8)*64) {
 			Enemy.Y+=Enemy.moveSpeed;
 			Enemy.direction = 2;
 		}
-		if ( Player.standDown < Enemy.Y + (dy/8)*64) {
+		if ( Player.standDown < Enemy.Y + (dy/8)*64 + Enemy.lengthY) {
 			Enemy.Y-=Enemy.moveSpeed;
 			Enemy.direction = 0;
 		}
 	       if ( Player.standRight < Enemy.X +(dx/8)*64) {
 			Enemy.X-=Enemy.moveSpeed;
-		       if ( (Enemy.X +(dx/8)*64 - Player.standRight) > (Player.standUp - Enemy.Y - (dy/8)*64 - Enemy.lengthY) )
+		       if ( (Enemy.X +(dx/8)*64 - Player.standRight) > (Player.standUp - Enemy.Y - (dy/8)*64) )
 				Enemy.direction = 1;
-		     	else if ( (Enemy.X +(dx/8)*64 - Player.standRight) > (Enemy.Y + (dy/8)*64 - Player.standDown ) )
+		     	else if ( (Enemy.X +(dx/8)*64 - Player.standRight) > (Enemy.Y + (dy/8)*64 + Enemy.lengthY - Player.standDown ) )
 				Enemy.direction = 1;
 		}
 		else if ( Player.standLeft > Enemy.X + (dx/8)*64 + Enemy.lengthX) {
 			Enemy.X+=Enemy.moveSpeed;
-			if ( (Player.standLeft - Enemy.X - (dx/8)*64 - Enemy.lengthX) > (Player.standUp - Enemy.Y - (dy/8)*64 - Enemy.lengthY ) )
+			if ( (Player.standLeft - Enemy.X - (dx/8)*64 - Enemy.lengthX) > (Player.standUp - Enemy.Y - (dy/8)*64) )
 				Enemy.direction = 3;
-		     	else if ( (Player.standLeft - Enemy.X - (dx/8)*64 - Enemy.lengthX) > (Enemy.Y + (dy/8)*64 - Player.standDown ) )
+		     	else if ( (Player.standLeft - Enemy.X - (dx/8)*64 - Enemy.lengthX) > (Enemy.Y + (dy/8)*64 + Enemy.lengthY - Player.standDown ) )
 				Enemy.direction = 3;
 		}
 
