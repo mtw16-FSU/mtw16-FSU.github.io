@@ -158,7 +158,7 @@ function basicEnemyAI(Enemy) {
 		Enemy.Y += Enemy.yOff;
 		Enemy.iBox[0] = Enemy.X + (dx/8)*64;
 		Enemy.iBox[1] = Enemy.X + (dx/8)*64 + Enemy.lengthX;
-		Enemy.iBox[2] = Enemy.Y + (dy/8)*64 - 20;
+		Enemy.iBox[2] = Enemy.Y + (dy/8)*64 - 30;
 		Enemy.iBox[3] = Enemy.Y + (dy/8)*64;
 	  }
 	else if ( Enemy.direction == 1 ) {
@@ -170,7 +170,7 @@ function basicEnemyAI(Enemy) {
 		Enemy.lengthY = 54;
 		Enemy.X += Enemy.xOff;
 		Enemy.Y += Enemy.yOff;
-		Enemy.iBox[0] = Enemy.X + (dx/8)*64 - 20;
+		Enemy.iBox[0] = Enemy.X + (dx/8)*64 - 30;
 		Enemy.iBox[1] = Enemy.X + (dx/8)*64;
 		Enemy.iBox[2] = Enemy.Y + (dy/8)*64;
 		Enemy.iBox[3] = Enemy.Y + (dy/8)*64 + Enemy.lengthY;
@@ -187,7 +187,7 @@ function basicEnemyAI(Enemy) {
 		Enemy.iBox[0] = Enemy.X + (dx/8)*64;
 		Enemy.iBox[1] = Enemy.X + (dx/8)*64 + Enemy.lengthY;
 		Enemy.iBox[2] = Enemy.Y + (dy/8)*64 + Enemy.lengthY;
-		Enemy.iBox[3] = Enemy.Y + (dy/8)*64 + Enemy.lengthY + 20;	
+		Enemy.iBox[3] = Enemy.Y + (dy/8)*64 + Enemy.lengthY + 30;	
 	  }
 	else {
 		Enemy.yOff = 42;
@@ -199,7 +199,7 @@ function basicEnemyAI(Enemy) {
 		Enemy.X += Enemy.xOff;
 		Enemy.Y += Enemy.yOff;
 		Enemy.iBox[0] = Enemy.X + (dx/8)*64 + Enemy.lengthX;
-		Enemy.iBox[1] = Enemy.X + (dx/8)*64 + Enemy.lengthX + 20;
+		Enemy.iBox[1] = Enemy.X + (dx/8)*64 + Enemy.lengthX + 30;
 		Enemy.iBox[2] = Enemy.Y + (dy/8)*64;
 		Enemy.iBox[3] = Enemy.Y + (dy/8)*64 + Enemy.lengthY;	
           }
