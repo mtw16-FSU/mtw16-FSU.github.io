@@ -25,12 +25,12 @@ function drawIMenu() {
     for(i = 0; i < options.length; i+=2 ){
 	ctx.fillStyle = "black";
 	if ( i == 0 ) {
-  	   ctx.fillText("Weapons:",width*.11,height*((.90-.075*options.length+0.08)+0.08*(i/2 + j)));	    
+  	   ctx.fillText("Weapons:",width*.11,height*((.90-.075*options.length+0.06)+0.06*(i/2 + j)));	    
     	   j++;
     	}
 	if ( options[i] == "potion" ) {
 	   j++;
-	   ctx.fillText("Consumables:",width*.11,height*((.90-.075*options.length+0.08)+0.08*(i/2 + j)));	
+	   ctx.fillText("Consumables:",width*.11,height*((.90-.075*options.length+0.06)+0.06*(i/2 + j)));	
 	   j++;
 	}
 	if ( i+1 == options.length )
@@ -42,9 +42,10 @@ function drawIMenu() {
            ctx.fillStyle = "black";
       
 	
-        ctx.fillText(options[i],width*.11,height*((.90-.075*options.length+0.08)+0.08*(i/2 + j)));
-	if ( drawShop == true && i+1 != options.length )
-	  ctx.fillText(toString(options[i+1]),width*.41,height*((.90-.075*options.length+0.08)+0.08*(i/2 + j)));
+        ctx.fillText(options[i],width*.11,height*((.90-.075*options.length+0.06)+0.06*(i/2 + j)));
+	if ( drawShop == true && i+1 != options.length ) {
+	  ctx.fillText(options[i+1],width*.41,height*((.90-.075*options.length+0.06)+0.06*(i/2 + j)));
+	}
     }
   }
   else {
@@ -78,6 +79,7 @@ function iMenuHandler(event) {
           if ( drawShop == true ) {
 	    drawShop = false;
 	    options = ["Interact","Shop","Exit"];
+	    currentOption = 0;
 	  }
 	  else {
   	    document.onkeydown = null;
@@ -145,7 +147,7 @@ function iMenuHandler(event) {
      case 38: // up
         if ( currentOption == 0 )
           currentOption = options.length-1;
-        else if ( Player.drawInv == true )
+        else if ( Player.drawInv == true || drawShop == true)
 	  currentOption-=2;	
 	else
           currentOption--;
@@ -153,7 +155,7 @@ function iMenuHandler(event) {
      case 40: // down
         if ( currentOption == options.length-1 )
           currentOption = 0;
-        else if ( Player.drawInv == true )
+        else if ( Player.drawInv == true || drawShop == true )
 	  currentOption+=2;	
 	else
           currentOption++;
