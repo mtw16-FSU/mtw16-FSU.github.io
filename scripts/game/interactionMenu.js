@@ -1,5 +1,3 @@
-var drawShop = false;
-
 function initIMenu(i) {
 	printText = -1;
 	Villagers[i].drawText = true;
