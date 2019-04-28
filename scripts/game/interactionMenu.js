@@ -81,19 +81,23 @@ function iMenuHandler(event) {
 	    currentOption = 0;
 	  }
 	  else {
-  	    document.onkeydown = null;
-            document.onkeydown = levelHandler;
-            document.onkeyup = levelHandler2;
-            for ( i = 0; i < Enemies.length; i++ ) {
+  	    for ( i = 0; i < Enemies.length; i++ ) {
                if ( Enemies[i].death == false )
                  Enemies[i].whichAction = "alive";
              }
             Player.whichAction = "stand";
-            if ( Player.drawInv == true )
+            if ( Player.drawInv == true ) {
 	      Player.drawInv = false;
+	      mainMenuOn = true;
+	      document.onkeydown = null;
+	      document.onkeydown = mainMenuHandler;
+	    }
 	    else {
    	      for ( i = 0; i < Villagers.length; i++ )
               Villagers[i].drawText = false;	  
+	      document.onkeydown = null;
+              document.onkeydown = levelHandler;
+              document.onkeyup = levelHandler2;
 	    }
 	  }
 	}
