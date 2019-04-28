@@ -111,17 +111,21 @@ function initPlayer(options) {
 	}
 	
 	that.attack = function() {
-		that.whichAction = "attack";
-		action = startSword;
-		that.aFrame = -1;
-		setTimeout(animateAttack,0,that)
+		if ( Player.weapon == "spear" )
+			Player.spearAttack();
+		else {
+		  that.whichAction = "attack";
+		  action = startSword;
+		  that.aFrame = -1;
+		  setTimeout(animateAttack,0,that)
+		}
 	};
 	
 	that.spearAttack = function() {
 		that.whichAction = "attack";
 		action = startSpear;
 		that.aFrame = -1;
-		setTimeout(animateAttack,0,that)
+		setTimeout(animateSpearAttack,0,that)
 	};
 	
 	that.canDamage = function() {
