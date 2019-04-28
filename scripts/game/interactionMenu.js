@@ -112,8 +112,10 @@ function iMenuHandler(event) {
 		else if ( Player.gold-options[currentOption+1] >= 0 ) {
 			Player.gold = Player.gold - options[currentOption+1];
 			for ( i = 0; i < Player.inventory.length; i+=2 ) {
-			  if ( Player.inventory[i] == "shortSword" )
+			  if ( Player.inventory[i] == "shortSword" ){
+			    alert("Bought Short Sword");	  
 			    Player.inventory[i+1]++;
+			  }
 			}
 		}
 	}
@@ -127,8 +129,10 @@ function iMenuHandler(event) {
 	    else if ( Player.gold-options[currentOption+1] >= 0 ) {
 		Player.gold = Player.gold - options[currentOption+1];
 		for ( i = 0; i < Player.inventory.length; i+=2 ) {
-		  if ( Player.inventory[i] == "spear" )
+		  if ( Player.inventory[i] == "spear" ) {
 		    Player.inventory[i+1]++;
+		    alert("Bought Spear");	  
+		  }
 		}
     	    }
 	}
@@ -144,8 +148,10 @@ function iMenuHandler(event) {
 	    else if ( Player.gold-options[currentOption+1] >= 0 ) {
 		Player.gold = Player.gold - options[currentOption+1];
 		for ( i = 0; i < Player.inventory.length; i+=2 ) {
-		  if ( Player.inventory[i] == "potion" )
+		  if ( Player.inventory[i] == "potion" ) {
 		    Player.inventory[i+1]++;
+		    alert("Bought potion");	  
+		  }
 		}
 	    }
 	}
