@@ -101,7 +101,7 @@ function iMenuHandler(event) {
 			Player.weapon = "shortSword";
 			alert("ShortSword Equipped");
 		}
-		else if ( Player.gold-options[currentOption+1] >= 0 {
+		else if ( Player.gold-options[currentOption+1] >= 0 ) {
 			Player.gold = Player.gold - options[currentOption+1];
 			for ( i = 0; i < Player.inventory.length; i+=2 ) {
 			  if ( Player.inventory[i] == "shortSword" )
