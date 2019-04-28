@@ -30,7 +30,7 @@ function drawIMenu() {
 		if ( drawShop == true )
 	  	   ctx.fillText("Weapons:",width*.13,height*((.90-.075*options.length)+0.06*(i/2 + j)));	    
     		else 
-		   ctx.fillText("Weapons:",width*.13,height*((.90-.075*options.length-0.12)+0.06*(i/2 + j)));	    
+		   ctx.fillText("Weapons:",width*.13,height*((.90-.075*options.length-0.18)+0.06*(i/2 + j)));	    
 	  j++;
     	}
 	else if ( options[i] == "potion" ) {
@@ -38,7 +38,7 @@ function drawIMenu() {
 		if ( drawShop == true ) 
 		   ctx.fillText("Consumables:",width*.13,height*((.90-.075*options.length)+0.06*(i/2 + j)));	
 		else 
-		   ctx.fillText("Consumables:",width*.13,height*((.90-.075*options.length-0.12)+0.06*(i/2 + j)));
+		   ctx.fillText("Consumables:",width*.13,height*((.90-.075*options.length-0.18)+0.06*(i/2 + j)));
 	   j++;
 	}
 	else if ( i+1 == options.length )
@@ -52,14 +52,14 @@ function drawIMenu() {
 	if ( drawShop == true ) 
 	   ctx.fillText(options[i],width*.13,height*((.90-.075*options.length)+0.06*(i/2 + j)));
 	else
-	   ctx.fillText(options[i],width*.13,height*((.90-.075*options.length-12)+0.06*(i/2 + j)));
+	   ctx.fillText(options[i],width*.13,height*((.90-.075*options.length-0.18)+0.06*(i/2 + j)));
 
 	if ( (drawShop == true || Player.drawInv == true) && i+1 != options.length ) {
 	  ctx.fillStyle = "black";
 		if ( drawShop == true )
 		  ctx.fillText(options[i+1],width*.41,height*((.90-.075*options.length)+0.06*(i/2 + j)));
 		else
-		  ctx.fillText(options[i+1],width*.41,height*((.90-.075*options.length-0.12)+0.06*(i/2 + j)));
+		  ctx.fillText(options[i+1],width*.41,height*((.90-.075*options.length-0.18)+0.06*(i/2 + j)));
 	}
 	    
 	if ( i+3 == options.length && Player.drawInv == true ) {
