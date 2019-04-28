@@ -116,7 +116,7 @@ function iMenuHandler(event) {
 			alert("Spear Equipped");
 		}
 	    }
-	    else if ( Player.gold-options[currentOption+1] >= 0 {
+	    else if ( Player.gold-options[currentOption+1] >= 0 ) {
 		Player.gold = Player.gold - options[currentOption+1];
 		for ( i = 0; i < Player.inventory.length; i+=2 ) {
 		  if ( Player.inventory[i] == "spear" )
@@ -133,7 +133,7 @@ function iMenuHandler(event) {
 			Player.inventory[(currentoption-1)*2+1]--;
 		}
 	    }
-	    else if ( Player.gold-options[currentOption+1] >= 0 {
+	    else if ( Player.gold-options[currentOption+1] >= 0 ) {
 		Player.gold = Player.gold - options[currentOption+1];
 		for ( i = 0; i < Player.inventory.length; i+=2 ) {
 		  if ( Player.inventory[i] == "potion" )
