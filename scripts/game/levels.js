@@ -54,14 +54,6 @@ function loadLevel1(side){
 					moveSpeed: 2,
 					enemyClass: "Skeleton"
 				})); 	    
-			
-		Enemies.push(new initEnemy({
-					X: 500,
-					Y: 600,
-					totalHealth: 500,
-					moveSpeed: 10,
-					enemyClass: "Wolf"
-					}));
 		
 		Enemies.push(new initEnemy({
 					X: 750,
@@ -75,7 +67,7 @@ function loadLevel1(side){
 					X: 1500,
 					Y: 600,
 					totalHealth: 150,
-					moveSpeed: 7,
+					moveSpeed: 6,
 					enemyClass: "Skeleton"
 					}));
 	
@@ -207,14 +199,30 @@ function loadBeach(side){
 	//loads in the spritesheet that will be used
 	sceneHandler.scene.map.getMap("images/spritesheets/beach_sheet.png");
 	
-			
-	Player.X = 300;
-	Player.Y = 120;
-			
-	dx = 0;
-	dy = 0;
+		
+	if(side == 1){		
+		Player.X = 1024;
+		Player.Y = 800;	
+		
+		dx = -35;
+		dy = -670;
+	}else if(side == 3){	
+		Player.X = 300;
+		Player.Y = 120;
+		
+		dx = 0;
+		dy = 0;
+	}else{
+		Player.X = 1024;
+		Player.Y = 512;
+
+		dx = -100;
+		dy = -100;
+	}
+
 	
 	sceneHandler.scene.nextMaps[0] = "Level 1";
+	sceneHandler.scene.nextMaps[2] = "Cave";
 	
 	Enemies.push(new initEnemy({
 			X: 750,
@@ -249,4 +257,59 @@ function loadBeach(side){
 
 	 bounds.push(Villagers[0]);
 
+}
+
+function loadCave(side){
+	
+	document.onkeydown = levelHandler;
+        document.onkeyup = levelHandler2;
+		
+	//loads in map files
+        image1.src = "maps/Level3Background.png";
+        image2.src = "maps/Level3Foreground.png";
+                
+	//loads in the spritesheet that will be used
+	sceneHandler.scene.map.getMap("images/spritesheets/level3.png");
+	
+	if(side == 3){
+		Player.X = 300;
+		Player.Y = 320;
+
+		dx = 0;
+		dy = 0;
+	}else{		
+		Player.X = 1024;
+		Player.Y = 512;
+
+		dx = -100;
+		dy = 0;
+	}
+			
+	
+	sceneHandler.scene.nextMaps[0] = "Beach";
+	
+	Enemies.push(new initEnemy({
+			X: 750,
+			Y: 2000,
+			totalHealth: 300,
+			moveSpeed: 2,
+			enemyClass: "Wolf"
+			}));
+	
+	Enemies.push(new initEnemy({
+			X: 1500,
+			Y: 600,
+			totalHealth: 150,
+			moveSpeed: 5,
+			enemyClass: "Wolf"
+			}));
+	
+	Enemies.push(new initEnemy({
+			X: 1000,
+			Y: 450,
+			totalHealth: 250,
+			moveSpeed: 3,
+			enemyClass: "Wolf"
+			}));
+		
 }
