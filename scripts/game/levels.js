@@ -50,9 +50,9 @@ function loadLevel1(side){
 		Enemies.push(new initEnemy({ 
 					X: 500,
 					Y: 300,
-					totalHealth: 500,
+					totalHealth: 2000,
 					moveSpeed: 2,
-					enemyClass: "Skeleton"
+					enemyClass: "skeleKnight"
 				})); 	    
 		
 		Enemies.push(new initEnemy({
