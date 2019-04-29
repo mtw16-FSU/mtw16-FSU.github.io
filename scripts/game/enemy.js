@@ -293,52 +293,52 @@ function basicEnemyAI(Enemy) {
    else if ( Enemy.whichAction == "attack" && Enemy.enemyClass == "Skeleton" ) {
 	if ( Enemy.aFrame == 3 ) {
 		if ( Enemy.direction == 1 ) {
-		   if ( collisionSquare(Enemy.X+(dx/8)*64-28,Enemy.X+(dx/8)*64,Enemy.Y+(dy/8)*64+20,Enemy.Y+(dy/8)*64+36,Player.standLeft,Player.standRight,Player.standUp,Player.standDown) == true )  
+		   if ( collisionSquare(Enemy.X+(dx/8)*64-28,Enemy.X+(dx/8)*64,Enemy.Y+(dy/8)*64+40,Enemy.Y+(dy/8)*64+72,Player.standLeft,Player.standRight,Player.standUp,Player.standDown) == true )  
 			Player.isDamaged = true;
 		}
 		else if ( Enemy.direction == 3 ) {
-		   if  ( collisionSquare(Enemy.X+Enemy.lengthX+(dx/8)*64,Enemy.X+Enemy.lengthX+(dx/8)*64+28,Enemy.Y+(dy/8)*64+20,Enemy.Y+(dy/8)*64+36,Player.standLeft,Player.standRight,Player.standUp,Player.standDown) == true ) 
+		   if  ( collisionSquare(Enemy.X+Enemy.lengthX+(dx/8)*64,Enemy.X+Enemy.lengthX+(dx/8)*64+28,Enemy.Y+(dy/8)*64+40,Enemy.Y+(dy/8)*64+72,Player.standLeft,Player.standRight,Player.standUp,Player.standDown) == true ) 
 			Player.isDamaged = true;
 		}
 	}
 	else if ( Enemy.aFrame == 4 ) {
 		if ( Enemy.direction == 1 ) {
-		   if ( collisionSquare(Enemy.X+(dx/8)*64-28,Enemy.X+(dx/8)*64,Enemy.Y+(dy/8)*64+15,Enemy.Y+(dy/8)*64+24,Player.standLeft,Player.standRight,Player.standUp,Player.standDown) == true )
+		   if ( collisionSquare(Enemy.X+(dx/8)*64-28,Enemy.X+(dx/8)*64,Enemy.Y+(dy/8)*64+30,Enemy.Y+(dy/8)*64+48,Player.standLeft,Player.standRight,Player.standUp,Player.standDown) == true )
 			   Player.isDamaged = true;
 		}
 		else if ( Enemy.direction == 3 ) {
-		   if  ( collisionSquare(Enemy.X+Enemy.lengthX+(dx/8)*64,Enemy.X+Enemy.lengthX+(dx/8)*64+28,Enemy.Y+(dy/8)*64+15,Enemy.Y+(dy/8)*64+24,Player.standLeft,Player.standRight,Player.standUp,Player.standDown) == true )
+		   if  ( collisionSquare(Enemy.X+Enemy.lengthX+(dx/8)*64,Enemy.X+Enemy.lengthX+(dx/8)*64+28,Enemy.Y+(dy/8)*64+30,Enemy.Y+(dy/8)*64+48,Player.standLeft,Player.standRight,Player.standUp,Player.standDown) == true )
 			   Player.isDamaged = true;
 		}	
 	}
 	else if ( Enemy.aFrame == 5 ) {
 		if ( Enemy.direction == 1 ) {
-		   if ( collisionSquare(Enemy.X+(dx/8)*64-20,Enemy.X+(dx/8)*64,Enemy.Y+(dy/8)*64+14,Enemy.Y+(dy/8)*64+24,Player.standLeft,Player.standRight,Player.standUp,Player.standDown) == true )
+		   if ( collisionSquare(Enemy.X+(dx/8)*64-28,Enemy.X+(dx/8)*64,Enemy.Y+(dy/8)*64+28,Enemy.Y+(dy/8)*64+48,Player.standLeft,Player.standRight,Player.standUp,Player.standDown) == true )
 			   Player.isDamaged = true;
 		}
 		else if ( Enemy.direction == 3 ) {
-		   if  ( collisionSquare(Enemy.X+Enemy.lengthX+(dx/8)*64,Enemy.X+Enemy.lengthX+(dx/8)*64+14,Enemy.Y+(dy/8)*64+14,Enemy.Y+(dy/8)*64+48,Player.standLeft,Player.standRight,Player.standUp,Player.standDown) == true )
+		   if  ( collisionSquare(Enemy.X+Enemy.lengthX+(dx/8)*64,Enemy.X+Enemy.lengthX+(dx/8)*64+28,Enemy.Y+(dy/8)*64+28,Enemy.Y+(dy/8)*64+48,Player.standLeft,Player.standRight,Player.standUp,Player.standDown) == true )
 			   Player.isDamaged = true;
 		}	
 	}
    }
    else if ( Enemy.whichAction == "attack" && Enemy.enemyClass == "skeleKnight" ) {
 	if ( Enemy.aFrame == 3 ) {
-		if ( Enemy.direction == 1 && collisionSquare(Enemy.X-28,Enemy.X,Enemy.Y+40,Enemy.Y+72,Player.standLeft,Player.standRight,Player.standUp,Player.standDown) == true )
+		if ( Enemy.direction == 1 && collisionSquare(Enemy.X-28,Enemy.X,Enemy.Y+20,Enemy.Y+36,Player.standLeft,Player.standRight,Player.standUp,Player.standDown) == true )
 		   Player.isDamaged == true;
-		else if ( Enemy.direction == 3 && collisionSquare(Enemy.X+Enemy.lengthX,Enemy.X+Enemy.lengthX+28,Enemy.Y+Enemy.lengthY-72,Enemy.Y+Enemy.lengthY-40,Player.standLeft,Player.standRight,Player.standUp,Player.standDown) == true )
+		else if ( Enemy.direction == 3 && collisionSquare(Enemy.X+Enemy.lengthX,Enemy.X+Enemy.lengthX+28,Enemy.Y-36,Enemy.Y-20,Player.standLeft,Player.standRight,Player.standUp,Player.standDown) == true )
 		   Player.isDamaged == true;
 	}
 	else if ( Enemy.aFrame == 4 ) {
-		if ( Enemy.direction == 1 && collisionSquare(Enemy.X-40,Enemy.X,Enemy.Y+30,Enemy.Y+48,Player.standLeft,Player.standRight,Player.standUp,Player.standDown) == true )
+		if ( Enemy.direction == 1 && collisionSquare(Enemy.X-40,Enemy.X,Enemy.Y+15,Enemy.Y+24,Player.standLeft,Player.standRight,Player.standUp,Player.standDown) == true )
 		   Player.isDamaged == true;
-		else if ( Enemy.direction == 3 && collisionSquare(Enemy.X+Enemy.lengthX,Enemy.X+Enemy.lengthX+40,Enemy.Y+Enemy.lengthY-48,Enemy.Y+Enemy.lengthY-30,Player.standLeft,Player.standRight,Player.standUp,Player.standDown) == true )
+		else if ( Enemy.direction == 3 && collisionSquare(Enemy.X+Enemy.lengthX,Enemy.X+Enemy.lengthX+40,Enemy.Y-24,Enemy.Y-15,Player.standLeft,Player.standRight,Player.standUp,Player.standDown) == true )
 		   Player.isDamaged == true;
 	}
 	else if ( Enemy.aFrame == 5 ) {
-		if ( Enemy.direction == 1 && collisionSquare(Enemy.X-38,Enemy.X,Enemy.Y+28,Enemy.Y+46,Player.standLeft,Player.standRight,Player.standUp,Player.standDown) == true )
+		if ( Enemy.direction == 1 && collisionSquare(Enemy.X-38,Enemy.X,Enemy.Y+14,Enemy.Y+23,Player.standLeft,Player.standRight,Player.standUp,Player.standDown) == true )
 		   Player.isDamaged == true;
-		else if ( Enemy.direction == 3 && collisionSquare(Enemy.X+Enemy.lengthX,Enemy.X+Enemy.lengthX+38,Enemy.Y+Enemy.lengthY-46,Enemy.Y+Enemy.lengthY-28,Player.standLeft,Player.standRight,Player.standUp,Player.standDown) == true )
+		else if ( Enemy.direction == 3 && collisionSquare(Enemy.X+Enemy.lengthX,Enemy.X+Enemy.lengthX+38,Enemy.Y-23,Enemy.Y-14,Player.standLeft,Player.standRight,Player.standUp,Player.standDown) == true )
 		   Player.isDamaged == true;			
 	}
    }
