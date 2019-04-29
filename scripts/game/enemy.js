@@ -1,7 +1,9 @@
 var enemyImage = new Image();
 var wolfImage = new Image();
+var skeleKnightImage = new Image();
 enemyImage.src = "images/spritesheets/skeleton_sprites.png";
 wolfImage.src = "images/spritesheets/wolf.png";
+skeleKnightImage.src = "images/spritesheets/skeleton2.png";
 
 function initEnemy(options) {
 	var that = {};
@@ -41,6 +43,16 @@ function initEnemy(options) {
 		that.xOff = 42; //34
 		that.yOff = 16; // 30
 	}
+	else if (that.enemyClass == "skeleKnight" ) {
+		that.startWalk = 0;
+		that.startAttack = 4; 
+		that.moveAFrame = 8;
+		that.attackAFrame = 5;	
+		that.lengthX = 44;
+		that.lengthY = 104;
+		that.xOff = 42; //34
+		that.yOff = 16; // 30
+	}
 	
 	that.X = that.X + that.xOff;
 	that.Y = that.Y + that.yOff;
@@ -70,6 +82,10 @@ function initEnemy(options) {
 		else if ( that.whichAction != "dead" && that.enemyClass == "Wolf") {
 			ctx.drawImage(wolfImage,64*Math.floor(that.aFrame),64*(that.direction+that.action),64,64,that.X+(dx/8)*64-that.xOff,that.Y+(dy/8)*64-that.yOff,128,128);
 			drawHealth(that);
+		}
+		else if ( that.whichAction != "dead" && that.enemyClass == "skeleKnight") {
+			ctx.drawImage(skeleKnightImage,64*Math.floor(that.aFrame),64*(that.direction+that.action),64,64,that.X+(dx/8)*64-that.xOff,that.Y+(dy/8)*64-that.yOff,128,128);
+			drawHealth(that);		
 		}
 	};
 	
@@ -148,6 +164,64 @@ function basicEnemyAI(Enemy) {
 		Enemy.iBox[3] = Enemy.Y + (dy/8)*64 + 66;	
           }
      }
+    else if ( Enemy.enemyClass == "skeleKnight" ) { // update box
+	 if ( Enemy.direction == 0 ) {
+		Enemy.X -= Enemy.xOff;
+		Enemy.Y -= Enemy.yOff;
+		Enemy.yOff = 32;
+		Enemy.xOff = 34;
+		Enemy.lengthX = 58;
+		Enemy.lengthY = 90;
+		Enemy.X += Enemy.xOff;
+		Enemy.Y += Enemy.yOff;
+		Enemy.iBox[0] = Enemy.X + (dx/8)*64;
+		Enemy.iBox[1] = Enemy.X + (dx/8)*64;
+		Enemy.iBox[2] = Enemy.Y + (dy/8)*64;
+		Enemy.iBox[3] = Enemy.Y + (dy/8)*64;
+	  }
+	else if ( Enemy.direction == 1 ) {
+		Enemy.X -= Enemy.xOff;
+		Enemy.Y -= Enemy.yOff;
+		Enemy.yOff = 46;
+		Enemy.xOff = 32;
+		Enemy.lengthX = 38;
+		Enemy.lengthY = 94;
+		Enemy.X += Enemy.xOff;
+		Enemy.Y += Enemy.yOff;
+		Enemy.iBox[0] = Enemy.X + (dx/8)*64 - 15;
+		Enemy.iBox[1] = Enemy.X + (dx/8)*64;
+		Enemy.iBox[2] = Enemy.Y + (dy/8)*64 + 44;
+		Enemy.iBox[3] = Enemy.Y + (dy/8)*64 + 66;
+	  }
+	else if ( Enemy.direction == 2 ) {
+		Enemy.X -= Enemy.xOff;
+		Enemy.Y -= Enemy.yOff;
+		Enemy.yOff = 32;
+		Enemy.xOff = 34;
+		Enemy.lengthX = 58;
+		Enemy.lengthY = 90;
+		Enemy.X += Enemy.xOff;
+		Enemy.Y += Enemy.yOff;
+		Enemy.iBox[0] = Enemy.X + (dx/8)*64;
+		Enemy.iBox[1] = Enemy.X + (dx/8)*64;
+		Enemy.iBox[2] = Enemy.Y + (dy/8)*64;
+		Enemy.iBox[3] = Enemy.Y + (dy/8)*64;	
+	  }
+	else {
+		Enemy.X -= Enemy.xOff;
+		Enemy.Y -= Enemy.yOff;
+		Enemy.yOff = 46;
+		Enemy.xOff = 32;
+		Enemy.lengthX = 38;
+		Enemy.lengthY = 94;
+		Enemy.X += Enemy.xOff;
+		Enemy.Y += Enemy.yOff;
+		Enemy.iBox[0] = Enemy.X + (dx/8)*64 + Enemy.lengthX;
+		Enemy.iBox[1] = Enemy.X + (dx/8)*64 + Enemy.lengthX + 11;
+		Enemy.iBox[2] = Enemy.Y + (dy/8)*64 + 44;
+		Enemy.iBox[3] = Enemy.Y + (dy/8)*64 + 66;	
+          } 
+    }
     else if ( Enemy.enemyClass == "Wolf" ) {
 	if ( Enemy.direction == 0 ) {
 		Enemy.X -= Enemy.xOff;
@@ -247,8 +321,29 @@ function basicEnemyAI(Enemy) {
 		}	
 	}
    }
+   else if ( Enemy.whichAction == "attack" && Enemy.enemyClass == "skeleKnight" ) {
+	if ( Enemy.aFrame == 3 ) {
+		if ( Enemy.direction == 1 && collisionSquare(Enemy.X-14,Enemy.X,Enemy.Y+20,Enemy.Y+36,Player.standLeft,Player.standRight,Player.standUp,Player.standDown) == true )
+		   Player.isDamaged == true;
+		else if ( Enemy.direction == 3 && collisionSquare(Enemy.X+Enemy.lengthX,Enemy.X+Enemy.lengthX+14,Enemy.Y+Enemy.lengthY-36,Enemy.Y+Enemy.lengthY-20,Player.standLeft,Player.standRight,Player.standUp,Player.standDown) == true )
+		   Player.isDamaged == true;
+	}
+	else if ( Enemy.aFrame == 4 ) {
+		if ( Enemy.direction == 1 && collisionSquare(Enemy.X-20,Enemy.X,Enemy.Y+15,Enemy.Y+24,Player.standLeft,Player.standRight,Player.standUp,Player.standDown) == true )
+		   Player.isDamaged == true;
+		else if ( Enemy.direction == 3 && collisionSquare(Enemy.X+Enemy.lengthX,Enemy.X+Enemy.lengthX+20,Enemy.Y+Enemy.lengthY-24,Enemy.Y+Enemy.lengthY-15,Player.standLeft,Player.standRight,Player.standUp,Player.standDown) == true )
+		   Player.isDamaged == true;
+	}
+	else if ( Enemy.aFrame == 5 ) {
+		if ( Enemy.direction == 1 && collisionSquare(Enemy.X-19,Enemy.X,Enemy.Y+14,Enemy.Y+23,Player.standLeft,Player.standRight,Player.standUp,Player.standDown) == true )
+		   Player.isDamaged == true;
+		else if ( Enemy.direction == 3 && collisionSquare(Enemy.X+Enemy.lengthX,Enemy.X+Enemy.lengthX+19,Enemy.Y+Enemy.lengthY-23,Enemy.Y+Enemy.lengthY-14,Player.standLeft,Player.standRight,Player.standUp,Player.standDown) == true )
+		   Player.isDamaged == true;			
+	}
+   }
    else if ( Enemy.whichAction == "attack" && Enemy.enemyClass == "Wolf" ) {
 	if ( Enemy.aFrame == 3 ) {
+		
 		if ( Enemy.direction == 0 )
 			Enemy.Y-=20;
 		else if ( Enemy.direction == 1 ) {
