@@ -86,7 +86,7 @@ function initEnemy(options) {
 		else if ( that.whichAction != "dead" && that.enemyClass == "skeleKnight") {
 			ctx.drawImage(skeleKnightImage,64*Math.floor(that.aFrame),64*(that.direction+that.action),64,64,that.X+(dx/8)*64-that.xOff,that.Y+(dy/8)*64-that.yOff,128,128);
 			drawHealth(that);
-			ctx.drawRect(that.iBox[0],that.iBox[2],(that.iBox[1]-that.iBox[0]),(that.iBox[3]-that.iBox[2]));
+			ctx.fillRect(that.iBox[0],that.iBox[2],(that.iBox[1]-that.iBox[0]),(that.iBox[3]-that.iBox[2]));
 		}
 	};
 	
