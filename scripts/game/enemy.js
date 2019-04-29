@@ -251,26 +251,32 @@ function basicEnemyAI(Enemy) {
 	if ( Enemy.aFrame == 3 ) {
 		if ( Enemy.direction == 0 )
 			Enemy.Y-=20;
-		else if ( Enemy.direction == 1 )
+		else if ( Enemy.direction == 1 ) {
 			Enemy.X-=25;
+			Enemy.Y-=10;	
+		}
 		else if ( Enemy.direction == 2 )
 			Enemy.Y+=20;
-		else 
+		else  {
 			Enemy.X+=25;
-		
+			Enemy.Y-=10;
+		}
 		if ( collisionSquare(Enemy.X,Enemy.X+Enemy.lengthX,Enemy.Y,Enemy.Y+Enemy.lengthY,Player.standLeft,Player.standRight,Player.standUp,Player.standDown) == true )
 			Player.isDamaged == true;
 	}
    	else if ( Enemy.aFrame == 4 ) {
 		if ( Enemy.direction == 0 )
 			Enemy.Y-=10;
-		else if ( Enemy.direction == 1 )
+		else if ( Enemy.direction == 1 ) {
 			Enemy.X-=20;
+			Enemy.Y-=10;
+		}
 		else if ( Enemy.direction == 2 )
 			Enemy.Y+=10;
-		else 
+		else {
 			Enemy.X+=20;
-		
+			Enemy.Y-=10;
+		}
 		if ( collisionSquare(Enemy.X,Enemy.X+Enemy.lengthX,Enemy.Y,Enemy.Y+Enemy.lengthY,Player.standLeft,Player.standRight,Player.standUp,Player.standDown) == true )
 			Player.isDamaged == true;
 	}
