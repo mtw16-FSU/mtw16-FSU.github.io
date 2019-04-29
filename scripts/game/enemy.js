@@ -324,21 +324,21 @@ function basicEnemyAI(Enemy) {
    else if ( Enemy.whichAction == "attack" && Enemy.enemyClass == "skeleKnight" ) {
 	if ( Enemy.aFrame == 3 ) {
 		if ( Enemy.direction == 1 && collisionSquare(Enemy.X+(dx*8)/64-28,Enemy.X+(dx*8)/64,Enemy.Y+(dy*8)/64+20,Enemy.Y+(dy*8)/64+36,Player.standLeft,Player.standRight,Player.standUp,Player.standDown) == true )
-		   Player.isDamaged == true;
+		   Player.isDamaged = true;
 		else if ( Enemy.direction == 3 && collisionSquare(Enemy.X+(dx*8)/64+Enemy.lengthX,Enemy.X+(dx*8)/64+Enemy.lengthX+28,Enemy.Y+(dy*8)/64-36,Enemy.Y+(dy*8)/64-20,Player.standLeft,Player.standRight,Player.standUp,Player.standDown) == true )
-		   Player.isDamaged == true;
+		   Player.isDamaged = true;
 	}
 	else if ( Enemy.aFrame == 4 ) {
 		if ( Enemy.direction == 1 && collisionSquare(Enemy.X+(dx*8)/64-40,Enemy.X+(dx*8)/64,Enemy.Y+(dy*8)/64+15,Enemy.Y+(dy*8)/64+24,Player.standLeft,Player.standRight,Player.standUp,Player.standDown) == true )
-		   Player.isDamaged == true;
+		   Player.isDamaged = true;
 		else if ( Enemy.direction == 3 && collisionSquare(Enemy.X+(dx*8)/64+Enemy.lengthX,Enemy.X+(dx*8)/64+Enemy.lengthX+40,Enemy.Y+(dy*8)/64-24,Enemy.Y+(dy*8)/64-15,Player.standLeft,Player.standRight,Player.standUp,Player.standDown) == true )
-		   Player.isDamaged == true;
+		   Player.isDamaged = true;
 	}
 	else if ( Enemy.aFrame == 5 ) {
 		if ( Enemy.direction == 1 && collisionSquare(Enemy.X+(dx*8)/64-38,Enemy.X+(dx*8)/64,Enemy.Y+(dy*8)/64+14,Enemy.Y+(dy*8)/64+23,Player.standLeft,Player.standRight,Player.standUp,Player.standDown) == true )
-		   Player.isDamaged == true;
+		   Player.isDamaged = true;
 		else if ( Enemy.direction == 3 && collisionSquare(Enemy.X+(dx*8)/64+Enemy.lengthX,Enemy.X+(dx*8)/64+Enemy.lengthX+38,Enemy.Y+(dy*8)/64-23,Enemy.Y+(dy*8)/64-14,Player.standLeft,Player.standRight,Player.standUp,Player.standDown) == true )
-		   Player.isDamaged == true;			
+		   Player.isDamaged = true;			
 	}
    }
    else if ( Enemy.whichAction == "attack" && Enemy.enemyClass == "Wolf" ) {
