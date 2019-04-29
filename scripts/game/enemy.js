@@ -191,8 +191,8 @@ function basicEnemyAI(Enemy) {
 		Enemy.Y += Enemy.yOff;
 		Enemy.iBox[0] = Enemy.X + (dx/8)*64 - 15;
 		Enemy.iBox[1] = Enemy.X + (dx/8)*64;
-		Enemy.iBox[2] = Enemy.Y + (dy/8)*64 + 40;
-		Enemy.iBox[3] = Enemy.Y + (dy/8)*64 + 72;
+		Enemy.iBox[2] = Enemy.Y + (dy/8)*64 + 20;
+		Enemy.iBox[3] = Enemy.Y + (dy/8)*64 + 36;
 	  }
 	else if ( Enemy.direction == 2 ) {
 		Enemy.X -= Enemy.xOff;
@@ -219,8 +219,8 @@ function basicEnemyAI(Enemy) {
 		Enemy.Y += Enemy.yOff;
 		Enemy.iBox[0] = Enemy.X + (dx/8)*64 + Enemy.lengthX;
 		Enemy.iBox[1] = Enemy.X + (dx/8)*64 + Enemy.lengthX + 15;
-		Enemy.iBox[2] = Enemy.Y + (dy/8)*64 + 40;
-		Enemy.iBox[3] = Enemy.Y + (dy/8)*64 + 72;	
+		Enemy.iBox[2] = Enemy.Y + (dy/8)*64 + 20;
+		Enemy.iBox[3] = Enemy.Y + (dy/8)*64 + 36;	
           } 
     }
     else if ( Enemy.enemyClass == "Wolf" ) {
