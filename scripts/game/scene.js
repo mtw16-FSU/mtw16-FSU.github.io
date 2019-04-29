@@ -12,7 +12,7 @@ function SceneHandler(scene){
             	showStartMenu();
 	}
     },
-    this.loadScene = function(){
+    this.loadScene = function(){ //waits until all images are loaded before attempting to draw the new map
    	if(isSpreadsheetLoaded && isImage1Loaded && isImage2Loaded){
 	   isImage1Loaded = false;
 	   isImage2Loaded = false;
@@ -66,10 +66,12 @@ function SceneHandler(scene){
 		   tile.endY = ((i+1)*64)+5;
 		   foreTiles.push(tile);
 		    
+		   //if pixel is blank, tile is empty
 		   if(pixelData[row+j+1] == 0 && pixelData[row+j+2] == 0){
 		   	tile.empty = true;   
 		   }
 		       
+		   //designates certain pixels as collidable blocks that will indicate that a map transition needs to occur
 		   if((pixelData[row+j+1] == 0 && pixelData[row+j+2] == 176) ||
 		     	(pixelData[row+j+1] == 16 && pixelData[row+j+2] == 176) ||
 		     	(pixelData[row+j+1] == 255 && pixelData[row+j+2] == 255) ){
@@ -82,6 +84,7 @@ function SceneHandler(scene){
 				}else if(j > (image2.width - 5)){
 					tile.side = 4;
 				}
+			//adds tile to the array of objects that collision detection is performed on
 			bounds.push(tile);	
 		   }
                }
@@ -111,6 +114,7 @@ function Scene(name, map){
 	//removes any keyboard input handler that is currently active
         document.onkeydown = null;
         
+	//initializes level to have a blank slate
         var isLevel = true;
         image1 = new Image();
         image2 = new Image();
@@ -124,6 +128,8 @@ function Scene(name, map){
 	    
     	drawLoadingScreen();
         
+	//calls the appropriate initialization function for each level and adds
+	//an entry of it to the player's list of visited maps
         switch(this.name){
             case "Level 1":
 		loadLevel1(sideOfScreen);		
@@ -168,15 +174,17 @@ function Scene(name, map){
                 break;
         }
 
+	//default value, determines where to load player based off of what side of the screen they come in on
 	sideOfScreen = -1;
 	    
         if(isLevel){
             
+	    //indicates the first image has been loaded
 	    image1.onload = function(){		    
 		isImage1Loaded = true;
             }
-
-	    //repeats the same process for loading information about the foreground tiles
+		
+	    //indicates the second image has been loaded
             image2.onload = function(){
 	    	isImage2Loaded = true;
 	    }
@@ -238,6 +246,8 @@ function Map(name){
 			if ( Player.drawInv == true )
 				drawIMenu();
 		
+			//checks if player has collided with a tile that causes 
+			//a map transition and then loads the appropriate map
 			var hit = generalCollision();
 			if((hit[0] - 2) == 1 && sceneHandler.scene.nextMaps[0] != -1){
 				cancelAnimationFrame(drawing);
@@ -428,14 +438,16 @@ function levelHandler2(){
 	}
 }
 
+//moves the map/player when called
 function moveMap(direction){	
-    	var collision = generalCollision();
-	
+	//before moving the player, checks if they are colliding with a block
+    	var collision = generalCollision();	
 	var upperLeft = collision[1] + collision[2];
 	var upperRight = collision[0] + collision[2];
 	var lowerLeft = collision[1] + collision[3];
 	var lowerRight = collision[0] + collision[3];
 	
+	//if the player is colliding with a block, prvents movement in that direction if the block is solid
 	if(direction == 37 && lowerRight != 2 && upperRight != 2){
 		pLeft = true;
 		left = true;
@@ -633,23 +645,25 @@ function drawLoadingScreen(){
     ctx.fillText("Loading...", width / 2 - 200, height / 2 - 50);
 }
 
+//handles collision for villagers and map transition tiles
 function generalCollision() {
 	var hit = [0, 0, 0, 0];
 	for (var i = 0; i < bounds.length; i++ ) {
+		//gets an array indicating which of the 4 corners of the tile the player is colliding with
 		hit = collisionInteraction(Player.standLeft,Player.standRight,Player.standUp,Player.standDown,
 				bounds[i].startX+(dx/8)*64,bounds[i].endX,bounds[i].startY+(dy/8)*64,bounds[i].endY);
 		var isEmpty = hit[0] + hit[1] + hit[2] + hit[3];
 		
+		//if the player is colliding with the block and it is solid, stops movement
 		if(isEmpty > 1 && bounds[i].solid){
 			isBlocked = true;
 			return hit;
-		}else if(isEmpty > 1 || isEmpty < 0){
+		}else if(isEmpty > 1 || isEmpty < 0){ //if block is not solid, sets information for map transistion
 			hit[0] = bounds[i].side+2;
 			sideOfScreen = hit[0]-2;
 			hit[1] = 0;			
 			hit[2] = 0;			
 			hit[3] = 0;
-			//console.log("Inside but not hit: " + isEmpty);
 			
 			return hit;
 		}
