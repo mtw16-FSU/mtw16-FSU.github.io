@@ -344,7 +344,7 @@ function loadGraveyard(side){
 		Player.Y = 800;
 
 		dx = -70;
-		dy = -280;
+		dy = -260;
 	}else{		
 		Player.X = 1024;
 		Player.Y = 512;
