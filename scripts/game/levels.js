@@ -48,8 +48,8 @@ function loadLevel1(side){
 				}));
 			
 		Enemies.push(new initEnemy({ 
-					X: 500,
-					Y: 300,
+					X: 200,
+					Y: 900,
 					totalHealth: 2000,
 					moveSpeed: 2,
 					enemyClass: "skeleKnight"
@@ -72,7 +72,7 @@ function loadLevel1(side){
 					}));
 	
 		Enemies.push(new initEnemy({
-					X: 1000,
+					X: 1300,
 					Y: 450,
 					totalHealth: 250,
 					moveSpeed: 5,
