@@ -278,9 +278,9 @@ function basicEnemyAI(Enemy) {
 		if ( collisionSquare(Enemy.X,Enemy.X+Enemy.lengthX,Enemy.Y,Enemy.Y+Enemy.lengthY,Player.standLeft,Player.standRight,Player.standUp,Player.standDown) == true )
 			Player.isDamaged == true;
 		if ( Enemy.direction == 1 )
-			Enemy.Y+=5;
+			Enemy.Y+=20;
 		else if ( Enemy.direction == 3 )
-			Enemy.Y+=5;
+			Enemy.Y+=20;
 	}
 
    }
