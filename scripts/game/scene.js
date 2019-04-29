@@ -139,7 +139,11 @@ function Scene(name, map){
 	    case "Beach":
 		addMapEntry("Beach");
 		loadBeach(sideOfScreen);		
-		break;	
+		break;
+	    case "Cave":
+		addMapEntry("Cave");
+		loadCave(sideOfScreen);		
+		break;
             case "Options":
                 initOptions();
                 document.onkeydown = optionsHandler;
@@ -203,6 +207,7 @@ function Map(name){
 	    case "Village":
 	    case "Castle":
 	    case "Beach":
+	    case "Cave":
                 drawLevel(this, this.backgroundTiles,this.foregroundTiles, this.rowSize, this.colSize);
 		
 		//only draws player and updates player logic if the pause menu is not toggled
