@@ -188,10 +188,10 @@ function basicEnemyAI(Enemy) {
 		Enemy.lengthY = 94;
 		Enemy.X += Enemy.xOff;
 		Enemy.Y += Enemy.yOff;
-		Enemy.iBox[0] = Enemy.X + (dx/8)*64 + Enemy.lengthX- 15;
-		Enemy.iBox[1] = Enemy.X + (dx/8)*64 + Enemy.lengthX;
-		Enemy.iBox[2] = Enemy.Y + (dy/8)*64 + 44;
-		Enemy.iBox[3] = Enemy.Y + (dy/8)*64 + 66;
+		Enemy.iBox[0] = Enemy.X + (dx/8)*64 - 15;
+		Enemy.iBox[1] = Enemy.X + (dx/8)*64;
+		Enemy.iBox[2] = Enemy.Y + (dy/8)*64 + 40;
+		Enemy.iBox[3] = Enemy.Y + (dy/8)*64 + 72;
 	  }
 	else if ( Enemy.direction == 2 ) {
 		Enemy.X -= Enemy.xOff;
@@ -217,9 +217,9 @@ function basicEnemyAI(Enemy) {
 		Enemy.X += Enemy.xOff;
 		Enemy.Y += Enemy.yOff;
 		Enemy.iBox[0] = Enemy.X + (dx/8)*64 + Enemy.lengthX;
-		Enemy.iBox[1] = Enemy.X + (dx/8)*64 + Enemy.lengthX + 11;
-		Enemy.iBox[2] = Enemy.Y + (dy/8)*64 + 44;
-		Enemy.iBox[3] = Enemy.Y + (dy/8)*64 + 66;	
+		Enemy.iBox[1] = Enemy.X + (dx/8)*64 + Enemy.lengthX + 15;
+		Enemy.iBox[2] = Enemy.Y + (dy/8)*64 + 40;
+		Enemy.iBox[3] = Enemy.Y + (dy/8)*64 + 72;	
           } 
     }
     else if ( Enemy.enemyClass == "Wolf" ) {
