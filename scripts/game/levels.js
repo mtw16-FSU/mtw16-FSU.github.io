@@ -281,7 +281,7 @@ function loadCave(side){
 		Player.X = 1024;
 		Player.Y = 800;
 
-		dx = -80;
+		dx = -90;
 		dy = -230;
 	}else{		
 		Player.X = 1024;
@@ -341,10 +341,10 @@ function loadGraveyard(side){
 		dy = 0;
 	}else if(side == 1){
 		Player.X = 1024;
-		Player.Y = 120;
+		Player.Y = 800;
 
 		dx = -70;
-		dy = -300;
+		dy = -280;
 	}else{		
 		Player.X = 1024;
 		Player.Y = 512;
